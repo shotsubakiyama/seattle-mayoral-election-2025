@@ -1,0 +1,851 @@
+precinct_id,CRA_NO,cra_name,dominant_share
+3942,1.3,West Seattle Junction-Genesee Hill,1.0
+3944,9.1,Broadview-Bitter Lake,1.0
+1248,2.4,Roxhill-Westwood,1.0
+1703,12.1,Magnolia,1.0
+1710,12.3,Queen Anne,1.0
+1711,12.3,Queen Anne,1.0
+1715,12.3,Queen Anne,1.0
+1716,12.3,Queen Anne,1.0
+1717,12.3,Queen Anne,1.0
+1718,12.3,Queen Anne,1.0
+1720,12.3,Queen Anne,1.0
+1721,12.3,Queen Anne,1.0
+1722,12.3,Queen Anne,1.0
+1723,12.3,Queen Anne,1.0
+1724,12.3,Queen Anne,1.0
+1303,9.3,Greenwood-Phinney Ridge,1.0
+1304,9.3,Greenwood-Phinney Ridge,1.0
+1307,9.3,Greenwood-Phinney Ridge,1.0
+3745,12.3,Queen Anne,1.0
+3748,11.1,Fremont,1.0
+3750,11.3,Cascade-Eastlake,1.0
+3767,1.3,West Seattle Junction-Genesee Hill,1.0
+3770,1.3,West Seattle Junction-Genesee Hill,1.0
+3776,6.2,Capitol Hill,1.0
+3788,9.4,Green Lake,1.0
+3796,3.6,North Beacon Hill-Jefferson Park,1.0
+1267,9.4,Green Lake,1.0
+1268,9.4,Green Lake,1.0
+1273,10.3,Sunset Hill-Loyal Heights,1.0
+1308,9.3,Greenwood-Phinney Ridge,1.0
+1312,9.4,Green Lake,1.0
+1314,9.4,Green Lake,1.0
+3699,10.4,Ballard,1.0
+3700,11.3,Cascade-Eastlake,1.0
+3702,2.1,North Delridge,1.0
+3710,10.4,Ballard,1.0
+3720,12.200000000000001,Interbay,1.0
+3728,8.1,Northgate-Maple Leaf,1.0
+3731,4.2,Columbia City,1.0
+1297,9.3,Greenwood-Phinney Ridge,1.0
+1298,9.3,Greenwood-Phinney Ridge,1.0
+1301,9.3,Greenwood-Phinney Ridge,1.0
+1322,10.200000000000001,Whittier Heights,1.0
+1325,10.4,Ballard,1.0
+3496,13.1,Belltown,1.0
+3566,13.1,Belltown,1.0
+3580,3.5,Beacon Hill,1.0
+3586,10.4,Ballard,1.0
+3605,11.3,Cascade-Eastlake,1.0
+3648,2.2,High Point,1.0
+3656,9.1,Broadview-Bitter Lake,1.0
+2749,13.1,Belltown,1.0
+2850,11.1,Fremont,1.0
+1339,11.1,Fremont,1.0
+1342,9.3,Greenwood-Phinney Ridge,1.0
+1343,9.3,Greenwood-Phinney Ridge,1.0
+2853,6.2,Capitol Hill,1.0
+2987,7.2,University District,1.0
+3252,9.200000000000001,Licton Springs,1.0
+3263,2.5,Highland Park,1.0
+3264,2.5,Highland Park,1.0
+3266,2.4,Roxhill-Westwood,1.0
+3318,10.3,Sunset Hill-Loyal Heights,1.0
+1725,12.3,Queen Anne,1.0
+1726,12.3,Queen Anne,1.0
+1727,12.3,Queen Anne,1.0
+1692,12.1,Magnolia,1.0
+1693,12.1,Magnolia,1.0
+1695,12.1,Magnolia,1.0
+1696,12.1,Magnolia,1.0
+1675,12.1,Magnolia,1.0
+1676,12.1,Magnolia,1.0
+1677,12.1,Magnolia,1.0
+1679,12.1,Magnolia,1.0
+1684,12.200000000000001,Interbay,1.0
+1690,12.1,Magnolia,1.0
+1691,12.1,Magnolia,1.0
+1349,11.1,Fremont,1.0
+1350,11.1,Fremont,1.0
+1351,11.1,Fremont,1.0
+1352,11.1,Fremont,1.0
+1353,11.1,Fremont,1.0
+1354,11.1,Fremont,1.0
+2541,6.2,Capitol Hill,1.0
+2543,6.2,Capitol Hill,1.0
+2545,6.2,Capitol Hill,1.0
+2546,6.2,Capitol Hill,1.0
+2547,6.2,Capitol Hill,1.0
+2550,6.2,Capitol Hill,1.0
+2743,10.3,Sunset Hill-Loyal Heights,1.0
+1365,11.1,Fremont,1.0
+1366,11.1,Fremont,1.0
+1371,11.200000000000001,Wallingford,1.0
+1372,11.200000000000001,Wallingford,1.0
+1373,11.200000000000001,Wallingford,1.0
+2507,10.3,Sunset Hill-Loyal Heights,1.0
+2508,10.3,Sunset Hill-Loyal Heights,1.0
+2524,10.1,North Beach-Blue Ridge,1.0
+2528,10.1,North Beach-Blue Ridge,1.0
+2529,10.1,North Beach-Blue Ridge,1.0
+2533,10.1,North Beach-Blue Ridge,1.0
+1384,10.3,Sunset Hill-Loyal Heights,1.0
+1385,10.3,Sunset Hill-Loyal Heights,1.0
+1386,10.3,Sunset Hill-Loyal Heights,1.0
+1387,10.3,Sunset Hill-Loyal Heights,1.0
+1388,10.3,Sunset Hill-Loyal Heights,1.0
+1389,10.3,Sunset Hill-Loyal Heights,1.0
+1390,10.3,Sunset Hill-Loyal Heights,1.0
+2371,8.3,Cedar Park-Meadowbrook,1.0
+2373,8.1,Northgate-Maple Leaf,1.0
+2375,7.4,Wedgwood-View Ridge,1.0
+2502,10.3,Sunset Hill-Loyal Heights,1.0
+2503,10.3,Sunset Hill-Loyal Heights,1.0
+2504,10.3,Sunset Hill-Loyal Heights,1.0
+2506,10.3,Sunset Hill-Loyal Heights,1.0
+1362,11.1,Fremont,1.0
+1363,11.1,Fremont,1.0
+1394,10.200000000000001,Whittier Heights,1.0
+1395,10.200000000000001,Whittier Heights,1.0
+1398,10.200000000000001,Whittier Heights,1.0
+1399,10.3,Sunset Hill-Loyal Heights,1.0
+2363,9.5,Haller Lake,1.0
+2364,9.5,Haller Lake,1.0
+2366,9.5,Haller Lake,1.0
+1378,11.200000000000001,Wallingford,1.0
+1379,11.200000000000001,Wallingford,1.0
+1380,11.200000000000001,Wallingford,1.0
+1382,10.3,Sunset Hill-Loyal Heights,1.0
+1731,12.3,Queen Anne,1.0
+1732,12.3,Queen Anne,1.0
+1734,12.3,Queen Anne,1.0
+1735,12.3,Queen Anne,1.0
+1736,12.3,Queen Anne,1.0
+1737,12.3,Queen Anne,1.0
+1738,12.3,Queen Anne,1.0
+1739,12.3,Queen Anne,1.0
+1740,12.3,Queen Anne,1.0
+1741,12.3,Queen Anne,1.0
+1742,12.3,Queen Anne,1.0
+1743,12.3,Queen Anne,1.0
+1744,12.3,Queen Anne,1.0
+1746,12.3,Queen Anne,1.0
+1747,12.3,Queen Anne,1.0
+1641,3.4,South Beacon Hill-New Holly,1.0
+1409,1.4000000000000001,Alki-Admiral,1.0
+1410,1.4000000000000001,Alki-Admiral,1.0
+1411,1.4000000000000001,Alki-Admiral,1.0
+1412,1.4000000000000001,Alki-Admiral,1.0
+2345,8.3,Cedar Park-Meadowbrook,1.0
+2348,8.2,Olympic Hills-Victory Heights,1.0
+2349,8.2,Olympic Hills-Victory Heights,1.0
+2350,8.2,Olympic Hills-Victory Heights,1.0
+2351,8.2,Olympic Hills-Victory Heights,1.0
+2353,8.3,Cedar Park-Meadowbrook,1.0
+2355,8.3,Cedar Park-Meadowbrook,1.0
+2358,8.1,Northgate-Maple Leaf,1.0
+2330,8.2,Olympic Hills-Victory Heights,1.0
+2332,8.3,Cedar Park-Meadowbrook,1.0
+2333,8.3,Cedar Park-Meadowbrook,1.0
+1415,1.4000000000000001,Alki-Admiral,1.0
+1423,1.3,West Seattle Junction-Genesee Hill,1.0
+2342,8.2,Olympic Hills-Victory Heights,1.0
+2343,8.2,Olympic Hills-Victory Heights,1.0
+1401,9.200000000000001,Licton Springs,1.0
+1406,9.4,Green Lake,1.0
+1408,1.4000000000000001,Alki-Admiral,1.0
+1429,1.3,West Seattle Junction-Genesee Hill,1.0
+1430,1.3,West Seattle Junction-Genesee Hill,1.0
+1431,1.3,West Seattle Junction-Genesee Hill,1.0
+1432,1.3,West Seattle Junction-Genesee Hill,1.0
+1433,1.3,West Seattle Junction-Genesee Hill,1.0
+2311,8.1,Northgate-Maple Leaf,1.0
+2320,8.3,Cedar Park-Meadowbrook,1.0
+2321,8.3,Cedar Park-Meadowbrook,1.0
+1646,3.4,South Beacon Hill-New Holly,1.0
+1650,4.3,Seward Park,1.0
+1652,4.3,Seward Park,1.0
+1661,12.1,Magnolia,1.0
+1662,12.1,Magnolia,1.0
+1663,12.1,Magnolia,1.0
+1664,12.1,Magnolia,1.0
+1751,12.3,Queen Anne,1.0
+1752,12.3,Queen Anne,1.0
+1754,12.3,Queen Anne,1.0
+1755,12.3,Queen Anne,1.0
+1756,12.3,Queen Anne,1.0
+1757,12.3,Queen Anne,1.0
+1758,12.3,Queen Anne,1.0
+1759,12.3,Queen Anne,1.0
+1760,12.3,Queen Anne,1.0
+1439,1.4000000000000001,Alki-Admiral,1.0
+1440,1.4000000000000001,Alki-Admiral,1.0
+1441,1.4000000000000001,Alki-Admiral,1.0
+1442,1.4000000000000001,Alki-Admiral,1.0
+1446,1.3,West Seattle Junction-Genesee Hill,1.0
+1448,1.3,West Seattle Junction-Genesee Hill,1.0
+1449,1.3,West Seattle Junction-Genesee Hill,1.0
+1450,1.3,West Seattle Junction-Genesee Hill,1.0
+2289,7.4,Wedgwood-View Ridge,1.0
+2290,7.4,Wedgwood-View Ridge,1.0
+2293,8.1,Northgate-Maple Leaf,1.0
+2295,8.1,Northgate-Maple Leaf,1.0
+2296,8.1,Northgate-Maple Leaf,1.0
+2297,8.1,Northgate-Maple Leaf,1.0
+2302,7.4,Wedgwood-View Ridge,1.0
+2264,7.4,Wedgwood-View Ridge,1.0
+2269,7.4,Wedgwood-View Ridge,1.0
+2270,7.4,Wedgwood-View Ridge,1.0
+1451,1.3,West Seattle Junction-Genesee Hill,1.0
+1454,2.1,North Delridge,1.0
+1457,1.3,West Seattle Junction-Genesee Hill,1.0
+1458,1.3,West Seattle Junction-Genesee Hill,1.0
+1459,1.3,West Seattle Junction-Genesee Hill,1.0
+2271,7.4,Wedgwood-View Ridge,1.0
+2272,7.4,Wedgwood-View Ridge,1.0
+2277,7.3,Ravenna-Bryant,1.0
+1436,1.4000000000000001,Alki-Admiral,1.0
+1437,1.4000000000000001,Alki-Admiral,1.0
+1438,1.4000000000000001,Alki-Admiral,1.0
+1467,1.3,West Seattle Junction-Genesee Hill,1.0
+1468,1.3,West Seattle Junction-Genesee Hill,1.0
+1469,1.3,West Seattle Junction-Genesee Hill,1.0
+2217,9.1,Broadview-Bitter Lake,1.0
+2218,9.1,Broadview-Bitter Lake,1.0
+2221,9.5,Haller Lake,1.0
+2224,9.1,Broadview-Bitter Lake,1.0
+2234,9.4,Green Lake,1.0
+2238,7.3,Ravenna-Bryant,1.0
+2239,7.3,Ravenna-Bryant,1.0
+2249,7.4,Wedgwood-View Ridge,1.0
+2253,7.3,Ravenna-Bryant,1.0
+2162,10.200000000000001,Whittier Heights,1.0
+2163,10.200000000000001,Whittier Heights,1.0
+2164,10.200000000000001,Whittier Heights,1.0
+2171,10.3,Sunset Hill-Loyal Heights,1.0
+2204,9.1,Broadview-Bitter Lake,1.0
+2206,9.1,Broadview-Bitter Lake,1.0
+2208,9.1,Broadview-Bitter Lake,1.0
+2209,9.1,Broadview-Bitter Lake,1.0
+2210,9.1,Broadview-Bitter Lake,1.0
+2211,9.1,Broadview-Bitter Lake,1.0
+1466,1.3,West Seattle Junction-Genesee Hill,1.0
+1478,1.2,Fauntleroy-Seaview,1.0
+1479,1.2,Fauntleroy-Seaview,1.0
+1480,1.2,Fauntleroy-Seaview,1.0
+1481,1.2,Fauntleroy-Seaview,1.0
+1482,1.2,Fauntleroy-Seaview,1.0
+2145,9.5,Haller Lake,1.0
+2146,10.200000000000001,Whittier Heights,1.0
+1761,12.3,Queen Anne,1.0
+1762,12.3,Queen Anne,1.0
+1763,12.3,Queen Anne,1.0
+1631,4.3,Seward Park,1.0
+1632,4.3,Seward Park,1.0
+1637,3.4,South Beacon Hill-New Holly,1.0
+1638,3.4,South Beacon Hill-New Holly,1.0
+1640,3.4,South Beacon Hill-New Holly,1.0
+1764,12.3,Queen Anne,1.0
+1765,12.3,Queen Anne,1.0
+1769,12.3,Queen Anne,1.0
+1801,11.3,Cascade-Eastlake,1.0
+1803,12.3,Queen Anne,1.0
+1619,4.2,Columbia City,1.0
+2092,7.3,Ravenna-Bryant,1.0
+2093,7.3,Ravenna-Bryant,1.0
+2094,7.3,Ravenna-Bryant,1.0
+2095,7.3,Ravenna-Bryant,1.0
+2096,7.3,Ravenna-Bryant,1.0
+2097,7.3,Ravenna-Bryant,1.0
+2098,7.3,Ravenna-Bryant,1.0
+2099,7.3,Ravenna-Bryant,1.0
+2104,7.1000000000000005,Montlake-Portage Bay,1.0
+2105,7.1000000000000005,Montlake-Portage Bay,1.0
+2109,7.2,University District,1.0
+2110,7.2,University District,1.0
+2119,9.3,Greenwood-Phinney Ridge,1.0
+2120,9.3,Greenwood-Phinney Ridge,1.0
+1504,1.2,Fauntleroy-Seaview,1.0
+1506,1.2,Fauntleroy-Seaview,1.0
+1507,1.2,Fauntleroy-Seaview,1.0
+1508,1.2,Fauntleroy-Seaview,1.0
+1512,2.4,Roxhill-Westwood,1.0
+2059,6.2,Capitol Hill,1.0
+2076,7.2,University District,1.0
+1493,2.1,North Delridge,1.0
+1499,1.2,Fauntleroy-Seaview,1.0
+2091,7.3,Ravenna-Bryant,1.0
+1630,4.3,Seward Park,1.0
+1805,12.3,Queen Anne,1.0
+1806,12.3,Queen Anne,1.0
+1808,12.3,Queen Anne,1.0
+1812,12.3,Queen Anne,1.0
+1813,12.200000000000001,Interbay,1.0
+1815,12.200000000000001,Interbay,1.0
+1816,12.200000000000001,Interbay,1.0
+1817,6.5,Madison Park,1.0
+1818,6.5,Madison Park,1.0
+1845,6.2,Capitol Hill,1.0
+1846,6.2,Capitol Hill,1.0
+1609,4.2,Columbia City,1.0
+1520,1.2,Fauntleroy-Seaview,1.0
+1521,1.2,Fauntleroy-Seaview,1.0
+1522,1.2,Fauntleroy-Seaview,1.0
+1523,1.2,Fauntleroy-Seaview,1.0
+2028,6.4,Miller Park,1.0
+2035,11.3,Cascade-Eastlake,1.0
+2040,6.2,Capitol Hill,1.0
+2045,11.200000000000001,Wallingford,1.0
+2057,7.5,Laurelhurst-Sand Point,1.0
+2058,6.5,Madison Park,1.0
+1500,1.2,Fauntleroy-Seaview,1.0
+1501,1.2,Fauntleroy-Seaview,1.0
+1995,7.1000000000000005,Montlake-Portage Bay,1.0
+1996,7.1000000000000005,Montlake-Portage Bay,1.0
+1997,7.1000000000000005,Montlake-Portage Bay,1.0
+1533,1.1,Arbor Heights,1.0
+2013,7.1000000000000005,Montlake-Portage Bay,1.0
+2015,6.5,Madison Park,1.0
+2021,6.4,Miller Park,1.0
+2024,11.200000000000001,Wallingford,1.0
+1514,2.4,Roxhill-Westwood,1.0
+1540,1.1,Arbor Heights,1.0
+1541,1.1,Arbor Heights,1.0
+1543,1.1,Arbor Heights,1.0
+1546,1.2,Fauntleroy-Seaview,1.0
+1964,7.3,Ravenna-Bryant,1.0
+1965,7.3,Ravenna-Bryant,1.0
+1970,7.5,Laurelhurst-Sand Point,1.0
+1971,7.5,Laurelhurst-Sand Point,1.0
+1974,7.5,Laurelhurst-Sand Point,1.0
+1977,7.5,Laurelhurst-Sand Point,1.0
+1980,7.5,Laurelhurst-Sand Point,1.0
+1982,7.1000000000000005,Montlake-Portage Bay,1.0
+1983,7.1000000000000005,Montlake-Portage Bay,1.0
+1990,6.5,Madison Park,1.0
+1991,6.5,Madison Park,1.0
+1993,7.1000000000000005,Montlake-Portage Bay,1.0
+1565,4.1,Rainier Beach,1.0
+1566,4.1,Rainier Beach,1.0
+1567,4.1,Rainier Beach,1.0
+1570,4.1,Rainier Beach,1.0
+1571,4.1,Rainier Beach,1.0
+1572,4.1,Rainier Beach,1.0
+1574,4.1,Rainier Beach,1.0
+1940,3.6,North Beacon Hill-Jefferson Park,1.0
+1941,3.6,North Beacon Hill-Jefferson Park,1.0
+1957,7.5,Laurelhurst-Sand Point,1.0
+1961,7.3,Ravenna-Bryant,1.0
+1538,1.1,Arbor Heights,1.0
+1539,1.1,Arbor Heights,1.0
+1612,4.3,Seward Park,1.0
+1613,4.3,Seward Park,1.0
+1614,4.3,Seward Park,1.0
+1615,4.3,Seward Park,1.0
+1847,6.2,Capitol Hill,1.0
+1858,6.2,Capitol Hill,1.0
+1867,6.2,Capitol Hill,1.0
+1868,6.4,Miller Park,1.0
+1879,5.3,Central Area-Squire Park,1.0
+1584,4.2,Columbia City,1.0
+1916,5.1000000000000005,Madrona-Leschi,1.0
+1918,5.1000000000000005,Madrona-Leschi,1.0
+1919,5.1000000000000005,Madrona-Leschi,1.0
+1920,5.1000000000000005,Madrona-Leschi,1.0
+1930,3.6,North Beacon Hill-Jefferson Park,1.0
+1553,4.1,Rainier Beach,1.0
+1555,4.1,Rainier Beach,1.0
+1557,4.1,Rainier Beach,1.0
+1563,4.1,Rainier Beach,1.0
+1564,4.1,Rainier Beach,1.0
+1882,5.3,Central Area-Squire Park,1.0
+1883,5.3,Central Area-Squire Park,1.0
+1588,4.2,Columbia City,1.0
+1593,4.2,Columbia City,1.0
+1597,3.5,Beacon Hill,1.0
+1890,4.4,Mt. Baker-North Rainier,1.0
+1891,4.4,Mt. Baker-North Rainier,1.0
+1575,4.1,Rainier Beach,1.0
+1576,4.1,Rainier Beach,1.0
+1578,4.1,Rainier Beach,1.0
+1579,4.1,Rainier Beach,1.0
+1580,4.1,Rainier Beach,1.0
+1250,2.5,Highland Park,1.0
+1255,2.4,Roxhill-Westwood,1.0
+1257,1.1,Arbor Heights,1.0
+1258,1.1,Arbor Heights,1.0
+1259,1.1,Arbor Heights,1.0
+1266,9.4,Green Lake,1.0
+3839,2.2,High Point,1.0
+3871,3.4,South Beacon Hill-New Holly,1.0
+3872,3.4,South Beacon Hill-New Holly,1.0
+3933,12.3,Queen Anne,1.0
+3936,12.3,Queen Anne,1.0
+1275,9.4,Green Lake,1.0
+1282,9.4,Green Lake,1.0
+1283,9.4,Green Lake,1.0
+1291,9.3,Greenwood-Phinney Ridge,1.0
+3804,6.2,Capitol Hill,1.0
+3810,3.5,Beacon Hill,1.0
+3815,8.1,Northgate-Maple Leaf,1.0
+3821,10.4,Ballard,1.0
+3946,3.6,North Beacon Hill-Jefferson Park,1.0
+3949,6.4,Miller Park,1.0
+3951,11.200000000000001,Wallingford,1.0
+3952,7.3,Ravenna-Bryant,1.0
+1396,10.200000000000001,Whittier Heights,0.999999999310105
+2357,7.4,Wedgwood-View Ridge,0.9999999989837418
+2346,8.3,Cedar Park-Meadowbrook,0.9999999987148506
+1464,1.3,West Seattle Junction-Genesee Hill,0.9999999981740497
+2014,7.1000000000000005,Montlake-Portage Bay,0.9999999077945915
+1620,3.5,Beacon Hill,0.9999998531295521
+2336,8.2,Olympic Hills-Victory Heights,0.9999998228188605
+2852,6.2,Capitol Hill,0.99999978090898
+2593,10.3,Sunset Hill-Loyal Heights,0.9999997556167795
+2341,8.2,Olympic Hills-Victory Heights,0.9999997499700991
+1323,10.200000000000001,Whittier Heights,0.9999996775657309
+3875,11.3,Cascade-Eastlake,0.9999994507542382
+1622,3.5,Beacon Hill,0.9999992975467141
+2317,8.3,Cedar Park-Meadowbrook,0.9999991624051835
+2068,7.2,University District,0.9999989110502706
+2084,7.3,Ravenna-Bryant,0.9999986847304501
+2323,8.2,Olympic Hills-Victory Heights,0.9999983480450487
+1247,2.4,Roxhill-Westwood,0.9999981537415961
+2075,7.2,University District,0.9999977461984719
+2286,7.4,Wedgwood-View Ridge,0.9999975042847946
+3568,9.1,Broadview-Bitter Lake,0.9999973371409279
+1333,11.1,Fremont,0.9999971843338373
+2263,7.4,Wedgwood-View Ridge,0.9999971807654936
+1611,4.3,Seward Park,0.9999969777658468
+1558,3.4,South Beacon Hill-New Holly,0.9999963301407825
+1851,6.2,Capitol Hill,0.9999961733889442
+2027,6.4,Miller Park,0.9999961598916415
+1586,4.2,Columbia City,0.9999949644790402
+2316,8.2,Olympic Hills-Victory Heights,0.9999944954309449
+1709,12.3,Queen Anne,0.9999944619771938
+2038,6.3,North Capitol Hill,0.9999944615588165
+1617,4.2,Columbia City,0.9999943589011677
+2130,9.3,Greenwood-Phinney Ridge,0.9999936446020002
+1517,2.4,Roxhill-Westwood,0.9999930887943504
+1515,2.4,Roxhill-Westwood,0.9999930644828571
+2347,8.2,Olympic Hills-Victory Heights,0.9999929175678657
+2314,8.1,Northgate-Maple Leaf,0.9999928347855217
+2513,10.1,North Beach-Blue Ridge,0.9999922270092437
+3866,2.2,High Point,0.9999922254536048
+3705,11.3,Cascade-Eastlake,0.9999920078592451
+1393,10.200000000000001,Whittier Heights,0.9999917066814835
+2128,9.200000000000001,Licton Springs,0.9999916366156617
+1529,2.4,Roxhill-Westwood,0.9999915313835421
+1332,11.1,Fremont,0.9999906990144444
+3679,11.3,Cascade-Eastlake,0.9999906484155424
+2276,7.3,Ravenna-Bryant,0.999990635796019
+3341,13.1,Belltown,0.9999903784022606
+2251,7.4,Wedgwood-View Ridge,0.9999899607133804
+1524,1.2,Fauntleroy-Seaview,0.9999898061402556
+1935,4.4,Mt. Baker-North Rainier,0.9999895251662929
+1518,1.2,Fauntleroy-Seaview,0.9999892599249781
+2004,7.1000000000000005,Montlake-Portage Bay,0.9999881129308401
+2061,11.3,Cascade-Eastlake,0.9999875586696781
+2512,10.1,North Beach-Blue Ridge,0.9999874590161404
+1886,5.3,Central Area-Squire Park,0.9999872162992783
+3822,12.3,Queen Anne,0.9999870465513402
+1621,3.5,Beacon Hill,0.9999859239581748
+3686,11.3,Cascade-Eastlake,0.9999858786370177
+1367,11.200000000000001,Wallingford,0.9999857854994024
+1357,11.200000000000001,Wallingford,0.999985204456217
+2338,9.5,Haller Lake,0.9999842194649712
+3772,2.3000000000000003,Riverview,0.9999841228046038
+1917,5.1000000000000005,Madrona-Leschi,0.9999840726735374
+1938,4.4,Mt. Baker-North Rainier,0.9999826112114027
+2535,10.1,North Beach-Blue Ridge,0.9999823403623496
+1485,2.2,High Point,0.9999818189644991
+2518,9.3,Greenwood-Phinney Ridge,0.9999817425963943
+1527,2.4,Roxhill-Westwood,0.9999812541180357
+2282,8.1,Northgate-Maple Leaf,0.9999810345277805
+1376,11.1,Fremont,0.9999807766593287
+2142,9.5,Haller Lake,0.9999801801940864
+2149,10.3,Sunset Hill-Loyal Heights,0.9999800505184355
+2313,8.1,Northgate-Maple Leaf,0.999979455474494
+2324,8.1,Northgate-Maple Leaf,0.9999791977500135
+1537,1.1,Arbor Heights,0.9999789930399184
+1509,1.2,Fauntleroy-Seaview,0.9999786645748819
+2305,7.4,Wedgwood-View Ridge,0.9999780721944034
+1321,10.200000000000001,Whittier Heights,0.9999777768383226
+2257,7.3,Ravenna-Bryant,0.9999766811214224
+1616,4.3,Seward Park,0.9999766601449213
+1309,9.3,Greenwood-Phinney Ridge,0.9999760117608311
+2202,9.1,Broadview-Bitter Lake,0.9999758590905918
+2168,10.200000000000001,Whittier Heights,0.9999753058515446
+1881,5.3,Central Area-Squire Park,0.9999752927340367
+1773,13.1,Belltown,0.9999744260136548
+1860,6.2,Capitol Hill,0.9999741967686944
+2203,9.1,Broadview-Bitter Lake,0.9999741020650902
+2152,9.5,Haller Lake,0.9999740379170792
+1687,12.200000000000001,Interbay,0.999972655004161
+1264,9.4,Green Lake,0.9999724926953943
+2509,10.3,Sunset Hill-Loyal Heights,0.9999715192974905
+1519,1.2,Fauntleroy-Seaview,0.9999714678361533
+2369,8.3,Cedar Park-Meadowbrook,0.999970540473723
+1903,5.1000000000000005,Madrona-Leschi,0.9999691057225389
+1907,5.1000000000000005,Madrona-Leschi,0.9999690146113238
+2129,9.200000000000001,Licton Springs,0.9999688197595786
+2310,8.2,Olympic Hills-Victory Heights,0.9999681094895595
+2148,10.3,Sunset Hill-Loyal Heights,0.9999675896513988
+3721,5.3,Central Area-Squire Park,0.9999675061714361
+1776,13.200000000000001,Downtown Commercial Core,0.9999671279753155
+3840,6.1000000000000005,First Hill,0.999966339284176
+1869,6.2,Capitol Hill,0.9999662577973542
+2071,7.2,University District,0.9999662200065917
+1269,9.4,Green Lake,0.9999661815920542
+1932,3.6,North Beacon Hill-Jefferson Park,0.9999660284274632
+1668,12.200000000000001,Interbay,0.9999653376611218
+1397,10.200000000000001,Whittier Heights,0.999965233299808
+1583,4.2,Columbia City,0.999964736796861
+1900,5.3,Central Area-Squire Park,0.999964190340108
+1392,10.200000000000001,Whittier Heights,0.9999613215240529
+3319,12.3,Queen Anne,0.9999610706008762
+2306,7.4,Wedgwood-View Ridge,0.9999574153973196
+2143,9.5,Haller Lake,0.9999572560270754
+2240,7.3,Ravenna-Bryant,0.9999556097358311
+2153,9.5,Haller Lake,0.9999544471011181
+2344,8.3,Cedar Park-Meadowbrook,0.9999525844669547
+2325,8.1,Northgate-Maple Leaf,0.999952104917973
+1246,2.5,Highland Park,0.9999514231236627
+2799,5.1000000000000005,Madrona-Leschi,0.9999511219331629
+2113,11.200000000000001,Wallingford,0.999950156354118
+1472,1.2,Fauntleroy-Seaview,0.9999481310191385
+1249,2.4,Roxhill-Westwood,0.999948108386573
+1245,2.5,Highland Park,0.999947558834616
+1999,7.1000000000000005,Montlake-Portage Bay,0.999945771583418
+1855,6.2,Capitol Hill,0.9999454221711055
+2307,8.3,Cedar Park-Meadowbrook,0.9999441945475659
+2017,6.3,North Capitol Hill,0.9999434092150901
+3666,3.4,South Beacon Hill-New Holly,0.9999432463053788
+3732,3.4,South Beacon Hill-New Holly,0.9999421232463604
+2002,11.3,Cascade-Eastlake,0.9999418339699127
+1265,9.4,Green Lake,0.9999407683901231
+1370,11.200000000000001,Wallingford,0.9999405784983274
+2083,7.3,Ravenna-Bryant,0.9999402303002666
+3787,11.1,Fremont,0.9999397916936781
+1699,12.200000000000001,Interbay,0.9999378260433868
+3424,5.3,Central Area-Squire Park,0.9999374213235712
+2285,7.4,Wedgwood-View Ridge,0.999937291784212
+1318,10.4,Ballard,0.9999345491287586
+1510,2.4,Roxhill-Westwood,0.999929460399914
+2539,10.1,North Beach-Blue Ridge,0.9999277833858065
+1772,13.1,Belltown,0.9999274376835232
+2534,10.1,North Beach-Blue Ridge,0.9999256809393889
+1714,12.3,Queen Anne,0.9999253722864064
+2510,10.3,Sunset Hill-Loyal Heights,0.9999229052113582
+1856,6.2,Capitol Hill,0.99991780245236
+2000,7.1000000000000005,Montlake-Portage Bay,0.9999170384326026
+2074,7.2,University District,0.9999166292937246
+2252,7.3,Ravenna-Bryant,0.9999150587572324
+1834,3.3000000000000003,Duwamish-SODO,0.9999144521692706
+1311,9.200000000000001,Licton Springs,0.9999126178209916
+3567,3.4,South Beacon Hill-New Holly,0.9999093148998723
+2260,7.3,Ravenna-Bryant,0.9999085923786937
+2517,9.3,Greenwood-Phinney Ridge,0.9999050957191721
+2100,7.3,Ravenna-Bryant,0.9998977403013375
+1824,5.3,Central Area-Squire Park,0.9998964694822385
+2292,8.1,Northgate-Maple Leaf,0.9998925816336823
+2337,8.2,Olympic Hills-Victory Heights,0.9998917010090742
+1526,1.2,Fauntleroy-Seaview,0.9998844851524562
+1497,2.3000000000000003,Riverview,0.9998810160879789
+1914,5.1000000000000005,Madrona-Leschi,0.9998802233057119
+1633,4.3,Seward Park,0.9998774501170193
+2319,8.3,Cedar Park-Meadowbrook,0.9998672198486753
+1635,4.2,Columbia City,0.9998671756659688
+1730,12.3,Queen Anne,0.9998667451320523
+3267,11.3,Cascade-Eastlake,0.9998631751456054
+1954,7.3,Ravenna-Bryant,0.9998605269521444
+3747,13.1,Belltown,0.9998600358090778
+2795,11.3,Cascade-Eastlake,0.9998582712752254
+1953,7.3,Ravenna-Bryant,0.9998562277294042
+1719,12.3,Queen Anne,0.9998399508190644
+3265,2.4,Roxhill-Westwood,0.9998333534922222
+2520,9.3,Greenwood-Phinney Ridge,0.9998318959974599
+1643,3.4,South Beacon Hill-New Holly,0.9998236351416308
+2266,7.4,Wedgwood-View Ridge,0.9998219473105195
+3632,2.2,High Point,0.9998191664326052
+2328,8.2,Olympic Hills-Victory Heights,0.9998118108374944
+2131,9.3,Greenwood-Phinney Ridge,0.9998070812063691
+2298,8.1,Northgate-Maple Leaf,0.9997957456008588
+2308,8.3,Cedar Park-Meadowbrook,0.9997804262963524
+3570,11.3,Cascade-Eastlake,0.9997726205711764
+2011,7.1000000000000005,Montlake-Portage Bay,0.9997701045704674
+3677,8.2,Olympic Hills-Victory Heights,0.9997696833804554
+2134,9.3,Greenwood-Phinney Ridge,0.9997612248784578
+1698,12.200000000000001,Interbay,0.9997570988502427
+2335,8.2,Olympic Hills-Victory Heights,0.9997479704095656
+3785,1.3,West Seattle Junction-Genesee Hill,0.9997337653317806
+2542,6.2,Capitol Hill,0.9997329201551793
+3798,7.3,Ravenna-Bryant,0.9997317078050775
+1345,9.3,Greenwood-Phinney Ridge,0.9997104587303065
+1536,1.1,Arbor Heights,0.9997093810520875
+1568,4.1,Rainier Beach,0.999695034114944
+2505,10.3,Sunset Hill-Loyal Heights,0.9996856218539902
+2244,7.5,Laurelhurst-Sand Point,0.9996826763641116
+2862,6.1000000000000005,First Hill,0.9996824575781772
+2303,7.4,Wedgwood-View Ridge,0.9996748225341449
+2275,7.4,Wedgwood-View Ridge,0.9996731148424679
+2243,7.4,Wedgwood-View Ridge,0.9996596218490719
+2007,6.3,North Capitol Hill,0.9996458299045633
+2283,8.1,Northgate-Maple Leaf,0.9996160659502205
+1925,3.6,North Beacon Hill-Jefferson Park,0.9996035636459673
+2361,9.5,Haller Lake,0.9995821561826689
+1750,12.3,Queen Anne,0.9995738870003961
+1313,9.4,Green Lake,0.9995687956618046
+1713,12.3,Queen Anne,0.9995642951959733
+2379,8.1,Northgate-Maple Leaf,0.9995550418070033
+2334,8.3,Cedar Park-Meadowbrook,0.999511780543475
+2147,10.200000000000001,Whittier Heights,0.9994595453489533
+1697,12.1,Magnolia,0.9994551946870196
+2167,10.200000000000001,Whittier Heights,0.9994069118801344
+2001,7.1000000000000005,Montlake-Portage Bay,0.999399994917776
+1967,7.3,Ravenna-Bryant,0.9993819720266273
+1402,9.200000000000001,Licton Springs,0.9993349136851348
+3939,4.2,Columbia City,0.9993287357899117
+2133,9.3,Greenwood-Phinney Ridge,0.9993226309680601
+1418,1.4000000000000001,Alki-Admiral,0.9992884269536711
+1422,1.3,West Seattle Junction-Genesee Hill,0.9992549181677914
+2796,9.5,Haller Lake,0.9991885425431137
+2536,10.1,North Beach-Blue Ridge,0.9991867152730678
+3749,11.3,Cascade-Eastlake,0.9991528521820986
+3345,13.1,Belltown,0.9991446748194011
+1516,2.4,Roxhill-Westwood,0.999144331412994
+2245,7.5,Laurelhurst-Sand Point,0.9991402919399877
+1833,5.2,Judkins Park,0.999108949185503
+2928,6.2,Capitol Hill,0.9991018858816005
+2309,8.2,Olympic Hills-Victory Heights,0.9990959976400011
+2370,8.3,Cedar Park-Meadowbrook,0.9990852917060242
+1607,3.5,Beacon Hill,0.9990133087088611
+2165,10.200000000000001,Whittier Heights,0.999008838899712
+1532,1.2,Fauntleroy-Seaview,0.9989776233351199
+2052,11.200000000000001,Wallingford,0.9988652495013582
+2056,7.3,Ravenna-Bryant,0.9987074439275787
+1596,3.5,Beacon Hill,0.9986974976806151
+1702,12.1,Magnolia,0.9986730535041637
+1488,2.2,High Point,0.9986350776079146
+2016,6.3,North Capitol Hill,0.9984904669341498
+2170,10.200000000000001,Whittier Heights,0.9984707321039953
+2327,9.5,Haller Lake,0.9984199238038963
+2532,10.1,North Beach-Blue Ridge,0.9983754702822148
+1927,3.6,North Beacon Hill-Jefferson Park,0.9982209429181499
+2026,6.4,Miller Park,0.9982184384859236
+2322,8.3,Cedar Park-Meadowbrook,0.9981796148624167
+2549,6.2,Capitol Hill,0.9981161149695778
+2201,9.1,Broadview-Bitter Lake,0.9980457356707133
+1344,9.3,Greenwood-Phinney Ridge,0.9980279525299767
+2236,9.4,Green Lake,0.9979567696836755
+1470,1.3,West Seattle Junction-Genesee Hill,0.997911305972178
+1771,12.3,Queen Anne,0.997885032740003
+2304,8.3,Cedar Park-Meadowbrook,0.9978145345149083
+2166,10.200000000000001,Whittier Heights,0.9977648625405753
+1391,10.3,Sunset Hill-Loyal Heights,0.9975926844798784
+1490,2.2,High Point,0.9975644888711571
+3797,12.3,Queen Anne,0.9975583669604103
+1456,1.3,West Seattle Junction-Genesee Hill,0.9975560642952026
+2590,10.3,Sunset Hill-Loyal Heights,0.9974805903387525
+1400,9.200000000000001,Licton Springs,0.997436860678541
+2340,8.2,Olympic Hills-Victory Heights,0.9972777493530075
+2117,9.3,Greenwood-Phinney Ridge,0.9971759761852942
+1403,9.200000000000001,Licton Springs,0.9970097681914143
+1305,9.3,Greenwood-Phinney Ridge,0.9968826629977353
+2050,11.200000000000001,Wallingford,0.9968427902574231
+2280,9.4,Green Lake,0.9965762016786578
+2526,10.1,North Beach-Blue Ridge,0.9965529658753106
+2352,8.2,Olympic Hills-Victory Heights,0.9965523567301473
+3805,9.4,Green Lake,0.9965303958085493
+3587,12.3,Queen Anne,0.9962775551557415
+1842,6.2,Capitol Hill,0.9960672179802673
+2116,9.3,Greenwood-Phinney Ridge,0.9959987751821542
+1294,9.3,Greenwood-Phinney Ridge,0.9959931569706201
+3746,9.1,Broadview-Bitter Lake,0.9959609698478774
+1590,4.3,Seward Park,0.9958352094835026
+2161,10.200000000000001,Whittier Heights,0.9956451776311749
+2237,7.3,Ravenna-Bryant,0.9954818146992455
+1453,1.3,West Seattle Junction-Genesee Hill,0.9953111640844392
+1296,9.3,Greenwood-Phinney Ridge,0.9952225810192441
+2048,11.200000000000001,Wallingford,0.9947662841139548
+1969,7.5,Laurelhurst-Sand Point,0.9947251409257638
+1535,1.1,Arbor Heights,0.9946630899227521
+1639,3.4,South Beacon Hill-New Holly,0.9943992142857624
+1280,9.4,Green Lake,0.9941206754510433
+3947,6.2,Capitol Hill,0.9932562868791216
+1452,1.3,West Seattle Junction-Genesee Hill,0.993241634592053
+2318,8.3,Cedar Park-Meadowbrook,0.9931332215999417
+1416,1.4000000000000001,Alki-Admiral,0.9930963097704019
+1425,1.3,West Seattle Junction-Genesee Hill,0.9927121696092607
+1295,9.3,Greenwood-Phinney Ridge,0.9926213009807666
+1819,6.5,Madison Park,0.992601080746223
+1306,9.3,Greenwood-Phinney Ridge,0.9925229841533125
+1962,7.5,Laurelhurst-Sand Point,0.9921824896080382
+1959,7.5,Laurelhurst-Sand Point,0.9918227348704772
+2359,8.1,Northgate-Maple Leaf,0.9907049140994463
+1284,9.4,Green Lake,0.9903744641432093
+1748,12.3,Queen Anne,0.9901473055743926
+1955,7.5,Laurelhurst-Sand Point,0.989959280006548
+2200,9.1,Broadview-Bitter Lake,0.9895883201246373
+2023,11.200000000000001,Wallingford,0.9889901598866296
+1608,4.2,Columbia City,0.9887962260915448
+1310,9.4,Green Lake,0.9876472817420643
+3317,10.3,Sunset Hill-Loyal Heights,0.9874510213025338
+1585,4.2,Columbia City,0.9847500047397177
+1636,4.2,Columbia City,0.9824881752636953
+1978,7.5,Laurelhurst-Sand Point,0.9818967347381622
+1647,4.3,Seward Park,0.9812497713146039
+2267,7.5,Laurelhurst-Sand Point,0.9806928368627741
+1358,11.200000000000001,Wallingford,0.9806619866862561
+1628,4.2,Columbia City,0.9787235512108629
+1968,7.5,Laurelhurst-Sand Point,0.9774295967971551
+1285,9.4,Green Lake,0.9755789740463843
+1251,2.5,Highland Park,0.9738219354373145
+2592,10.3,Sunset Hill-Loyal Heights,0.9725608102743292
+3948,4.2,Columbia City,0.9719710056330909
+1461,1.4000000000000001,Alki-Admiral,0.9719541128696025
+1729,12.200000000000001,Interbay,0.9710006101019883
+1963,7.5,Laurelhurst-Sand Point,0.9684742265080868
+1263,9.4,Green Lake,0.9684282548375022
+3743,10.3,Sunset Hill-Loyal Heights,0.9666230284287339
+2127,9.200000000000001,Licton Springs,0.9660173637836414
+1587,4.2,Columbia City,0.9606347611192165
+1594,4.2,Columbia City,0.9601983934110889
+3669,13.1,Belltown,0.9595279792801554
+1624,3.5,Beacon Hill,0.9594712944791355
+1455,2.1,North Delridge,0.9591523638136527
+1994,7.1000000000000005,Montlake-Portage Bay,0.9586103676865363
+3730,4.2,Columbia City,0.9585187233725168
+1419,1.4000000000000001,Alki-Admiral,0.9579868704891653
+1689,12.1,Magnolia,0.9579831552035541
+2025,6.4,Miller Park,0.9575424871543138
+3816,4.2,Columbia City,0.9564741030620089
+3802,4.2,Columbia City,0.9547974263218121
+1700,12.200000000000001,Interbay,0.9493231736015657
+2339,8.2,Olympic Hills-Victory Heights,0.9483266001023911
+1413,2.1,North Delridge,0.9424423719859566
+3637,2.5,Highland Park,0.9346141492221114
+1821,6.5,Madison Park,0.9311833208900623
+1443,1.4000000000000001,Alki-Admiral,0.9297753433190427
+1534,1.1,Arbor Heights,0.928682978548942
+1600,3.5,Beacon Hill,0.9272551542770081
+3682,2.1,North Delridge,0.9253945666638752
+2367,8.2,Olympic Hills-Victory Heights,0.9229729468951846
+1530,1.2,Fauntleroy-Seaview,0.9222855507022378
+2360,8.1,Northgate-Maple Leaf,0.921124825719601
+1498,2.3000000000000003,Riverview,0.9191225231355696
+1889,6.4,Miller Park,0.9137238766468985
+1404,9.200000000000001,Licton Springs,0.9115100939234219
+1850,3.6,North Beacon Hill-Jefferson Park,0.9081982298761457
+2039,6.3,North Capitol Hill,0.8995867251531049
+1952,7.3,Ravenna-Bryant,0.8989405984641375
+2228,9.200000000000001,Licton Springs,0.8975900011923189
+1462,1.2,Fauntleroy-Seaview,0.8947895949197788
+1496,2.3000000000000003,Riverview,0.8941404731407773
+1435,1.4000000000000001,Alki-Admiral,0.8933754849455622
+3803,6.4,Miller Park,0.8909741067828192
+1444,1.3,West Seattle Junction-Genesee Hill,0.8794408598266134
+1420,1.3,West Seattle Junction-Genesee Hill,0.8766085718704887
+1489,2.1,North Delridge,0.8735806646480443
+1502,1.2,Fauntleroy-Seaview,0.8722201103197139
+2009,6.3,North Capitol Hill,0.8705973749755305
+2034,11.3,Cascade-Eastlake,0.8613948434250837
+1701,12.1,Magnolia,0.8544156954629838
+2118,9.3,Greenwood-Phinney Ridge,0.8508649920970919
+1934,4.4,Mt. Baker-North Rainier,0.8436736594820262
+1334,11.1,Fremont,0.8389837716379388
+1326,10.4,Ballard,0.8370291367384849
+2326,9.5,Haller Lake,0.83670037660571
+1465,1.3,West Seattle Junction-Genesee Hill,0.8359675084198384
+2172,10.3,Sunset Hill-Loyal Heights,0.8345120283461608
+1874,5.3,Central Area-Squire Park,0.8335840599425076
+1672,12.200000000000001,Interbay,0.8335826254822059
+1434,1.4000000000000001,Alki-Admiral,0.8311029971469985
+2501,1.1,Arbor Heights,0.8309412064825689
+1774,13.200000000000001,Downtown Commercial Core,0.8294148122273179
+3628,13.200000000000001,Downtown Commercial Core,0.8177382443659611
+2261,7.3,Ravenna-Bryant,0.8156748843224089
+2274,7.3,Ravenna-Bryant,0.8148154218031535
+2861,5.1000000000000005,Madrona-Leschi,0.8110785760956273
+2049,11.200000000000001,Wallingford,0.8107233859668531
+1582,4.2,Columbia City,0.809105917101435
+2299,8.1,Northgate-Maple Leaf,0.8085937491568084
+1947,3.6,North Beacon Hill-Jefferson Park,0.8080806280605082
+3175,1.3,West Seattle Junction-Genesee Hill,0.8044361376019699
+1428,1.3,West Seattle Junction-Genesee Hill,0.8040238273247283
+1618,4.2,Columbia City,0.8018468191008246
+1629,4.3,Seward Park,0.8014608226848299
+1427,1.3,West Seattle Junction-Genesee Hill,0.8009969007741399
+1992,6.5,Madison Park,0.7888072747909765
+1486,2.4,Roxhill-Westwood,0.7864943063798554
+1936,4.4,Mt. Baker-North Rainier,0.7837730359819822
+1634,4.3,Seward Park,0.7771569700931975
+2008,6.3,North Capitol Hill,0.7757531450514252
+3818,5.1000000000000005,Madrona-Leschi,0.7745023524146604
+1319,10.4,Ballard,0.7717627988051418
+3729,3.6,North Beacon Hill-Jefferson Park,0.7653963123902147
+2006,11.3,Cascade-Eastlake,0.7585805445822225
+1331,9.3,Greenwood-Phinney Ridge,0.7574813433969415
+1945,3.3000000000000003,Duwamish-SODO,0.7483079177215795
+1494,2.1,North Delridge,0.7447206896750841
+1375,11.1,Fremont,0.7400507304024654
+2037,11.3,Cascade-Eastlake,0.7384280251438459
+1942,3.3000000000000003,Duwamish-SODO,0.7374882715663211
+1476,1.2,Fauntleroy-Seaview,0.7255794699749814
+1320,10.4,Ballard,0.7252000060677979
+1589,4.2,Columbia City,0.7222659547283706
+1688,12.1,Magnolia,0.7189340812060916
+1426,1.3,West Seattle Junction-Genesee Hill,0.7133299522026498
+3636,4.2,Columbia City,0.7076290437737754
+2231,7.3,Ravenna-Bryant,0.7058974075891352
+1463,1.3,West Seattle Junction-Genesee Hill,0.68663506715894
+1838,5.1000000000000005,Madrona-Leschi,0.6860593725864846
+1324,10.4,Ballard,0.6669249374061268
+2750,13.1,Belltown,0.6667342093991581
+1473,1.3,West Seattle Junction-Genesee Hill,0.6664897086228508
+1474,1.3,West Seattle Junction-Genesee Hill,0.6650722569798831
+1361,11.1,Fremont,0.6629784852643807
+1704,12.3,Queen Anne,0.6583929278938236
+1424,1.3,West Seattle Junction-Genesee Hill,0.6564091861822398
+1888,6.4,Miller Park,0.6442946200729274
+1712,12.3,Queen Anne,0.6365904234315315
+2029,7.1000000000000005,Montlake-Portage Bay,0.6318979662439468
+1341,9.3,Greenwood-Phinney Ridge,0.6172160116150258
+1610,4.2,Columbia City,0.6139578308861898
+2081,7.3,Ravenna-Bryant,0.6002994413660647
+1861,5.3,Central Area-Squire Park,0.5941253860590738
+3817,4.3,Seward Park,0.5799003075591108
+1513,2.3000000000000003,Riverview,0.5751275879777445
+1484,1.2,Fauntleroy-Seaview,0.5744195344526558
+1374,11.200000000000001,Wallingford,0.5709044035604582
+1870,6.4,Miller Park,0.5699435387529003
+1887,5.3,Central Area-Squire Park,0.5683222270671003
+2020,7.1000000000000005,Montlake-Portage Bay,0.5667025068578846
+1330,9.3,Greenwood-Phinney Ridge,0.5525357787762137
+1460,1.3,West Seattle Junction-Genesee Hill,0.5475508433567369
+1377,11.200000000000001,Wallingford,0.5467714025451051
+2018,6.3,North Capitol Hill,0.5447447654409349
+1648,4.2,Columbia City,0.5436530478739982
+2377,7.4,Wedgwood-View Ridge,0.5316209334801307
+2511,10.1,North Beach-Blue Ridge,0.5299036844351932
+2247,7.5,Laurelhurst-Sand Point,0.5203032498802682
+1826,5.3,Central Area-Squire Park,0.5187945476685818
+1477,1.3,West Seattle Junction-Genesee Hill,0.5185508902839296
+2033,6.3,North Capitol Hill,0.5165867057220701
+1880,5.3,Central Area-Squire Park,0.5120130294224013
+1471,1.2,Fauntleroy-Seaview,0.5089480455598953
+1475,1.2,Fauntleroy-Seaview,0.5047844960784389
+3689,12.3,Queen Anne,0.504500256814096
+1414,1.4000000000000001,Alki-Admiral,0.4726081665983432
+1545,2.5,Highland Park,0.4323416533519479
