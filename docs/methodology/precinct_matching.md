@@ -1,8 +1,8 @@
-# Research note 01: Why precinct boundaries matter
+# Methodology: Precinct coverage and boundary comparability
 
 ![Net margins in matched precincts versus the rest of Seattle](figures/matched_coverage_margins.svg)
 
-## Initial finding
+## Coverage check (internal quality control)
 
 Our **850 unchanged-boundary precincts cover 82.3% of Seattle's two-candidate mayoral votes** in 2025, but they do not reproduce the citywide result. Within those precincts, Harrell led by **4,295** votes. Among all votes outside the matched subset, Wilson led by **6,306** votes. Citywide, Wilson won by **2,011** votes.
 
@@ -27,7 +27,7 @@ We should clearly distinguish:
 
 We should compare the directly matched subset and the expanded estimate as a sensitivity check. Geographic allocation is not direct evidence of how individual voters voted or switched candidates, and Harrell faced different opponents in 2021 and 2025.
 
-## Reproduce the figure and audit
+## Reproduce the internal verification figure
 
 Run the script from the project folder. No dependencies beyond the Python standard library are necessary:
 
@@ -43,4 +43,4 @@ The script validates duplicate IDs, stable-boundary labels, candidate-vote sums,
 - [King County: legacy precinct boundaries](https://kingcounty.gov/en/dept/elections/maps/precinct-and-district-data)
 - Repository data: `data/processed/seattle_mayor_precinct_panel_2021_2025.csv` and `data/processed/block_group_to_2025_precinct_crosswalk.csv`
 
-This is a **methodological starting point**, not a complete report. The next milestone is a documented geographic crosswalk, followed by Precinct Twins, Political Fault Lines, and spatial outlier analysis.
+This is a **methodology appendix, not a headline finding**. The next milestone is a documented geographic crosswalk, followed by Precinct Twins, Political Fault Lines, and spatial outlier analysis.

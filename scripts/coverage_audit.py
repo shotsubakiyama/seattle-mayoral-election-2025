@@ -10,7 +10,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 PANEL = ROOT / "data/processed/seattle_mayor_precinct_panel_2021_2025.csv"
 CROSSWALK = ROOT / "data/processed/block_group_to_2025_precinct_crosswalk.csv"
-OUT = ROOT / "reports"
+OUT = ROOT / "docs/methodology"
 CITY_HARRELL = 136_920
 CITY_WILSON = 138_931
 
@@ -88,7 +88,7 @@ def main():
     print(f"Net Harrell votes within matched subset: {h-w:+,}")
     print(f"Net Harrell votes outside subset: {other_h-other_w:+,}")
     print(f"Net Harrell votes citywide: {CITY_HARRELL-CITY_WILSON:+,}")
-    print("Figure written: reports/figures/matched_coverage_margins.svg")
+    print("Figure written: docs/methodology/figures/matched_coverage_margins.svg")
 
 
 if __name__ == "__main__":
