@@ -6,6 +6,8 @@ Official source downloads are stored in gitignored data/raw/.
 """
 import argparse
 import csv
+import os
+import subprocess
 from collections import defaultdict
 from pathlib import Path
 from urllib.request import Request, urlopen
@@ -15,8 +17,35 @@ SOURCE_IDS = {2021: "4qrf-rjar", 2025: "rkie-6y8x"}
 CERTIFIED_2025 = {"Bruce Harrell": 136_920, "Katie Wilson": 138_931}
 
 
+def validate_download(path):
+    """Reject partial downloads or HTML error pages before using the CSV."""
+    if not path.exists() or path.stat().st_size == 0:
+        raise ValueError("Empty download")
+    with path.open(encoding="utf-8-sig", errors="replace", newline="") as handle:
+        header = next(csv.reader(handle), [])
+    fields = {"".join(name.lower().split()) for name in header}
+    if not {"precinct", "race", "countertype", "sumofcount"} <= fields:
+        raise ValueError(f"Downloaded file is not a precinct-results CSV: {header[:8]}")
+
+
+def windows_curl_download(url, destination):
+    """Windows' built-in curl uses the Windows certificate trust store (Schannel)."""
+    curl = Path(os.environ.get("SystemRoot", r"C:\Windows")) / "System32" / "curl.exe"
+    if not curl.is_file():
+        raise FileNotFoundError(f"Windows curl.exe not found at {curl}")
+    result = subprocess.run(
+        [str(curl), "--fail", "--location", "--silent", "--show-error",
+         "--connect-timeout", "20", "--max-time", "180",
+         "--output", str(destination), url],
+        capture_output=True, text=True, timeout=190, check=False,
+    )
+    if result.returncode != 0:
+        raise RuntimeError(result.stderr.strip() or f"curl failed: {result.returncode}")
+
+
 def ensure_source(year, path, offline):
     if path.exists() and path.stat().st_size:
+        validate_download(path)
         return
     if offline:
         raise FileNotFoundError(f"Missing {path}; omit --offline to download")
@@ -27,20 +56,41 @@ def ensure_source(year, path, offline):
         f"https://data.kingcounty.gov/api/views/{dataset}/rows.csv?accessType=DOWNLOAD",
     ]
     failures = []
+    temporary = path.with_name(path.name + ".partial")
     for url in urls:
+        temporary.unlink(missing_ok=True)
         try:
             request = Request(url, headers={"User-Agent": "Seattle-Mayoral-Election-Research/1.0"})
-            with urlopen(request, timeout=90) as response, path.open("wb") as output:
+            with urlopen(request, timeout=90) as response, temporary.open("wb") as output:
                 while chunk := response.read(1024 * 1024):
                     output.write(chunk)
-            if path.stat().st_size:
-                print(f"Downloaded {year} certified precinct results")
-                return
-        except (OSError, TimeoutError) as error:
-            failures.append(str(error))
-            path.unlink(missing_ok=True)
-    raise RuntimeError(f"Download failed for {year}: {failures}")
+            validate_download(temporary)
+            temporary.replace(path)
+            print(f"Downloaded {year} certified precinct results using Python")
+            return
+        except (OSError, TimeoutError, ValueError) as error:
+            failures.append(f"Python: {error}")
+            temporary.unlink(missing_ok=True)
 
+        if os.name == "nt":
+            # The built-in Windows curl uses the OS trust store. It is a safer
+            # fallback for Python certificate-chain errors than disabling SSL checks.
+            try:
+                windows_curl_download(url, temporary)
+                validate_download(temporary)
+                temporary.replace(path)
+                print(f"Downloaded {year} certified precinct results using Windows curl")
+                return
+            except (OSError, ValueError, RuntimeError, subprocess.TimeoutExpired) as error:
+                failures.append(f"Windows curl: {error}")
+                temporary.unlink(missing_ok=True)
+
+    raise RuntimeError(
+        f"Download failed for {year}: {failures}\n"
+        "If the network blocks both methods, download the official CSV in a browser "
+        f"and save it as {path}, then run this script with --offline. "
+        "Certificate verification has not been disabled."
+    )
 
 def suffix(precinct):
     name = precinct.strip()
