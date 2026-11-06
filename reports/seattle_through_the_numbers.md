@@ -7,13 +7,13 @@ Seattle's mayoral election was decided by **2,011 votes**. But the bigger story 
 
 This is a **graphic-first research note**, not a list of coding exercises. Each experiment begins with a specific question, shows one primary graphic (two if unavoidable), explains the computational trick in plain English, and offers a methodological note for readers who want the technical details.
 
-**Reading key:** The first two analyses use King County's certified, precinct-level returns and have an automated reproduction pipeline; sections 3–8 are **research questions, not findings** until the data and statistical checks are complete. The completed first-edition mayoral report remains separately available [here](00_beyond_the_election_map.md).
+**Reading key:** **Experiments 1–2 have been calculated and verified** against King County's certified returns in GitHub Actions. Sections 3–8 are **research questions, not findings** until their data and statistical checks are complete. The completed first-edition mayoral report remains separately available [here](00_beyond_the_election_map.md).
 
 ---
 
 ## I. The election we actually held
 
-### 01. One city, several political coalitions
+### 01. Even Harrell's precincts voted for Seattle's other winners
 
 *Could two precincts agree about the mayor but disagree about the rest of the ballot?*
 
@@ -21,19 +21,23 @@ This is a **graphic-first research note**, not a list of coding exercises. Each 
 
 In the certified 2025 election, the city also voted for attorney, two citywide council seats and two propositions. We divide precincts according to **who won the mayoral race there**, then ask how those same groups of precincts voted in other citywide contests.
 
+**The striking result:** In precincts that Harrell won, **57.0%** of the two named city-attorney votes went to **Erika Evans**, while **76.9%** of the two named Council Position 8 votes went to **Alexis Mercedes Rinck**. **Dionne Foster** also narrowly led in those same precincts (**51.9%**). And both city propositions won majority Yes votes. A precinct's mayoral preference does not define a single, uniform political coalition.
+
 **The computational trick:** Join official results across races using a shared precinct ID, then calculate the portion of two-candidate (or Yes/No) votes going to each selected candidate or option.
 
 **How to read the figure:** An orange bar is the pooled share of votes in **Harrell-winning precincts**; a blue bar is the corresponding share in **Wilson-winning precincts**. These are precinct-level aggregates—not evidence that any particular individual split their ballot.
 
 [Detailed table and method](experiments/01_coalitions.md)
 
-### 02. What if every precinct participated equally?
+### 02. Equal participation would have widened Wilson's mathematical advantage
 
 *Would the citywide mayoral result look different if each registered voter contributed the same expected number of votes for a mayoral finalist, no matter the precinct?*
 
 ![Actual Wilson share compared with a mechanical equal-participation counterfactual](figures/experiment_02_equal_participation.svg)
 
-We can hold each precinct's observed candidate preference fixed but reweight precincts according to their numbers of registered voters rather than their observed votes. It is a thought experiment: **not** a prediction of how nonvoters would have chosen.
+Wilson won **50.36%** of the votes cast for the two mayoral finalists. Under a mechanical scenario in which every precinct casts the same number of mayoral finalist votes **per registered voter**—while keeping each precinct's candidate split fixed—her share becomes **51.69%**. That's **1.33 percentage points higher**, not a forecast of the result we would have seen in a different turnout environment.
+
+We hold each precinct's observed candidate preference fixed but reweight precincts according to their numbers of registered voters rather than their observed votes. It is a thought experiment: **not** a prediction of how nonvoters would have chosen.
 
 **The computational trick:** A weighted average. Actual results weight precincts by ballots cast for Harrell and Wilson; the counterfactual weights them by registered voters. That isolates one *mathematical* consequence of the geographic distribution of participation, not its political cause.
 
