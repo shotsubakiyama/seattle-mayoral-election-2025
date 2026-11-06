@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1090 305" role="img" aria-label="Three steps explain how August primary voting predicts November using other precincts as training examples">
+<style>text{font-family:Arial,Helvetica,sans-serif;fill:#25384a}.title{font-size:25px;font-weight:700}.sub{font-size:14px;fill:#627487}.tag{font-size:13px;font-weight:700;fill:#65788b}.number{font-size:30px;font-weight:700}.desc{font-size:16px;font-weight:600}.note{font-size:13px;fill:#65788b}</style>
+<rect width="1090" height="305" fill="white"/>
+<text x="28" y="36" class="title">How can August help estimate November?</text>
+<text x="28" y="62" class="sub">Retrospective experiment: learn from other precincts, then estimate November in precincts held out from training.</text>
+<rect x="28" y="90" width="306" height="159" rx="8" fill="#f3f7fa" stroke="#d3dfe8"/>
+<text x="44" y="117" class="tag">1 / PRIMARY RESULTS</text>
+<text x="44" y="163" class="number">55%</text>
+<text x="44" y="194" class="desc">Harrell share in August</text>
+<text x="44" y="222" class="note">Hypothetical precinct; finalists only</text>
+<rect x="392" y="90" width="306" height="159" rx="8" fill="#f3f7fa" stroke="#d3dfe8"/>
+<text x="408" y="117" class="tag">2 / LEARNING PATTERNS</text>
+<text x="408" y="163" class="number">Python</text>
+<text x="408" y="194" class="desc">Compare other precincts</text>
+<text x="408" y="222" class="note">Learn August-to-November relationships</text>
+<rect x="756" y="90" width="306" height="159" rx="8" fill="#f3f7fa" stroke="#d3dfe8"/>
+<text x="772" y="117" class="tag">3 / HELD-OUT TEST</text>
+<text x="772" y="163" class="number">?</text>
+<text x="772" y="194" class="desc">Estimate November share</text>
+<text x="772" y="222" class="note">Reveal the actual result to score error</text>
+<path d="M345 165h36 m-12 -10 l12 10 -12 10" stroke="#899cae" stroke-width="2.5" fill="none"/>
+<path d="M709 165h36 m-12 -10 l12 10 -12 10" stroke="#899cae" stroke-width="2.5" fill="none"/>
+<text x="28" y="283" class="note">55% is illustrative. This model was analyzed AFTER the election; it is not an Election Day forecast.</text>
+</svg>

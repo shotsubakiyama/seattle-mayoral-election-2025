@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1120 671" role="img" aria-label="Detailed comparison of Highland Park and Junction Genesee Hill political twins">
+<style>text{font-family:Arial,Helvetica,sans-serif;fill:#23394d}.title{font-size:25px;font-weight:700}.sub{font-size:14px;fill:#687b8d}.head{font-size:15px;font-weight:700}.normal{font-size:16px}.num{font-size:17px;font-weight:700}.bigblue{font-size:35px;font-weight:700;fill:#2b739d}.bigorange{font-size:35px;font-weight:700;fill:#ba6a36}.note{font-size:13px;fill:#65778a}</style>
+<rect width="1120" height="671" fill="white"/>
+<text x="28" y="38" class="title">Meet two West Seattle political twins</text>
+<text x="28" y="65" class="sub">We matched them using only information available before November 2025.</text>
+<rect x="22" y="89" width="1075" height="465" rx="8" fill="#f5f8fa"/>
+<text x="32" y="120" class="head">WHAT LOOKED SIMILAR</text>
+<text x="554" y="120" class="head">1246 · Highland Park</text>
+<text x="835" y="120" class="head">1464 · Junction–Genesee Hill</text>
+<line x1="31" y1="179" x2="1087" y2="179" stroke="#dee8ef"/>
+<text x="33" y="160" class="normal">2021 Harrell share</text>
+<text x="554" y="160" class="num">61.1%</text>
+<text x="835" y="160" class="num">61.9%</text>
+<line x1="31" y1="236" x2="1087" y2="236" stroke="#dee8ef"/>
+<text x="33" y="217" class="normal">August 2025 Harrell share</text>
+<text x="554" y="217" class="num">49.7%</text>
+<text x="835" y="217" class="num">54.4%</text>
+<line x1="31" y1="293" x2="1087" y2="293" stroke="#dee8ef"/>
+<text x="33" y="274" class="normal">August votes for other candidates</text>
+<text x="554" y="274" class="num">7.2%</text>
+<text x="835" y="274" class="num">10.1%</text>
+<line x1="31" y1="350" x2="1087" y2="350" stroke="#dee8ef"/>
+<text x="33" y="331" class="normal">Voting-age population (2020)</text>
+<text x="554" y="331" class="num">81.1%</text>
+<text x="835" y="331" class="num">80.6%</text>
+<line x1="31" y1="407" x2="1087" y2="407" stroke="#dee8ef"/>
+<text x="33" y="388" class="normal">Occupied homes (2020)</text>
+<text x="554" y="388" class="num">96.8%</text>
+<text x="835" y="388" class="num">96.2%</text>
+<line x1="31" y1="464" x2="1087" y2="464" stroke="#dee8ef"/>
+<text x="33" y="445" class="normal">Population density (2020)</text>
+<text x="554" y="445" class="num">8,126 people/mi²</text>
+<text x="835" y="445" class="num">8,288 people/mi²</text>
+<text x="33" y="531" class="note">2020 Census figures describe residents and dwellings, not who voted.</text>
+<text x="33" y="586" class="head">THEN WE LOOKED AT NOVEMBER</text>
+<text x="554" y="590" class="bigblue">46.6%</text>
+<text x="835" y="590" class="bigorange">63.9%</text>
+<text x="33" y="625" class="head">Harrell's vote share differed by 17.4 percentage points.</text>
+<text x="33" y="650" class="note">2025 turnout: 62.4% in Highland Park; 76.6% in Junction–Genesee Hill. A clue, not proof of why.</text>
+</svg>
