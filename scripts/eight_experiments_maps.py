@@ -15,6 +15,7 @@ import numpy as np
 import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
+plt.rcParams["svg.fonttype"] = "none"
 from matplotlib.collections import LineCollection, PatchCollection
 from matplotlib.patches import Polygon as PlotPolygon
 import networkx as nx
@@ -154,7 +155,7 @@ def render_community_map(ids,shapes,scenario,community_summary,destination):
         for i,pid in enumerate(ids):
             key=classes1[cra.get(pid,"Unassigned")] if kind=="cra" else scenario[i]
             color=(colors1 if kind=="cra" else colors2)[key % len(colors1)]
-            for polygon in polygon_parts(shapes[pid]):
+            for polygon in polygon_parts(shapes[pid].simplify(45,preserve_topology=True)):
                 patches.append(PlotPolygon(np.asarray(polygon.exterior.coords)))
                 colors.append(color)
         collection=PatchCollection(patches,facecolor=colors,edgecolor="white",linewidth=.07)
@@ -189,7 +190,7 @@ def render_stability(ids,shapes,edges,category,summary,destination):
     fig,ax=plt.subplots(figsize=(10.2,10.6))
     patches=[]
     for pid in ids:
-        for p in polygon_parts(shapes[pid]):
+        for p in polygon_parts(shapes[pid].simplify(45,preserve_topology=True)):
             patches.append(PlotPolygon(np.asarray(p.exterior.coords)))
     base=PatchCollection(patches,facecolor="#f5f7f9",edgecolor="#d9e1e6",
                          linewidth=.14,zorder=1)
@@ -201,6 +202,8 @@ def render_stability(ids,shapes,edges,category,summary,destination):
     line_segments={key:[] for key in colors}
     for (i,j,_),label in zip(edges,category):
         shared=shapes[ids[i]].boundary.intersection(shapes[ids[j]].boundary)
+        # A citywide display needs fewer vertices than the analytical border test.
+        shared=shared.simplify(45,preserve_topology=True)
         line_segments[label].extend(segment_lines(shared))
     for key,parts in line_segments.items():
         if parts:

@@ -5,6 +5,12 @@ on:
     branches: [feat/seattle-through-the-numbers]
     paths:
       - .github/workflows/build-all-eight-experiments.yml
+      - scripts/eight_experiments_maps.py
+      - scripts/eight_experiments_stats.py
+      - scripts/eight_experiments_money.py
+      - scripts/render_eight_experiments_report.py
+      - requirements-eight-experiments.txt
+      - tests/test_eight_experiments_remaining.py
   workflow_dispatch:
 
 permissions:
