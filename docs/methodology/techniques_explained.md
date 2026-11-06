@@ -1,6 +1,10 @@
 # Methods behind the maps
 *A plain-English guide and reproducibility notes for [Beyond the Election Map](../../reports/00_beyond_the_election_map.md).*
 
+**Reading tip:** First read the [visual article](../../reports/00_beyond_the_election_map.md). Each method below has a simple purpose: estimate an outcome, locate mistakes, find comparable neighborhoods, or test geography. The technical details are here for readers who want to reproduce the findings.
+
+**This was a retrospective evaluation, not a forecast made before the election.** The prediction model was trained on November results from other precincts while excluding the test precincts' November outcomes. Holding out geographically grouped precincts helps measure generalization but does not turn the exercise into a real pre-election prediction.
+
 **Why these techniques?** Standard election maps answer *who won where*. These methods ask different questions: *What would we expect? Which places are comparable? Where do boundaries matter? Could a pattern be random?*
 
 ## A / Predicting without fooling ourselves
@@ -74,9 +78,23 @@
 
 **Code:** [spatial_residual_clusters.py](../../scripts/spatial_residual_clusters.py).
 
-## E / Geographic matching, inputs and reproducibility
+## E / Feature ablation: remove one ingredient at a time
 
-**Boundary changes are a data-quality problem, not the story.** King County's 2021 and 2025 precinct shapes do not line up everywhere. For valid direct historical comparison, the project uses the **850 stable-boundary matched precincts** rather than pretending a shared precinct ID guarantees unchanged geography. A separate overlay diagnostic found that **1,014 of 1,019** 2025 precincts have at least 99% of their area covered by 2021 polygon geography; that does **not** mean all their votes can be reassigned exactly.
+**Plain English.** Imagine a cooking recipe with three extra ingredients. If you leave one out and the result gets worse, that ingredient was contributing. We used the same idea to ask whether a Census variable helped the election model predict outcomes beyond what the other variables already explained.
+
+**What we implemented:** After fitting the August-plus-Census regression using geographically held-out folds, refit it **three times**, each time omitting one of population density, the voting-age fraction, or the share of housing units occupied. Compare the change in vote-weighted prediction error (percentage points). A positive value means removing the input **worsened** predictions. A negative value means removing it **improved** predictions.
+
+![Drop-one-feature predictive importance](../../reports/figures/census_feature_ablation.svg)
+
+**Where else used:** This is a version of **drop-column feature importance**, a model-validation technique common in practical machine learning. It helps prioritize which measurements might be useful, but correlated variables can substitute for one another. It measures **predictive contribution, not a causal effect**.
+
+**Code:** [build_story_visuals.py](../../scripts/build_story_visuals.py), with the same [cross-validation](../../scripts/model_precinct_surprises.py) used for the original models.
+
+## F / Geographic matching, inputs and reproducibility
+
+**Boundary changes are a data-quality problem, not the story.** A **crosswalk** is simply a geographic **lookup/mapping table** that translates between Census areas and precinct areas. See the [plain-English data guide](../../data/README.md).
+
+ King County's 2021 and 2025 precinct shapes do not line up everywhere. For valid direct historical comparison, the project uses the **850 stable-boundary matched precincts** rather than pretending a shared precinct ID guarantees unchanged geography. A separate overlay diagnostic found that **1,014 of 1,019** 2025 precincts have at least 99% of their area covered by 2021 polygon geography; that does **not** mean all their votes can be reassigned exactly.
 
 **Primary inputs**
 - [King County November 2025 general precinct results](https://data.kingcounty.gov/d/rkie-6y8x).
