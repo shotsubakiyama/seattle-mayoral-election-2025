@@ -16,15 +16,15 @@
 <text x="554" y="217" class="num">49.7%</text>
 <text x="835" y="217" class="num">54.4%</text>
 <line x1="31" y1="293" x2="1087" y2="293" stroke="#dee8ef"/>
-<text x="33" y="274" class="normal">August votes for other candidates</text>
+<text x="33" y="274" class="normal">Share of August votes for others</text>
 <text x="554" y="274" class="num">7.2%</text>
 <text x="835" y="274" class="num">10.1%</text>
 <line x1="31" y1="350" x2="1087" y2="350" stroke="#dee8ef"/>
-<text x="33" y="331" class="normal">Voting-age population (2020)</text>
+<text x="33" y="331" class="normal">Residents of voting age (2020)</text>
 <text x="554" y="331" class="num">81.1%</text>
 <text x="835" y="331" class="num">80.6%</text>
 <line x1="31" y1="407" x2="1087" y2="407" stroke="#dee8ef"/>
-<text x="33" y="388" class="normal">Occupied homes (2020)</text>
+<text x="33" y="388" class="normal">Share of homes occupied (2020)</text>
 <text x="554" y="388" class="num">96.8%</text>
 <text x="835" y="388" class="num">96.2%</text>
 <line x1="31" y1="464" x2="1087" y2="464" stroke="#dee8ef"/>
