@@ -18,9 +18,21 @@
 - **Model:** scikit-learn [Ridge regression](https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.Ridge.html), standardized using training-fold means and standard deviations. The model penalizes very large coefficients, which can reduce unstable fits from correlated variables. Weights depend on the precinct's November two-candidate votes.
 - **Error:** \(\mathrm{MAE}_{w}=\frac{\sum_i v_i\,|\hat{s}_i-s_i|}{\sum_i v_i}\), where \(v_i\) is November two-candidate votes and \(s_i\) is Harrell's vote share. Displayed in percentage points.
 
-**Interpretation:** Prediction accuracy does not identify causes; a basic election-history predictor can be strong because neighborhoods have relatively persistent voting patterns. The 2020 Census describes **residents**, not the actual 2025 electorate.
+**Interpretation:** Prediction accuracy does not identify causes; a basic election-history predictor can be strong because neighborhoods have relatively persistent voting patterns. The 2020 Census describes **residents**, not the actual 2025 electorate. The [plain-English data dictionary](../../data/README.md) explains each input file and the geographic translation tables (often called crosswalks).
 
 **Code:** [model_precinct_surprises.py](../../scripts/model_precinct_surprises.py) and [build_model_scorecard.py](../../scripts/build_model_scorecard.py).
+
+### One extra trick: a feature-removal experiment
+
+A small machine-learning **feature ablation** asks: “Would the prediction be worse if we didn't have this variable?” We repeat the same five-fold geographic test four times: once with all three Census features and then once each without **population density**, **voting-age fraction**, and **occupied-housing fraction**. The difference in held-out mean absolute error is displayed in the new article's chart.
+
+- **Positive change in error when removed:** the removed feature helped this model's predictions.
+- **Negative change:** predictions improved without it.
+- **Near zero:** this feature didn't add much on its own, *given the other variables*.
+
+This is an accessible analogue of **ablation studies** in machine learning, where researchers remove parts of a system to test whether they are useful. Correlated inputs can substitute for one another; a helpful predictor is not necessarily a cause of anyone's voting decision. The full model's features and validation folds stay the same across comparisons.
+
+**Code:** [build_story_visuals.py](../../scripts/build_story_visuals.py).
 
 ## B / Precinct twins: compare like with like (but only partly)
 
