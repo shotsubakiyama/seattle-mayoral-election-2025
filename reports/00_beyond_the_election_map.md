@@ -1,57 +1,95 @@
-# Seattle 2025: A familiar map, unfamiliar neighbors
-*What statistical learning and spatial analysis reveal beyond the precinct winner map*
+# Seattle's 2025 election: three ways to see what a map misses
 
-**SEATTLE ELECTION RESEARCH · NOVEMBER 2026 · RESEARCH DRAFT**
+*An illustrated investigation using machine learning, geographic networks, and the surprisingly revealing idea of political twins.*
 
-**The setup.** Katie Wilson defeated Bruce Harrell by **2,011 votes** (138,931 to 136,920). We know where each candidate won. The more useful questions are whether November was predictable, which apparently similar places diverged, and whether those surprises cluster.
+**Seattle election research · November 2026 · Revised draft for review**
 
-| **1,006** precincts modeled | **3.01 pp** average prediction error | **17.4 pp** West Seattle twin gap | **0** locally significant clusters after correction |
-|:---:|:---:|:---:|:---:|
+Katie Wilson defeated Bruce Harrell by **2,011 votes**, 138,931 to 136,920. A normal precinct map can tell us where each candidate was strongest. But it cannot answer three more interesting questions: **How much of November could we have anticipated? Where did apparently similar places split? And how sharply can politics change across a single street?**
 
-## 1 / November was largely written in August
+To investigate, I combined official King County precinct results, Seattle voting-district boundaries, and selected 2020 Census measures. The techniques are common in machine learning and geographic data science; applying them together to this election creates a different view of the city.
 
-![Model accuracy comparison: three prediction methods](figures/model_comparison_scorecard.svg)
+## 1. Could August have told us what November would look like?
 
-**The finding:** An August-only model predicts the November two-candidate vote with **3.39 percentage points** of average error. Add three basic Census variables and error falls to **3.01 points**, an **11% improvement**. Using the raw August finalist vote share without any adjustment produces **5.32 points** of error.
+Imagine a precinct where Harrell won **55% of the August votes cast for Harrell or Wilson**. The simplest November estimate is 55%. But the primary also included other candidates, and the electorate and voting patterns changed by November. Can a computer learn a better estimate from the rest of Seattle?
 
-![Actual versus predicted Harrell two-candidate share, 2025](figures/precinct_surprises_scatter.svg)
+![How the three prediction approaches work](figures/prediction_methods_explained.svg)
 
-**The method — prediction with an honest exam.** We fit a **Ridge regression** (a statistical model that discourages overly extreme coefficients) to August voting and 2020 Census context. In **geographically grouped cross-validation**, entire groups of precincts are held out when testing predictions. The model never gets to learn from the November result of a precinct it is asked to predict.
+**The trick: train on some precincts, test on others.** Using Python's **scikit-learn**, I trained a statistical model to learn how August precinct voting related to November results. Then I tested it on *different geographic groups of precincts* whose November results were hidden from the model during training. I repeated this five times so every eligible precinct was tested.
 
-**What this means:** Seattle's general-election geography was highly predictable from prior voting. Census context added some signal, but it did not overturn the August baseline. Predictive accuracy is not an explanation of *why* anyone voted.
+This is **retrospective prediction**, not an Election Day forecast: the model learns from November results in *other* precincts. The question is how well that relationship generalizes to places the model has not seen.
 
-## 2 / The twins that parted ways
+![How much prediction error remained under three approaches](figures/model_comparison_scorecard.svg)
 
-![Historical precinct twins across the 2021 general, August 2025 primary, and November 2025 general elections](figures/twin_case_studies.svg)
+**How to read these bars:** Each number is the average distance between a precinct's estimated Harrell vote share and his actual November share, weighted by November votes. **A 3-point error means a prediction of 50% when the result is 53%, or 47%. Smaller bars are better.**
 
-**The finding:** Highland Park and Junction–Genesee Hill in West Seattle looked nearly identical in Harrell's **2021 vote share** (61.1% vs. 61.9%) and were only **4.8 points apart** among Harrell/Wilson primary votes in August. By November, Harrell received **46.6% vs. 63.9%**—a **17.4-point split**.
+- **5.32 percentage points:** Simply reuse each precinct's August Harrell share among the two finalists.
+- **3.39 points:** Let a fitted model learn from August voting patterns, including the share that went to other primary candidates.
+- **3.01 points:** Give that model three additional Census clues: population density, share of residents old enough to vote, and the fraction of housing units occupied. **Occupancy does not mean homeownership.**
 
-Other historical twins separated sharply too: West Seattle Junction–Genesee Hill vs. Queen Anne (**20.2 points**) and South Beacon Hill–New Holly vs. Ravenna–Bryant (**19.2 points**).
+The added Census clues improved the fitted August model's error by about **11%**, from 3.39 to 3.01 points. But the bigger story is that **August already contained a great deal of information about November's geography**. A strong prediction is not an explanation of why individual people voted as they did.
 
-**The method — nearest-neighbor matching.** Think of comparing two companies with similar starting financials before comparing their outcomes. We first find precincts similar on **2021 voting, August voting, and basic Census characteristics**; only *after* forming the pairs do we rank their November differences. Across **846** precincts with validated historical boundaries, **1,775 candidate pairs** passed these pre-November matching rules.
+*Tool worth knowing: **Ridge regression** is a form of regression that limits extreme model coefficients. **Geographic cross-validation** is the more important idea here: test on places the model did not train on, rather than grading it on its homework.*
 
-**The question, not the answer:** West Seattle's November turnout rates also differed—**62.4% vs. 76.6%**—but aggregate results cannot tell whether the gap came from turnout composition, changing candidate preferences, or unmeasured neighborhood differences. These are **selected extremes**, not evidence of causation.
+## 2. What if two places looked alike—until November?
 
-## 3 / A political divide across a shared border
+A citywide prediction score can hide its most interesting exceptions. Instead of drawing a cloud of 1,006 dots, let's ask a more human question: **Can we find two Seattle precincts that looked similar *before* the general election but ended up voting very differently?**
 
-![Close-up of the 2025 precinct vote share contrast in Queen Anne](figures/fault_line_1709_1724_v2.svg)
+That is a **nearest-neighbor search**, an algorithm also used in recommendation systems and similarity search. Here, each precinct is represented by a small collection of numbers. Python compares those profiles and looks for close matches.
 
-**The finding:** Two adjoining Queen Anne precincts, **1709 and 1724**, gave Harrell **23.8% and 81.4%** of the finalist vote. They share roughly **1,283 feet of border**. This is visually powerful, although a Seattle resident may recognize familiar differences between parts of the hill.
+To make the comparison meaningful, I required similar **2021 Harrell vote shares**, similar **August 2025 voting**, and similar broad Census characteristics. The 2021-to-2025 geographic boundaries also had to be sufficiently stable. **November's outcome was deliberately left out of the matching step.** Only afterward did I rank pairs by how far apart they finished.
 
-**The method — spatial networks.** Each precinct is a *node*; two nodes are connected if their shapes share at least **100 feet** of boundary. We compared **2,582 qualifying adjacent pairs**, then ranked their vote-share gaps. This goes beyond simply coloring an election map: it measures exactly *where* neighboring outcomes diverge.
+![Historical precinct twins: similar starting points, different November outcomes](figures/twin_case_studies.svg)
 
-**Reality check — do surprises cluster?** A separate **Moran-style spatial autocorrelation test** found weak citywide similarity in the prediction errors (**I = 0.100, permutation p = 0.0001**). But **none of the 1,006 local precinct tests survived multiple-testing correction**. We therefore do not label any neighborhood a statistically established surprise cluster.
+### A West Seattle puzzle
+
+Consider **Highland Park (precinct 1246)** and **West Seattle Junction–Genesee Hill (precinct 1464)**. They were not identical neighborhoods, but they passed our pre-November similarity rules.
+
+![The West Seattle historical twin comparison](figures/west_seattle_twin_explained.svg)
+
+In the **2021 mayoral election**, Harrell received **61.1%** and **61.9%** of the two-candidate vote in these precincts—a difference of less than one percentage point. In the **August 2025 primary**, their Harrell-versus-Wilson shares were only **4.8 points apart**.
+
+Then came November: **46.6% in Highland Park versus 63.9% in Junction–Genesee Hill**, a gap of **17.4 percentage points**. These were selected *because* their November results diverged, not because the algorithm predicted this split in advance.
+
+What might explain it? November turnout also differed: **62.4% versus 76.6%**. That is a clue, not proof. The data cannot tell us whether different residents voted, some residents changed their preferences, or other neighborhood characteristics mattered. The Census features used here do **not** include income, education, or owner-versus-renter status.
+
+This is why matching is useful: it does not magically establish causation. It **helps us ask a sharper question** than “Which neighborhoods voted differently?”
+
+Across **846** eligible precincts with validated 2021 histories, **1,775 potential pairs** passed the matching rules. Two more striking examples appear in the chart above: West Seattle versus Queen Anne (**20.2-point November gap**) and South Beacon Hill–New Holly versus Ravenna–Bryant (**19.2 points**).
+
+*Tool worth knowing: **scikit-learn's NearestNeighbors** compares numerical profiles. The result is only as good as the variables used to define “similar.” Here we also set maximum allowed differences on individual characteristics, rather than accepting every algorithmic match.*
+
+## 3. Can two precincts share a border but live in different political worlds?
+
+The twins were deliberately separated geographically. Now reverse the question: **What if two precincts are literally next door?**
+
+Using **Shapely**, a Python geometry library, I treated precincts as a network. Each precinct is a node; a connection exists when two precinct shapes share at least **100 feet of border**. I then compared Harrell's vote share across every qualifying connection.
+
+![Queen Anne precincts 1709 and 1724: an extreme shared-border difference](figures/fault_line_1709_1724_v2.svg)
+
+Of **2,582** eligible neighboring pairs, one striking contrast is in **Queen Anne**: precincts **1709 and 1724** share about **1,283 feet of boundary**, yet Harrell received **23.8%** of the two-candidate vote in one and **81.4%** in the other. That's a **57.6-percentage-point difference**.
+
+That does not necessarily mean the border is mysterious. A Seattle resident might recognize sharp changes in housing, land use, or population from one side of a neighborhood to another. The algorithm identifies *where to look*; the next job is to explain the contrast with grounded local evidence.
+
+*Tool worth knowing: **Shapely** computes whether two geographic shapes actually share a line, rather than merely looking close on a map. The same building block is useful in real estate, transportation, zoning, and environmental analysis.*
+
+### One last reality check: are the unexpected results themselves clustered?
+
+A **Moran-style spatial test** asks whether neighboring precincts tend to make similar prediction errors. The citywide association was positive but small (**Moran's I = 0.100**; permutation p = 0.0001). Yet **none of the 1,006 individual precinct tests remained significant** after correcting for the many comparisons.
+
+That is a useful negative finding: **we should not draw confident “surprise hotspots” just because a few colored precincts appear near each other.** This calculation used NumPy/SciPy and a tested custom implementation, not a completed PySAL installation.
+
+## What these three techniques taught us
+
+**Prediction** showed that August already explained much of the geographic pattern. **Similarity matching** surfaced places that started alike but finished far apart. **Spatial networks** pinpointed extreme divides between literal neighbors.
+
+The most promising next investigation is the West Seattle twin: **would the comparison still look surprising after adding income, housing tenure, and education?** Those data are not part of this version. Rather than add a flashy algorithm without a question, I'd test that explanation next.
 
 ---
 
-### Bottom line
+### Behind the analysis
 
-**Three methods, three different jobs:** prediction establishes what was expected; matching finds unusually different outcomes among comparable places; spatial networks show precisely where adjoining precincts split.
+The code is public, reproducible, and intentionally exploratory. The **2020 Census-to-precinct allocation** estimates how Census areas contribute to each voting precinct; the underlying boundaries don't match perfectly. This is often called a *crosswalk* in data engineering, but it is **not** a list of actual 2025 voters. Likewise, 2021 precincts required boundary checks before historical comparison.
 
-The strongest lead is **the historical twins, especially within West Seattle**. The next worthwhile test is whether the contrast persists after adding **housing tenure and income**—variables we have *not yet measured*. More maps alone are unlikely to answer that question.
+**Read more:** [Plain-English and technical methods appendix](../docs/methodology/techniques_explained.md) · [What each processed dataset contains](../docs/data/processed_datasets_guide.md) · [Code and reproduction instructions](../README.md) · [Official King County November precinct results](https://data.kingcounty.gov/d/rkie-6y8x).
 
-<small>All percentages are Harrell shares of the votes for the two named finalists, unless specified. The 2021 race had a different opponent (Lorena González). Matching is descriptive, not an estimate of voter switching or campaign effects. Charts use King County official results, 2025 voting-district geometry and geographically allocated 2020 Census data.</small>
-
-**[How the methods work: plain-English guide + technical appendix](../docs/methodology/techniques_explained.md)** · [Data and boundary methodology](../docs/methodology/precinct_matching.md) · [Source code](../scripts/) · [King County 2025 results](https://data.kingcounty.gov/d/rkie-6y8x)
-
-*Editorial draft for review. Figures other than the new model scorecard are generated on the local checkout and require a final publication commit.*
+*Vote shares refer to Harrell's votes divided by votes for the two named finalists, not all ballots cast. The 2021 opponent was Lorena González, while 2025 comparisons use Katie Wilson. These are aggregate precinct comparisons, not evidence that individual voters switched candidates. The matching examples are selected extremes and should not be treated as a representative sample.*
