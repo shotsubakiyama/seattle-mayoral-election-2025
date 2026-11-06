@@ -1,0 +1,27 @@
+{
+  "prediction_intervals": {
+    "coverage": 90.46,
+    "avg_interval_width_pp": 12.75,
+    "weighted_mae_pp": 3.02,
+    "precincts": 1006,
+    "calibration_fold_sizes": [
+      201,
+      201,
+      201,
+      201,
+      202
+    ]
+  },
+  "twin_simulation": {
+    "observed_max_gap_pp": 20.17,
+    "candidate_pairs": 13804,
+    "eligible_precincts": 826,
+    "binomial_median_max_pp": 20.31,
+    "binomial_95pct_max_pp": 23.5,
+    "shuffled_errors_median_max_pp": 25.35,
+    "shuffled_errors_95pct_max_pp": 29.18,
+    "binomial_exceedance_percent": 53.7,
+    "shuffled_exceedance_percent": 100.0,
+    "draws": 1200
+  }
+}

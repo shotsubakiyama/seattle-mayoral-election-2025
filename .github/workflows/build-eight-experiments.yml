@@ -1,0 +1,60 @@
+name: Build Seattle Through the Numbers (experiments 1–2)
+
+on:
+  push:
+    branches: [feat/seattle-through-the-numbers]
+    paths:
+      - .github/workflows/build-eight-experiments.yml
+      - scripts/eight_experiments_opening.py
+      - tests/test_eight_experiments_opening.py
+      - reports/seattle_through_the_numbers.md
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  first-experiments:
+    name: Run official-data analyses and publish draft figures
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - name: Checkout research branch
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: pip
+          cache-dependency-path: requirements-analysis.txt
+      - name: Install analysis libraries
+        run: python -m pip install -r requirements-analysis.txt
+      - name: Download and analyze the certified 2025 precinct file
+        run: |
+          set -euo pipefail
+          python scripts/eight_experiments_opening.py
+      - name: Run complete offline test suite
+        run: python -m unittest discover -s tests
+      - name: Verify manuscript dependencies and figures
+        run: |
+          test -s reports/seattle_through_the_numbers.md
+          test -s reports/figures/experiment_01_citywide_coalitions.svg
+          test -s reports/figures/experiment_02_equal_participation.svg
+          test -s reports/experiments/01_coalitions.md
+          test -s reports/experiments/02_equal_participation.md
+          test -s data/processed/experiment_01_cross_contest_support.csv
+      - name: Save verified artifacts to the research branch
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add reports/figures/experiment_01_citywide_coalitions.svg \
+                  reports/figures/experiment_02_equal_participation.svg \
+                  reports/experiments/01_coalitions.md \
+                  reports/experiments/02_equal_participation.md \
+                  data/processed/experiment_01_cross_contest_support.csv
+          if ! git diff --cached --quiet; then
+            git commit -m "research: verify and publish experiments 01 and 02"
+            git push
+          fi

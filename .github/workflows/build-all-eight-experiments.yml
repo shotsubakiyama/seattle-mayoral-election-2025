@@ -1,0 +1,71 @@
+name: Build full eight-experiment research report
+
+on:
+  push:
+    branches: [feat/seattle-through-the-numbers]
+    paths:
+      - .github/workflows/build-all-eight-experiments.yml
+      - scripts/eight_experiments_maps.py
+      - scripts/eight_experiments_stats.py
+      - scripts/eight_experiments_money.py
+      - scripts/render_eight_experiments_report.py
+      - requirements-eight-experiments.txt
+      - tests/test_eight_experiments_remaining.py
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  full-research:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - name: Check out review branch
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: pip
+          cache-dependency-path: requirements-eight-experiments.txt
+      - name: Install analysis dependencies
+        run: python -m pip install -r requirements-eight-experiments.txt
+      - name: Build official-data analyses and all eight graphics
+        run: |
+          set -euo pipefail
+          python scripts/diagnose_precinct_matching.py
+          python scripts/model_precinct_surprises.py
+          python scripts/eight_experiments_opening.py
+          python scripts/eight_experiments_stats.py
+          python scripts/eight_experiments_money.py
+          python scripts/eight_experiments_maps.py
+          python scripts/render_eight_experiments_report.py
+      - name: Run complete regression suite
+        run: python -m unittest discover -s tests
+      - name: Verify report and every embedded visual
+        run: |
+          test -s reports/seattle_through_the_numbers.md
+          for i in 01 02 03 04 05 06 07; do
+            count="$(find reports/figures -maxdepth 1 -name "experiment_$i*.svg" -size +500c | wc -l)"
+            test "$count" -ge 1
+          done
+          test -s reports/figures/experiment_08_boundary_stability.png
+          test -s data/processed/eight_experiments_03_04.json
+          test -s data/processed/eight_experiments_05_06.json
+          test -s data/processed/eight_experiments_07_08.json
+      - name: Commit verified figures, aggregates and complete research report
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git rm -f --ignore-unmatch reports/figures/experiment_08_boundary_stability.svg
+          git add reports/seattle_through_the_numbers.md reports/figures/experiment_*.svg \
+                  reports/figures/experiment_08_boundary_stability.png \
+                  data/processed/eight_experiments_*.json \
+                  data/processed/experiment_07_precinct_electoral_communities.csv
+          if ! git diff --cached --quiet; then
+            git commit -m "research: complete eight computational experiments and article"
+            git push
+          fi
