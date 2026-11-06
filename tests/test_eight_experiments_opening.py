@@ -104,3 +104,7 @@ class OpeningExperimentsTest(unittest.TestCase):
             self.assertTrue(path.is_file())
             self.assertIn("50.36%",(root/"reports/02_equal_participation.md").read_text())
             self.assertIn("not individual-level split-ticket", (root/"reports/01_coalitions.md").read_text().lower().replace("**",""))
+            self.assertIn("education levy", (root/"reports/01_coalitions.md").read_text().lower())
+            self.assertIn("business tax", (root/"reports/01_coalitions.md").read_text().lower())
+            self.assertIn("why", (root/"reports/02_equal_participation.md").read_text().lower())
+            self.assertIn("standardization", (root/"reports/02_equal_participation.md").read_text().lower())

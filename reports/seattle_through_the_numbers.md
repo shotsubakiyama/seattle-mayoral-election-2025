@@ -21,6 +21,8 @@ This is a **graphic-first research note**, not a list of coding exercises. Each 
 
 In the certified 2025 election, the city also voted for attorney, two citywide council seats and two propositions. We divide precincts according to **who won the mayoral race there**, then ask how those same groups of precincts voted in other citywide contests.
 
+**What was on the ballot?** Alongside the mayor, Seattle elected a city attorney (Evans versus Davison), Council Position 8 (Rinck versus Savage) and Position 9 (Foster versus Nelson). Proposition 1 renewed a levy supporting preschool, K–12 education and college/career programs; Proposition 2 changed the city's business tax, including the exemption threshold and tax rates. The linked table describes each contest in more detail.
+
 **The striking result:** In precincts that Harrell won, **57.0%** of the two named city-attorney votes went to **Erika Evans**, while **76.9%** of the two named Council Position 8 votes went to **Alexis Mercedes Rinck**. **Dionne Foster** also narrowly led in those same precincts (**51.9%**). And both city propositions won majority Yes votes. A precinct's mayoral preference does not define a single, uniform political coalition.
 
 **The computational trick:** Join official results across races using a shared precinct ID, then calculate the portion of two-candidate (or Yes/No) votes going to each selected candidate or option.
@@ -35,11 +37,13 @@ In the certified 2025 election, the city also voted for attorney, two citywide c
 
 ![Actual Wilson share compared with a mechanical equal-participation counterfactual](figures/experiment_02_equal_participation.svg)
 
-Wilson won **50.36%** of the votes cast for the two mayoral finalists. Under a mechanical scenario in which every precinct casts the same number of mayoral finalist votes **per registered voter**—while keeping each precinct's candidate split fixed—her share becomes **51.69%**. That's **1.33 percentage points higher**, not a forecast of the result we would have seen in a different turnout environment.
+Wilson won **50.36%** of the votes cast for the two mayoral finalists. Under a mechanical scenario in which every precinct casts the same number of mayoral finalist votes **per registered voter**—while keeping each precinct's candidate split fixed—her share becomes **51.69%**. That's **1.33 percentage points higher**. In the observed election, the neighborhoods giving Wilson stronger support tended to contribute fewer votes for the finalists per registered voter. That geographic participation pattern **narrowed her observed advantage**, compared with the equal-participation calculation.
+
+**Why examine this?** Election outcomes reflect both candidate preference and which areas supply more of the votes. Reweighting is a standard analytical trick used to compare populations on a common footing—for instance, standardizing health rates to a common age distribution. Here, each precinct's number of registered voters provides the common footing. This is **not** a forecast of the result we would have seen under different turnout: new participants might have voted differently.
 
 We hold each precinct's observed candidate preference fixed but reweight precincts according to their numbers of registered voters rather than their observed votes. It is a thought experiment: **not** a prediction of how nonvoters would have chosen.
 
-**The computational trick:** A weighted average. Actual results weight precincts by ballots cast for Harrell and Wilson; the counterfactual weights them by registered voters. That isolates one *mathematical* consequence of the geographic distribution of participation, not its political cause.
+**The computational trick:** A weighted average. Actual results weight precincts by votes cast for Harrell and Wilson; the counterfactual weights them by registered voters. Imagine two equally registered precincts: Wilson gets 60% with 600 finalist votes in one and 40% with 300 in the other. The observed pooled share is 53.3%, but equal participation makes it 50%. That's the entire idea, applied across Seattle's precincts. It isolates one *mathematical* consequence of participation patterns, not a cause of those patterns.
 
 [Detailed calculation and limitations](experiments/02_equal_participation.md)
 

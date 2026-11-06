@@ -28,6 +28,17 @@ FIG = ROOT / "reports/figures"
 OUTPUT = ROOT / "data/processed"
 SUPPORT = ROOT / "reports/experiments"
 
+# Short, nonpartisan guide to each of the six citywide ballot decisions.
+# See the official King County 2025 general-election voter pamphlet.
+CONTEST_DESCRIPTIONS = {
+    "Wilson": "Mayor — Wilson vs. incumbent Harrell; city executive",
+    "Evans": "City Attorney — Evans vs. incumbent Davison; city legal affairs",
+    "Rinck": "City Council Position 8 — Rinck vs. Savage; citywide council seat",
+    "Foster": "City Council Position 9 — Foster vs. incumbent Nelson; citywide council seat",
+    "Prop. 1 Yes": "Proposition 1 — renew education levy for preschool, K–12 and college/career support",
+    "Prop. 2 Yes": "Proposition 2 — change business tax: higher exemption and revised rates",
+}
+
 # Exact names and citywide certified two-option vote totals, King County 2025.
 CONTESTS = [
     ("City of Seattle Mayor", "Katie Wilson", "Bruce Harrell", 138931, 136920, "Wilson"),
@@ -143,7 +154,7 @@ def plot_coalitions(rows,destination):
             x["group"]=="Harrell-winning precincts") for name in labels]
     w=[next(x["share"] for x in rows if x["label"]==name and
             x["group"]=="Wilson-winning precincts") for name in labels]
-    fig,ax=plt.subplots(figsize=(10.8,6.1))
+    fig,ax=plt.subplots(figsize=(11.3,6.2))
     ax.barh(ys-.19,h,.35,label="Precincts won by Harrell",color="#c77945")
     ax.barh(ys+.19,w,.35,label="Precincts won by Wilson",color="#367d9e")
     ax.set_yticks(ys,labels,fontsize=11)
@@ -159,14 +170,18 @@ def plot_coalitions(rows,destination):
     for i,(a,b) in enumerate(zip(h,w)):
         ax.text(a+1,i-.19,f"{a:.1f}%",va="center",fontsize=9,color="#593b28")
         ax.text(b+1,i+.19,f"{b:.1f}%",va="center",fontsize=9,color="#225067")
-    ax.legend(loc="lower right",frameon=False,fontsize=10)
-    ax.set_title("Seattle cast more than one kind of ballot",loc="left",
-                 weight="bold",fontsize=17,pad=18)
+    # Reserve a dedicated legend band above the axes, away from proposition bars.
+    handles, legend_labels = ax.get_legend_handles_labels()
+    fig.legend(handles, legend_labels, loc="upper left",
+               bbox_to_anchor=(.225,.905), ncol=2, frameon=False,
+               fontsize=10, columnspacing=2.4, handlelength=2.2)
+    fig.suptitle("Harrell-winning precincts still backed other citywide winners",
+                 x=.225, y=.982, ha="left", weight="bold", fontsize=16)
     fig.text(.02,.015,
         "Precincts are grouped by who won the 2025 mayor race. Percentages pool votes across each group.\n"
         "Same-precinct support is NOT evidence that individual people split their tickets.",
         fontsize=9,color="#536775")
-    fig.subplots_adjust(left=.23,right=.95,top=.82,bottom=.2)
+    fig.subplots_adjust(left=.23,right=.95,top=.78,bottom=.20)
     destination.parent.mkdir(parents=True,exist_ok=True)
     fig.savefig(destination,format="svg",bbox_inches="tight")
     plt.close(fig)
@@ -184,8 +199,9 @@ def plot_counterfactual(x,destination):
     ax.set_xlim(40,61)
     ax.axvline(50,color="#243b4c",ls="--",lw=1)
     ax.set_xlabel("Katie Wilson's share of mayoral finalist votes")
-    ax.set_title("A thought experiment: what if every precinct participated equally?",
-                 loc="left",weight="bold",fontsize=16,pad=20)
+    ax.set_title("Equal precinct participation: Wilson +{:.2f} percentage points".format(
+                 x["equal_wilson"]-x["actual_wilson"]),
+                 loc="left",weight="bold",fontsize=15,pad=20)
     ax.spines[["top","right","left"]].set_visible(False)
     ax.grid(axis="x",alpha=.18)
     ax.set_axisbelow(True)
@@ -213,32 +229,68 @@ def write_outputs(rows,x):
         "The chart groups precincts according to their **2025 mayoral winner**, then displays the "
         "**pooled candidate/Yes vote share** in each group for six citywide contests. "
         "This tests whether the mayoral vote resembles support in other races.","",
+        "**What were these contests?** Seattle voters elected a mayor, a city attorney and "
+        "two citywide council members, while voting on an education property-tax levy "
+        "(Proposition 1) and a business-and-occupation tax change (Proposition 2). "
+        "Each table row shows **support for the named candidate or Yes**. "
+        "The other candidate's support is the remainder of the two-candidate vote.","",
+        "**The key observation:** Even in precincts won by Harrell, Evans, Rinck and Foster "
+        "each received a majority of the votes for their respective two-candidate contests. "
+        "Both propositions also received majority support.","",
         "The 50% reference line means an outright majority between the named candidates "
         "(or among Yes/No votes). This is **not individual-level split-ticket voting**: we have "
         "aggregate precinct votes, no linked ballots.","",
-        "| Contest choice | Harrell-winning precincts | Wilson-winning precincts |",
+        "| Contest and what was decided (candidate/Yes shown) | Harrell-winning precincts | Wilson-winning precincts |",
         "|---|---:|---:|"
     ]
     for _,a,b,_,_,name in CONTESTS:
         h=next(r for r in rows if r["label"]==name and r["group"]=="Harrell-winning precincts")
         w=next(r for r in rows if r["label"]==name and r["group"]=="Wilson-winning precincts")
-        coalition.append(f"| {a} ({name}) | {h['share']:.1f}% | {w['share']:.1f}% |")
+        coalition.append(f"| {CONTEST_DESCRIPTIONS[name]} (**{a}**) | {h['share']:.1f}% | {w['share']:.1f}% |")
     coalition += ["","**Method:** group Seattle precincts by mayoral winner; pool ballots separately for each "
                 "other citywide contest. Official results from King County, November 2025.",
-                "Differential undervoting means denominators differ across races.",""]
+                "Differential undervoting means denominators differ across races.","",
+                "**Ballot descriptions:** [King County — Proposition 1: Families, Education, Preschool, and Promise Levy]"
+                "(https://info.kingcounty.gov/kcelections/Vote/contests/ballotmeasures.aspx?cid=101780) "
+                "and [Proposition 2: Changes to the Business and Occupation Tax]"
+                "(https://info.kingcounty.gov/kcelections/Vote/contests/ballotmeasures.aspx?cid=101794&groupname=City&lang=en-US).",""]
     (SUPPORT/"01_coalitions.md").write_text("\n".join(coalition),encoding="utf-8")
     compare=[
-        "# Experiment 02 — A city with equal participation","",
+        "# Experiment 02 — The participation gap and Wilson's narrower observed lead","",
+        "**The point:** Seattle's geography of mayoral participation mechanically "
+        "reduced Wilson's winning vote share compared with a hypothetical city in "
+        "which precincts contributed the same number of finalist votes per registered voter. "
+        "In other words, precincts that were relatively stronger for Wilson tended to "
+        "contribute fewer mayoral finalist votes per registered voter. This is a "
+        "relationship between aggregates, not proof of why turnout differed.","",
         "![Observed mayoral result versus a mechanical equal-participation counterfactual](../figures/experiment_02_equal_participation.svg)","",
         f"**Actual:** Wilson received **{x['actual_wilson']:.2f}%** of the two-finalist votes. "
         f"**Equal participation:** she would receive **{x['equal_wilson']:.2f}%** if every "
         "precinct contributed the same number of mayoral finalist votes **per registered voter**, "
-        "holding each precinct's observed candidate split unchanged.","",
+        "holding each precinct's observed candidate split unchanged. "
+        f"That is a **{x['equal_wilson']-x['actual_wilson']:.2f}-percentage-point increase** "
+        "in Wilson's share, which would widen her share advantage over Harrell. "
+        "It suggests that where voters participated mattered to the closeness of the result, "
+        "under these fixed-preference assumptions.","",
         "This is a **reweighting of precinct vote shares**, not a forecast of what nonvoters "
         "would have chosen, and does not separate persuasion from turnout. "
         "Only valid registered-voter denominators are used, with certified mayor totals "
         "reconciled before comparison.","",
         f"Examined **{x['precincts']:,} precincts**, totaling **{x['registered']:,} registered voters**.","",
+        "**When is this used?** Analysts use reweighting and standardization to compare "
+        "populations on a common basis—for example, to study how age composition affects "
+        "the comparison of health rates between cities. Here the common basis is "
+        "registered voters per precinct, not the observed number of mayoral votes.","",
+        "**How it works (a simple example):** Suppose two precincts each have 1,000 "
+        "registered voters; the first votes 60% Wilson with 600 votes cast for the "
+        "finalists, and the second votes 40% Wilson with 300 finalist votes. "
+        "The observed pooled Wilson share is 53.3%; equally weighting the two precincts "
+        "by their registered-voter totals gives 50%. This is illustrative, not Seattle data.","",
+        "**Limitation:** The counterfactual keeps the same observed support in every "
+        "precinct, even though different turnout could bring out a different electorate. "
+        "Registered voters are not identical to all eligible residents, and turnout "
+        "in this calculation is *votes for the two finalists per registered voter*, "
+        "not necessarily ballot-return turnout.","",
         "The reweighting is equivalent to taking the registered-voter-weighted average "
         "of Wilson's share in each precinct, rather than the observed-vote-weighted average.",""]
     (SUPPORT/"02_equal_participation.md").write_text("\n".join(compare),encoding="utf-8")
