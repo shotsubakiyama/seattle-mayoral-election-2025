@@ -203,9 +203,9 @@ def twin_profile_svg(pair):
     fields=[
         ("2021 Harrell share","year2021",False),
         ("August 2025 Harrell share","august",False),
-        ("August votes for other candidates","other",False),
-        ("Voting-age population (2020)","voting_age",False),
-        ("Occupied homes (2020)","occupied",False),
+        ("Share of August votes for others","other",False),
+        ("Residents of voting age (2020)","voting_age",False),
+        ("Share of homes occupied (2020)","occupied",False),
         ("Population density (2020)","density",True),
     ]
     for i,(label,key,density) in enumerate(fields):

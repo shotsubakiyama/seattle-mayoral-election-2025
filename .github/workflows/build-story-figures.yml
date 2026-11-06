@@ -59,3 +59,5 @@ jobs:
             git commit -m "docs: include verified reader-friendly story figures"
             git push
           fi
+
+# Regenerate figures for final editorial label corrections.
