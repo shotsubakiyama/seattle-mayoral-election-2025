@@ -1,24 +1,25 @@
 # Beyond the Election Map
-### Exploring the political geography of Seattle's 2025 mayoral election
+### Seattle's 2025 mayoral election through statistical learning and political geography
 
-This is a Python-based, nonpartisan research project combining King County election data, Census crosswalks, geographic analysis, predictive modeling, and original data visualization.
+*A nonpartisan, graph-first research project.*
 
-**Start here:** [Beyond the Election Map — research article (draft)](reports/00_beyond_the_election_map.md)
+**[Read the visual research brief](reports/00_beyond_the_election_map.md)** · **[Learn the methods](docs/methodology/techniques_explained.md)** · [Data and boundary validation](docs/methodology/precinct_matching.md)
 
-The central question: **What can we learn beyond simply mapping which candidate won?** The project investigates historical precinct twins, unusual local voting contrasts, and what August 2025 already predicted about November.
+![Three predictive baselines from the research note](reports/figures/model_comparison_scorecard.svg)
 
-## Main outputs
+**Research question:** What can we learn about Seattle's election beyond mapping where Harrell and Wilson won? This project explores three complementary methods:
 
-- **Precinct Twins:** compare similar pre-election precinct profiles that diverged in November.
-- **Political Fault Lines:** measure differences across precincts sharing a physical boundary.
-- **Electoral surprises:** cross-validated models of November shares using August results and basic 2020 Census characteristics.
-- **Spatial checks:** test whether prediction errors cluster geographically without overstating local significance.
+| Technique | Question | Main tools |
+|---|---|---|
+| Prediction and geographic cross-validation | How much was November already visible in August? | scikit-learn, Ridge, GroupKFold |
+| Historical precinct twins | Which places looked similar before November but diverged? | NearestNeighbors, matched precinct/Census features |
+| Political fault lines and spatial statistics | Where do adjoining precincts disagree, and are prediction errors spatially associated? | Shapely, NumPy, SciPy, Moran-style permutations |
 
-These are exploratory, descriptive comparisons, **not causal explanations or individual-voter analyses**. Detailed boundary matching and other data-quality work live in [methodology notes](docs/methodology/precinct_matching.md).
+**Status:** editorial draft; analytical results have been run on Windows ARM64 and 32 tests passed at the last user verification. Claims are exploratory, not causal. Some figures exist only on the local checkout until the final publication commit.
 
-## Reproduce on Windows / VS Code
+## Reproduce with VS Code (Windows / Python 3.12+)
 
-Use Python 3.12+ in a terminal opened at the project root.
+Run from the repository root:
 
 ~~~powershell
 python -m pip install -r requirements-spatial-stats.txt
@@ -27,6 +28,7 @@ python scripts/spatial_precinct_overlap.py
 python scripts/political_fault_lines.py
 python scripts/render_fault_line_cases.py
 python scripts/model_precinct_surprises.py
+python scripts/build_model_scorecard.py
 python scripts/spatial_residual_clusters.py
 python scripts/precinct_twins.py
 python scripts/precinct_twins_history.py
@@ -34,19 +36,12 @@ python scripts/twin_case_studies.py
 python -m unittest discover -s tests
 ~~~
 
-The scripts download certified precinct results and archived King County GIS geometry; large source files are cached under the Git-ignored `data/raw/` directory. Many report figures and CSVs are regenerated locally rather than maintained by hand.
+Official election CSVs and geographic data are cached under the Git-ignored `data/raw/` directory. The 2020 Census crosswalk is in `data/processed/`. Reports and visualizations are generated under `reports/`.
 
-**Publishing note:** Generated files under `reports/` are not automatically pushed to GitHub. After reviewing them, commit the selected figures and Markdown reports along with the code so that the online research article displays its images.
+**For publication:** Ensure these locally generated SVGs are committed to the branch alongside the research article: `precinct_surprises_scatter.svg`, `twin_case_studies.svg`, and `fault_line_1709_1724_v2.svg`. The model-comparison SVG is already checked in. Other experimental charts may remain untracked.
 
-## Research boundaries
+## Interpretation boundaries
 
-- Stable 2021–2025 precincts can be compared directly; changed boundaries require spatial harmonization and explicit uncertainty.
-- August 2025 primary and November 2025 general are different electorates; 2021 had a different opponent.
-- Available Census quantities include density, voting-age fraction, and housing occupancy. **They do not establish homeownership or income.**
-- The most visually extreme differences are examples selected after observing results, not independent tests of political causes.
+The 2021 and 2025 elections had different opponents and electorates. Census demographics describe residents, not voters. This version does **not** measure homeownership or income. The most divergent matched pairs are case studies selected after seeing November results; they do not establish why voting differed.
 
-## Repository organization
-
-`scripts/` contains analyses, `tests/` contains reproducibility checks, `data/processed/` holds derived geographic tables, `docs/methodology/` documents matching, and `reports/` holds the editorial draft and figures.
-
-**Project status:** research draft under review, not a finished peer-reviewed study.
+See the [technical appendix](docs/methodology/techniques_explained.md) for calculations, parameters, uses of these methods in other fields, and source links.
