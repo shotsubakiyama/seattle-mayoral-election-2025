@@ -219,8 +219,7 @@ def render_figures(rows, predictions, shapes):
             patches.append(PlotPolygon(np.asarray(poly.exterior.coords), closed=True))
             vals.append(by_id.get(pid, np.nan))
     fig, ax = plt.subplots(figsize=(9, 10))
-    cmap = plt.get_cmap("RdBu_r").copy()  # red: Harrell above expected; blue: Wilson above expected
-    cmap.set_bad("#e7ecf0")
+    cmap = plt.get_cmap("RdBu_r").with_extremes(bad="#e7ecf0")  # red: Harrell above expected
     collection = PatchCollection(patches, cmap=cmap, norm=TwoSlopeNorm(vmin=-20, vcenter=0, vmax=20),
                                  linewidth=.08, edgecolor="white")
     collection.set_array(np.ma.masked_invalid(np.array(vals)))

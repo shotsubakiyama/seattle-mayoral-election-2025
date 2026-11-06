@@ -1,8 +1,10 @@
-"""Spatial diagnostic for cross-validated 2025 mayoral election residuals.
+"""Dependency-light spatial diagnostic for 2025 mayoral prediction errors.
 
 Prerequisites: model_precinct_surprises.py has generated the local precinct CSV.
 Run: python scripts/spatial_residual_clusters.py
 
+Uses NumPy/SciPy/Shapely rather than PySAL/GeoPandas/GDAL for Windows ARM64.
+Global and local Moran-style permutation tests, not byte-identical PySAL output.
 Exploratory analysis; spatial clusters do not establish causal explanations.
 """
 import csv
@@ -15,8 +17,7 @@ import matplotlib.pyplot as plt
 from matplotlib.collections import PatchCollection
 from matplotlib.patches import Polygon as PlotPolygon, Patch
 import numpy as np
-from esda.moran import Moran, Moran_Local
-from libpysal.weights import W
+from scipy.sparse import csr_matrix
 from shapely import STRtree
 
 from spatial_precinct_overlap import ROOT, fetch_shapes
@@ -83,6 +84,85 @@ def neighbors(ids, shapes, min_border=100):
     return links
 
 
+def draw_without_replacement(rng, population_size, group_size, samples):
+    """Independent uniform ordered samples without replacement.
+
+    Reject rows containing repeated indices. This keeps local conditional
+    permutations exact while avoiding millions of Python-level sample calls.
+    """
+    if not 0 < group_size <= population_size or samples < 1:
+        raise ValueError("Impossible neighbor sampling request")
+    draws = rng.integers(population_size, size=(samples, group_size), dtype=np.int32)
+    if group_size > 1:
+        while True:
+            duplicates = np.zeros(samples, dtype=bool)
+            for j in range(1, group_size):
+                duplicates |= np.any(draws[:, j, None] == draws[:, :j], axis=1)
+            if not duplicates.any():
+                break
+            draws[duplicates] = rng.integers(
+                population_size, size=(duplicates.sum(), group_size), dtype=np.int32)
+    return draws
+
+
+def permutation_moran(values, graph, ids, permutations=9999, seed=2026):
+    """Global Moran's I and local conditional Monte Carlo tests.
+
+    Row-standardized adjacency. Local permutations fix the focal precinct
+    and sample its neighbors without replacement among all other precincts.
+    Two-sided centered p-values are FDR-corrected across all local tests.
+    """
+    if permutations < 99:
+        raise ValueError("At least 99 permutations required")
+    n = len(ids)
+    if n < 30:
+        raise ValueError("Too few connected precincts")
+    z = np.asarray(values, dtype=float)
+    if z.shape != (n,) or not np.isfinite(z).all():
+        raise ValueError("Invalid residual vector")
+    z = z - z.mean()
+    sum_squares = float(z @ z)
+    if sum_squares <= 0:
+        raise ValueError("All residuals identical")
+    denom = sum_squares / (n - 1)
+    position = {pid: idx for idx, pid in enumerate(ids)}
+    lengths = np.array([len(graph[pid]) for pid in ids], dtype=int)
+    if not lengths.all() or lengths.max() >= n:
+        raise ValueError("Invalid adjacency graph")
+    rows = np.repeat(np.arange(n), lengths)
+    cols = np.array([position[j] for pid in ids for j in graph[pid]], dtype=int)
+    weights = np.repeat(1.0 / lengths, lengths)
+    matrix = csr_matrix((weights, (rows, cols)), shape=(n, n))
+    lag = np.asarray(matrix @ z)
+    global_i = float(z @ lag / sum_squares)
+    local_i = z * lag / denom
+
+    rng = np.random.default_rng(seed)
+    global_null = np.empty(permutations)
+    for j in range(permutations):
+        shuffled = rng.permutation(z)
+        global_null[j] = shuffled @ (matrix @ shuffled) / sum_squares
+    global_center = float(global_null.mean())
+    global_p = float((1 + np.count_nonzero(
+        np.abs(global_null - global_center) >= abs(global_i - global_center)
+    )) / (permutations + 1))
+
+    local_p = np.empty(n)
+    for i, group_size in enumerate(lengths):
+        drawn = draw_without_replacement(rng, n - 1, int(group_size), permutations)
+        drawn += drawn >= i  # exclude the fixed focal precinct
+        simulated = z[i] * z[drawn].mean(axis=1) / denom
+        center = float(simulated.mean())
+        local_p[i] = (1 + np.count_nonzero(
+            np.abs(simulated - center) >= abs(local_i[i] - center)
+        )) / (permutations + 1)
+
+    adjusted = fdr_bh(local_p)
+    quadrant = np.where(z >= 0, np.where(lag >= 0, 1, 4),
+                        np.where(lag >= 0, 2, 3))
+    return global_i, global_p, local_i, local_p, adjusted, quadrant
+
+
 def run_analysis(rows, shapes, permutations=9999):
     lookup = {r["precinct_id"]: r for r in rows}
     missing = lookup.keys() - shapes.keys()
@@ -90,33 +170,26 @@ def run_analysis(rows, shapes, permutations=9999):
         raise ValueError(f"Missing model polygons: {sorted(missing)[:8]}")
     ids_all = sorted(lookup, key=int)
     links = neighbors(ids_all, shapes)
-    isolated = {k for k in ids_all if not links[k]}
-    ids = [k for k in ids_all if k not in isolated]
-    if len(ids) < 30:
-        raise ValueError("Too few connected precincts")
-    graph = {i: [j for j in links[i] if j not in isolated] for i in ids}
-    w = W(graph, id_order=ids, silence_warnings=True)
-    y = np.array([lookup[i]["residual_pp"] for i in ids])
-    if np.std(y) == 0:
-        raise ValueError("All residuals identical")
-    np.random.seed(2026)  # deterministic global permutation test
-    global_moran = Moran(y, w, permutations=permutations)
-    local = Moran_Local(y, w, permutations=permutations,
-                        seed=2026, n_jobs=1, keep_simulations=False)
-    adjusted = fdr_bh(local.p_sim)
+    isolated = {pid for pid in ids_all if not links[pid]}
+    ids = [pid for pid in ids_all if pid not in isolated]
+    graph = {pid: [j for j in links[pid] if j not in isolated] for pid in ids}
+    y = np.array([lookup[pid]["residual_pp"] for pid in ids], dtype=float)
+    global_i, global_p, local_i, local_p, adjusted, quadrant = permutation_moran(
+        y, graph, ids, permutations=permutations)
     found = {}
-    for pos, i in enumerate(ids):
-        label = TYPES[int(local.q[pos])] if adjusted[pos] <= .05 else "Not significant after FDR"
-        found[i] = {
-            "cluster": label, "neighbors": len(graph[i]),
-            "local_i": float(local.Is[pos]), "p_perm": float(local.p_sim[pos]),
+    for pos, pid in enumerate(ids):
+        label = TYPES[int(quadrant[pos])] if adjusted[pos] <= .05 else "Not significant after FDR"
+        found[pid] = {
+            "cluster": label, "neighbors": len(graph[pid]),
+            "local_i": float(local_i[pos]), "p_perm": float(local_p[pos]),
             "q_fdr": float(adjusted[pos]),
         }
-    for i in isolated:
-        found[i] = {"cluster": "No eligible neighbors", "neighbors": 0,
-                    "local_i": "", "p_perm": "", "q_fdr": ""}
-    return found, float(global_moran.I), float(global_moran.p_sim), len(ids), len(isolated)
-
+    for pid in isolated:
+        found[pid] = {
+            "cluster": "No eligible neighbors", "neighbors": 0,
+            "local_i": "", "p_perm": "", "q_fdr": "",
+        }
+    return found, global_i, global_p, len(ids), len(isolated)
 
 def iter_polygons(g):
     if g.geom_type == "Polygon":
@@ -146,7 +219,7 @@ def make_map(shapes, labels):
     fig.legend(handles=[Patch(facecolor=COLORS[k], label=k) for k in order],
                loc="lower center", bbox_to_anchor=(.5, .06), frameon=False,
                ncol=2, fontsize=9)
-    fig.text(.06, .018, "Local Moran's I | 9,999 permutations | Benjamini-Hochberg FDR q <= 0.05 | 100-ft shared border",
+    fig.text(.06, .018, "Moran-style local tests | 9,999 permutations | Benjamini-Hochberg FDR q <= 0.05 | 100-ft shared border",
              fontsize=8.5, color="#526273")
     FIGURE.parent.mkdir(parents=True, exist_ok=True)
     fig.savefig(FIGURE, format="svg", bbox_inches="tight")
@@ -195,7 +268,7 @@ def save_results(rows, found, global_i, global_p, tested, islands):
         "", "## Cautions", "",
         "- Residuals are observed minus held-out predicted two-candidate Harrell shares, not raw election results.",
         "- Rook-style neighbors share at least 100 feet of precinct border; corner-only contacts do not qualify.",
-        "- Local Moran's I uses 9,999 conditional permutations. Local p-values are corrected for multiple comparisons using Benjamini-Hochberg FDR.",
+        "- NumPy/SciPy Moran-style global and local statistics use 9,999 Monte Carlo permutations. The global test shuffles all residuals; local tests keep the focal precinct fixed and draw neighbors without replacement. Two-sided centered p-values are corrected with Benjamini-Hochberg FDR. This implementation is independent of PySAL and does not reproduce its exact pseudo-p convention.",
         "- Isolated precincts and those excluded by the earlier prediction model are not assigned a local cluster.",
         "- Statistical clustering does not identify a cause. Model misspecification or omitted geography may generate structure.",
         "- Residuals have unequal precision because precincts differ in voter counts; this exploratory run does not account for that in spatial weights.",
