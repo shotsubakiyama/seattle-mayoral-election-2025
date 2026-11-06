@@ -95,7 +95,7 @@ Eight experiments; one main figure each. The idea isn't to make Seattle politics
 
 ### 08 · Are those boundaries real—or did the model draw them for us?
 
-![Seattle map showing precinct boundaries stable or unstable across five clustering specifications](figures/experiment_08_boundary_stability.svg)
+![Seattle map showing precinct boundaries stable or unstable across five clustering specifications](figures/experiment_08_boundary_stability.png)
 
 **The result.** Across five defensible versions of the clustering model—altering the included races and how many groups the algorithm prefers—**12.9%** of shared precinct borders changed whether their neighbors were assigned to the *same* electoral community. **1.6%** were dividing borders in every specification; **85.5%** stayed within one group every time.
 
