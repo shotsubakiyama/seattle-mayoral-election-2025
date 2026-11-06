@@ -1,0 +1,23 @@
+{
+  "electoral_communities": {
+    "precincts": 1006,
+    "edges": 2582,
+    "communities": 11,
+    "largest_community_precincts": 143,
+    "smallest_community_precincts": 42,
+    "median_community_precincts": 92.0
+  },
+  "boundary_robustness": {
+    "neighbor_pairs": 2582,
+    "stable_internal_pct": 85.5,
+    "stable_dividing_pct": 1.6,
+    "model_sensitive_pct": 12.9,
+    "models": {
+      "All six contests": 11,
+      "Only mayor": 13,
+      "Other five contests": 12,
+      "Coarser communities": 10,
+      "Finer communities": 16
+    }
+  }
+}

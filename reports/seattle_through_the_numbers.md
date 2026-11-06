@@ -1,128 +1,124 @@
 # Seattle, Through the Numbers
 ## Eight Computational Experiments on the 2025 Election
 
-**Independent research · November 2026 · Working edition**
+**Independent research · November 2026 · Research draft**
 
-Seattle's mayoral election was decided by **2,011 votes**. But the bigger story might be what the mayoral result doesn't tell us: how the same neighborhoods voted in other contests, which districts contributed disproportionately through turnout, whether supposedly unusual results are statistically unusual, and what happens if we let an algorithm draw its own map of Seattle.
+Katie Wilson defeated Bruce Harrell by **2,011 votes** in Seattle's 2025 mayoral election. But the winning margin is only the beginning. What happens when we compare different contests, remove differences in participation, model uncertainty, simulate political coincidences, follow campaign funding—and finally let a computer draw a completely new electoral map of Seattle?
 
-This is a **graphic-first research note**, not a list of coding exercises. Each experiment begins with a specific question, shows one primary graphic (two if unavoidable), explains the computational trick in plain English, and offers a methodological note for readers who want the technical details.
-
-**Reading key:** **Experiments 1–2 have been calculated and verified** against King County's certified returns in GitHub Actions. Sections 3–8 are **research questions, not findings** until their data and statistical checks are complete. The completed first-edition mayoral report remains separately available [here](00_beyond_the_election_map.md).
+Eight experiments; one main figure each. The idea isn't to make Seattle politics artificially complicated. It's to show how a handful of computational techniques can make familiar facts look different.
 
 ---
 
 ## I. The election we actually held
 
-### 01. Even Harrell's precincts voted for Seattle's other winners
+### 01 · Harrell's precincts still backed Seattle's other winners
 
-*Could two precincts agree about the mayor but disagree about the rest of the ballot?*
+![Citywide ballot support among Harrell- and Wilson-winning mayoral precincts](figures/experiment_01_citywide_coalitions.svg)
 
-![Support for citywide Seattle candidates and propositions among precincts won by each mayoral finalist](figures/experiment_01_citywide_coalitions.svg)
+**The result.** Even where Harrell won, **Erika Evans won 57%** of the city-attorney vote between the two finalists, **Alexis Mercedes Rinck won 76.9%** for Council Position 8, and **both city propositions earned majorities**. Seattle didn't divide neatly into two interchangeable voting blocs.
 
-In the certified 2025 election, the city also voted for attorney, two citywide council seats and two propositions. We divide precincts according to **who won the mayoral race there**, then ask how those same groups of precincts voted in other citywide contests.
+**The trick:** Join six contests by precinct ID, then compare each candidate's support inside the same sets of precincts. Orange means Harrell-winning *mayoral precincts*, not a Republican or party vote. This is **not** proof that individual voters split their tickets.
 
-**What was on the ballot?** Alongside the mayor, Seattle elected a city attorney (Evans versus Davison), Council Position 8 (Rinck versus Savage) and Position 9 (Foster versus Nelson). Proposition 1 renewed a levy supporting preschool, K–12 education and college/career programs; Proposition 2 changed the city's business tax, including the exemption threshold and tax rates. The linked table describes each contest in more detail.
+[What each contest decided, with the full table](experiments/01_coalitions.md)
 
-**The striking result:** In precincts that Harrell won, **57.0%** of the two named city-attorney votes went to **Erika Evans**, while **76.9%** of the two named Council Position 8 votes went to **Alexis Mercedes Rinck**. **Dionne Foster** also narrowly led in those same precincts (**51.9%**). And both city propositions won majority Yes votes. A precinct's mayoral preference does not define a single, uniform political coalition.
+### 02 · The turnout geography narrowed Wilson's observed advantage
 
-**The computational trick:** Join official results across races using a shared precinct ID, then calculate the portion of two-candidate (or Yes/No) votes going to each selected candidate or option.
+![Observed Wilson share versus an equal-precinct-participation thought experiment](figures/experiment_02_equal_participation.svg)
 
-**How to read the figure:** An orange bar is the pooled share of votes in **Harrell-winning precincts**; a blue bar is the corresponding share in **Wilson-winning precincts**. These are precinct-level aggregates—not evidence that any particular individual split their ballot.
+**The result.** Wilson won **50.36%** of the votes for the two mayoral finalists. Holding every precinct's observed candidate preference fixed, but giving each precinct the same number of finalist votes *per registered voter*, increases her calculated share to **51.69%**—a **1.33-percentage-point difference**.
 
-[Detailed table and method](experiments/01_coalitions.md)
+**The trick:** Reweight precincts by *registered voters*, rather than *votes cast for the finalists*. This standardization isolates one mathematical implication of **where participation was concentrated**. It's not a prediction of how abstainers would vote; a changed electorate could have changed candidate shares too.
 
-### 02. Equal participation would have widened Wilson's mathematical advantage
-
-*Would the citywide mayoral result look different if each registered voter contributed the same expected number of votes for a mayoral finalist, no matter the precinct?*
-
-![Actual Wilson share compared with a mechanical equal-participation counterfactual](figures/experiment_02_equal_participation.svg)
-
-Wilson won **50.36%** of the votes cast for the two mayoral finalists. Under a mechanical scenario in which every precinct casts the same number of mayoral finalist votes **per registered voter**—while keeping each precinct's candidate split fixed—her share becomes **51.69%**. That's **1.33 percentage points higher**. In the observed election, the neighborhoods giving Wilson stronger support tended to contribute fewer votes for the finalists per registered voter. That geographic participation pattern **narrowed her observed advantage**, compared with the equal-participation calculation.
-
-**Why examine this?** Election outcomes reflect both candidate preference and which areas supply more of the votes. Reweighting is a standard analytical trick used to compare populations on a common footing—for instance, standardizing health rates to a common age distribution. Here, each precinct's number of registered voters provides the common footing. This is **not** a forecast of the result we would have seen under different turnout: new participants might have voted differently.
-
-We hold each precinct's observed candidate preference fixed but reweight precincts according to their numbers of registered voters rather than their observed votes. It is a thought experiment: **not** a prediction of how nonvoters would have chosen.
-
-**The computational trick:** A weighted average. Actual results weight precincts by votes cast for Harrell and Wilson; the counterfactual weights them by registered voters. Imagine two equally registered precincts: Wilson gets 60% with 600 finalist votes in one and 40% with 300 in the other. The observed pooled share is 53.3%, but equal participation makes it 50%. That's the entire idea, applied across Seattle's precincts. It isolates one *mathematical* consequence of participation patterns, not a cause of those patterns.
-
-[Detailed calculation and limitations](experiments/02_equal_participation.md)
+[Calculation, simple example and limitations](experiments/02_equal_participation.md)
 
 ---
 
-## II. What statistics can—and cannot—tell us
+## II. What can statistics reveal?
 
-### 03. Was November predictable?
+### 03 · The model can estimate a range—not just a single number
 
-*How much could we estimate from the August primary before adding demographic context, and which precincts were difficult to predict?*
+![Precinct predictions with held-out geographic uncertainty ranges and actual results](figures/experiment_03_prediction_ranges.svg)
 
-Our existing model's geographically held-out mean absolute error was **3.01 percentage points** across **1,006 precincts**, using August votes plus basic Census features. The next step is to add calibrated **prediction intervals** so readers can distinguish a big raw miss from a genuinely unusual one.
+**The result.** Our geographic train/calibrate/test experiment produced intervals targeting **90% coverage**; they contained **90.5%** of the held-out precinct results in this retrospective check. Their mean width was **12.8 percentage points**. The chart selects the largest misses *outside* those ranges.
 
-**The computational trick:** Out-of-area cross-validation (scikit-learn) followed by prediction-interval calibration (MAPIE or an equivalent tested approach). An interval is not a certainty: we'd test its actual coverage on held-out geographic groups.
+**The trick:** Train Ridge regression on three geographic groups, calibrate the prediction-error range on a fourth, then test on a fifth; rotate the roles. The model uses August's primary vote and three broad 2020 Census variables. This is **retrospective cross-validation**, not a pre-election forecast. Geographic dependence means a nominal 90% interval is not a formal universal guarantee.
 
-**Primary chart planned:** Selected predictions with confidence/uncertainty bands, highlighting exceptions that exceed those bands. No new intervals have been calculated yet.
+**Why it matters:** A five-point model miss can be ordinary in one test and remarkable in another. Always look at the uncertainty *before* declaring an anomaly.
 
-### 04. Are Seattle's political twins actually surprising?
+### 04 · With thousands of twins, spectacular differences become easier to find
 
-*If we examine thousands of similar precinct pairs, are dramatic differences inevitable?*
+![Simulated maximum matched-precinct gaps compared with the observed largest gap](figures/experiment_04_twin_simulation.svg)
 
-Previously, we found a Highland Park/Junction–Genesee Hill pair where Harrell's 2021 result differed by only **0.8 percentage points**, but his November 2025 share differed by **17.4 points**. However, we deliberately searched for the most divergent pairs among **1,775 qualifying matches**.
+**The result.** We identified **13,804** geographically separated precinct pairs that passed a **pre-November similarity test** using 2021 voting, August 2025 voting and Census measures. The largest observed November difference was **20.2 percentage points**. Across **1,200** simulations, the typical largest gap was **20.3 points** if only independent vote-count noise occurred, or **25.4 points** when we shuffled the model's actual precinct prediction errors.
 
-**The computational trick:** Keep the matching rule fixed, generate a defensible null distribution that respects precinct size and geography, and measure the chance of the **largest** observed gap—not the chance of a pre-selected pair. This prevents confusing a dramatic chart with a statistically extraordinary discovery.
+**The trick:** Don't test one extraordinary-looking pair *after selecting it*. Search the same candidate-pair pool in *every simulation*, and examine the **maximum** difference each time. The original West Seattle twins (2021 Harrell shares within 0.8 points; November gap 17.4 points) are a relatable example, not automatically a statistically significant anomaly.
 
-**Primary chart planned:** Observed twin divergence against the distribution of maximum gaps from simulated elections.
-
-### 05. Follow the money
-
-*Did the geographic sources of campaign contributions resemble the places each candidate performed well?*
-
-Washington's Public Disclosure Commission publishes contribution data. We'd compare donations to Harrell and Wilson at a privacy-respecting geographic level against local election returns. A large fundraising gap does not tell us whether donors changed votes.
-
-**The computational trick:** Geographic joins with careful address/geographic normalization, then per-capita or per-registered-voter normalization and comparison with candidate support.
-
-**Primary chart planned:** Paired geographic views of contribution intensity and electoral support. Data retrieval and denominator checks still pending.
-
-### 06. Can we reconstruct a voter's choices from precinct totals?
-
-*If a neighborhood supported Wilson for mayor and another candidate for city attorney, how many voters chose both?*
-
-Precinct aggregates generally **do not tell us that**. Different underlying individual ballots can yield exactly the same candidate totals. This observation matters whenever people describe precinct-level results as though they reveal how a person voted.
-
-**The computational trick:** Show two hypothetical sets of individual ballots with the same precinct totals; then explain what a specialized ecological-inference model (such as PyEI) must assume to estimate relationships.
-
-**Primary chart planned:** A visual thought experiment illustrating non-identifiability. Any fitted ecological-inference model will be clearly labeled as assumption-dependent.
+**Caution:** The simulations are sensitivity scenarios, not reliable p-values. Independent binomial draws ignore neighborhood heterogeneity, and shuffled model errors discard geographic correlations. Different assumptions give different expectations.
 
 ---
 
-## III. Seattle, redrawn
+## III. Money and what aggregate results hide
 
-### 07. Let an algorithm invent Seattle's political neighborhoods
+### 05 · Two candidates, two very different sources of campaign money
 
-*Would a computer draw Capitol Hill, Queen Anne, Ballard and Beacon Hill the way residents do?*
+![Direct Seattle mayoral campaign financing: democracy vouchers, other contributions and candidate funds](figures/experiment_05_funding_sources.svg)
 
-Supply a network of precincts connected by their shared boundaries. Assign stronger connections to neighboring precincts whose **multi-race electoral profiles** are more similar. Then let community detection propose geographic regions, without telling the algorithm the names of traditional neighborhoods.
+**The result.** Democracy Vouchers accounted for approximately **78%** of Wilson's reported direct campaign funding versus **41%** of Harrell's. Harrell reported substantially more other cash and in-kind contributions.
 
-**The computational trick:** Spatial adjacency (Shapely) plus graph community detection (NetworkX Louvain, potentially Leiden with a compatible environment). The algorithm finds connected groups with more internal similarity, not a universally correct political map.
+**The trick:** Compare the **composition** of money, not just the total. This chart draws on the official Seattle Ethics & Elections Commission's <a href="https://web6.seattle.gov/ethics/elections/campaigns.aspx?IDNum=965&cycle=2025&leftmenu=collapsed&type=campaign">Harrell</a> and <a href="https://web6.seattle.gov/ethics/elections/campaigns.aspx?IDNum=988&cycle=2025&leftmenu=collapsed&type=campaign">Wilson</a> committee records, as reported in November 2026.
 
-**Primary chart planned:** Conventional community reporting areas next to an algorithmically generated electoral map. This is the visual finale.
+**What's omitted:** Independent-expenditure committees and donors' geographic addresses. This is a campaign-cycle financing comparison, including some post-election reporting—not a statement about how much was spent before election day, or where individual donors voted.
 
-### 08. Did we discover those neighborhoods—or create them?
+### 06 · We can't tell who split their ticket by looking at precinct totals
 
-*Would the map survive different analytical assumptions?*
+![Two sets of fictional ballots with the same mayoral and city attorney totals](figures/experiment_06_hidden_ballots.svg)
 
-Every map depends on choices: which races are included, how we balance candidate-share differences, and how many communities to permit. Simply redrawing a precinct map onto an H3 hexagon grid cannot create finer-grained election votes.
+**The result.** Imagine 100 voters, 60 for Wilson and 70 for Evans, all voting in both races. Somewhere between **30 and 60** of them could have voted for *both*. The same aggregate result can come from completely different individual behavior.
 
-**The computational trick:** Stability and sensitivity tests. Repeat the clustering under multiple reasonable choices; quantify how consistently neighboring precincts remain in the same discovered group.
+**The trick:** Construct two possible individual-level tables with identical margins. That's the *ecological inference problem*: the totals alone don't determine the cross-votes. Sophisticated statistical packages such as PyEI can model this relationship only by adding assumptions, which must be explained.
 
-**Primary chart planned:** A map of *stable versus fragile* political boundaries, rather than a decorative alternate map.
+*The dots in this figure are hypothetical people—not Seattle voter records.*
 
 ---
 
-## How this report will be written
+## IV. Seattle, redrawn
 
-Each numbered section will ultimately have a conclusion-style title **only after the finding has been computed and checked**. Aim for one strong graphic and about 150–250 words per experiment, with numbered technical notes and links to exact reproducible code.
+### 07 · Let an algorithm invent new political neighborhoods
 
-This research uses King County's certified 2025 precinct results, 2020 Census-derived geography, and additional datasets only when they can be reliably sourced and documented. Changing precinct boundaries, unequal turnout, multiple comparisons, privacy, and the ecological fallacy require explicit treatment, not hidden assumptions.
+![Seattle neighborhood reporting areas versus algorithmically discovered 2025 electoral regions](figures/experiment_07_algorithmic_seattle.svg)
 
-**Sources:** [King County November 2025 final precinct CSV](https://data.kingcounty.gov/d/rkie-6y8x) · [Official final results](https://results.vote.wa.gov/results/20251104/king/) · [Previous precinct-matching methods](../docs/methodology/precinct_matching.md) · [Existing analysis code](../scripts/)
+**The result.** Without receiving any traditional neighborhood labels, our algorithm identified **11** electoral communities across **1,006** precincts, linked by **2,582** meaningful geographic borders. Compare the right-hand map with the familiar community-reporting areas at left.
 
-*Draft research series. No claim is made that planned analyses have been completed. The live report on the main branch is preserved until this new edition is reviewed and approved.*
+**The trick:** Represent each precinct as a node in a graph. Connect two nodes only if they share at least 100 feet of boundary; give stronger connections to neighbors with more similar results in **six** citywide 2025 ballot contests. NetworkX's **Louvain community detection** finds groups with stronger internal links. We never tell it what "Capitol Hill" or "Ballard" means.
+
+**Interpretation:** The regions are *algorithmic clusters*, not independently verified political identities. The colors merely distinguish groups; they do not label partisan preferences.
+
+### 08 · Are those boundaries real—or did the model draw them for us?
+
+![Seattle map showing precinct boundaries stable or unstable across five clustering specifications](figures/experiment_08_boundary_stability.svg)
+
+**The result.** Across five defensible versions of the clustering model—altering the included races and how many groups the algorithm prefers—**12.9%** of shared precinct borders changed whether their neighbors were assigned to the *same* electoral community. **1.6%** were dividing borders in every specification; **85.5%** stayed within one group every time.
+
+**The trick:** Run the *same community-detection algorithm* repeatedly with different inputs. Instead of trusting the most attractive map, ask which geographical boundaries survive. Dark lines in the figure are consistently divisive; orange lines are sensitive to model choice.
+
+**The lesson:** A sophisticated map can be partly a picture of its designer's assumptions. Mapping how sensitive it is may be more valuable than choosing one authoritative-looking version.
+
+---
+
+## Where this leaves Seattle
+
+The methods tell different stories, and they shouldn't all be forced into a single political conclusion.
+
+**Cross-race comparison** reveals coalitions that cannot be reduced to the mayoral contest. **Turnout reweighting** shows the geographic arithmetic behind a narrow result. **Uncertainty estimates and simulations** distinguish genuine evidence from selected extremes. **Campaign-finance data** shows a second kind of coalition. **Ecological inference** reminds us of the limits of precinct data. And **graph community detection** provides a fresh picture of the city—whose sensitivity we can examine instead of ignoring.
+
+The key results are descriptive; none establishes how a particular voter changed their mind or why a neighborhood behaves as it does. Several results depend on choices about geographic units, candidate groupings, and statistical assumptions.
+
+### Methods and sources
+
+- **Official returns:** [King County's certified November 2025 precinct CSV](https://data.kingcounty.gov/d/rkie-6y8x), [August primary](https://data.kingcounty.gov/d/tsx2-ia8a), and [2021 general](https://data.kingcounty.gov/d/4qrf-rjar).
+- **Political geography:** [2025 voting-district shapes](https://services.arcgis.com/Ej0PsM5Aw677QF1W/ArcGIS/rest/services/VOTDST_2025_AREA_3072/FeatureServer/0), 2020 Census geographic allocation, and King County precinct-to-community-reporting-area labels.
+- **Campaign funding:** [Seattle official disclosure portal](https://web6.seattle.gov/ethics/elections/campaigns.aspx?IDNum=224&cycle=2025&leftmenu=collapsed&type=contest) (November 2026 snapshot; direct campaign committees only).
+- **Computational techniques:** scikit-learn, SciPy, Shapely, NetworkX, Matplotlib, and NumPy. [Source code](../scripts/) and [prior detailed methodology](../docs/methodology/techniques_explained.md).
+- **Reproduction:** the GitHub Actions workflow runs the analysis from official inputs and commits verified graphics and aggregate research outputs.
+
+*Independent exploratory study · Working review edition · See the source code for precise parameters. This draft does not alter the published first edition.*
