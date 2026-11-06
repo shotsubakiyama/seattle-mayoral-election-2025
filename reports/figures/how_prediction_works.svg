@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1050 288" role="img" aria-label="How the August primary helps estimate November results in held-out precincts">
+<style>text{font-family:Arial,sans-serif;fill:#22364a}.title{font-size:24px;font-weight:700}.sub{font-size:14px;fill:#52687e}.label{font-size:16px;font-weight:700}.small{font-size:13px;fill:#52687e}.big{font-size:28px;font-weight:700}</style>
+<rect width="1050" height="288" fill="white"/>
+<text x="28" y="36" class="title">How can an August primary help explain November?</text>
+<text x="28" y="61" class="sub">A retrospective test: learn from other precincts, then predict November in withheld areas.</text>
+<rect x="30" y="89" width="296" height="148" rx="9" fill="#f4f7fa" stroke="#d4dfe8"/>
+<text x="45" y="115" class="small">1 / AUGUST</text>
+<text x="45" y="156" class="big">55%</text>
+<text x="45" y="183" class="label">Harrell share in August</text>
+<text x="45" y="206" class="small">Illustrative precinct</text>
+<rect x="377" y="89" width="296" height="148" rx="9" fill="#f4f7fa" stroke="#d4dfe8"/>
+<text x="392" y="115" class="small">2 / LEARN</text>
+<text x="392" y="156" class="big">Pattern</text>
+<text x="392" y="183" class="label">August + November, elsewhere</text>
+<text x="392" y="206" class="small">Train on four groups of areas</text>
+<rect x="724" y="89" width="296" height="148" rx="9" fill="#f4f7fa" stroke="#d4dfe8"/>
+<text x="739" y="115" class="small">3 / TEST</text>
+<text x="739" y="156" class="big">?</text>
+<text x="739" y="183" class="label">Estimate November share</text>
+<text x="739" y="206" class="small">Test the fifth, unseen group</text>
+<path d="M338 155 h27 m-8 -8 l8 8 -8 8" fill="none" stroke="#7b91a5" stroke-width="2"/>
+<path d="M685 155 h27 m-8 -8 l8 8 -8 8" fill="none" stroke="#7b91a5" stroke-width="2"/>
+<text x="30" y="271" class="small">55% is a made-up example. In each round, the test precincts’ November results are hidden until scoring.</text>
+</svg>
