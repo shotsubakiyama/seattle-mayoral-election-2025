@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 370" role="img" aria-label="Comparison of model errors: direct August baseline, fitted August model and fitted August plus Census model">
+<style>text{font-family:Arial,Helvetica,sans-serif;fill:#223346}.title{font-size:23px;font-weight:700}.sub{font-size:13px;fill:#617183}.label{font-size:16px;font-weight:600}.value{font-size:20px;font-weight:700}.tick{font-size:12px;fill:#728292}.foot{font-size:12px;fill:#617183}</style>
+<rect width="1000" height="370" fill="#ffffff"/>
+<text x="32" y="37" class="title">The August primary was a strong starting point</text>
+<text x="32" y="62" class="sub">1,006 Seattle precincts | Weighted error in percentage points | Lower is better</text>
+<line x1="328" y1="87" x2="328" y2="294" stroke="#e3eaf0" stroke-width="1"/>
+<text x="328" y="315" class="tick" text-anchor="middle">0</text>
+<line x1="504" y1="87" x2="504" y2="294" stroke="#e3eaf0" stroke-width="1"/>
+<text x="504" y="315" class="tick" text-anchor="middle">2</text>
+<line x1="680" y1="87" x2="680" y2="294" stroke="#e3eaf0" stroke-width="1"/>
+<text x="680" y="315" class="tick" text-anchor="middle">4</text>
+<line x1="856" y1="87" x2="856" y2="294" stroke="#e3eaf0" stroke-width="1"/>
+<text x="856" y="315" class="tick" text-anchor="middle">6</text>
+<text x="32" y="135" class="label">Use August share directly</text>
+<rect x="328" y="111" width="467.95" height="37" rx="3" fill="#9aa8b7"/>
+<text x="807.95" y="137" class="value">5.32</text>
+<text x="32" y="207" class="label">Calibrate August voting</text>
+<rect x="328" y="183" width="298.36" height="37" rx="3" fill="#4b829e"/>
+<text x="638.36" y="209" class="value">3.39</text>
+<text x="32" y="279" class="label">August + Census context</text>
+<rect x="328" y="255" width="264.60" height="37" rx="3" fill="#d0874d"/>
+<text x="604.60" y="281" class="value">3.01</text>
+<text x="32" y="349" class="foot">Fitted models: held-out geographic-group cross-validation; direct August is an uncalibrated benchmark.</text>
+</svg>

@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 830 375" role="img" aria-label="Net vote margins among matched precincts, remaining precincts, and citywide">
+<style>text{font-family:Arial,Helvetica,sans-serif;fill:#213447}.title{font-size:22px;font-weight:700}.subtitle{font-size:13px;fill:#536779}.row-label{font-size:15px;font-weight:600}.number{font-size:15px;font-weight:700}.foot{font-size:12px;fill:#657789}</style>
+<rect width="830" height="375" fill="#ffffff"/>
+<text x="26" y="37" class="title">Why the matched subset tells a different story</text>
+<text x="26" y="64" class="subtitle">Net 2025 mayoral votes (Harrell minus Wilson); blue = Harrell advantage, orange = Wilson advantage</text>
+<line x1="442" y1="101" x2="442" y2="324" stroke="#9aaaba" stroke-width="2"/>
+<text x="26" y="117" class="row-label">Matched 850 stable-boundary precincts</text>
+<rect x="442.0" y="128" width="180.5" height="25" rx="4" fill="#2474a8"/>
+<text x="631.5" y="146" text-anchor="start" class="number">+4,295</text>
+<text x="26" y="197" class="row-label">All remaining 2025 votes</text>
+<rect x="177.0" y="208" width="265.0" height="25" rx="4" fill="#cc7135"/>
+<text x="168.0" y="226" text-anchor="end" class="number">-6,306</text>
+<text x="26" y="277" class="row-label">Certified Seattle citywide</text>
+<rect x="357.5" y="288" width="84.5" height="25" rx="4" fill="#cc7135"/>
+<text x="348.5" y="306" text-anchor="end" class="number">-2,011</text>
+<text x="26" y="356" class="foot">Sources: King County certified totals; matched-precinct panel. Remainder is an arithmetic difference, not spatially harmonized.</text>
+</svg>
