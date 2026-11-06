@@ -1,48 +1,25 @@
-# Seattle's 2025 election, under the microscope
-### An educational Python and political-geography research project
+# Seattle’s 2025 Election: Beyond the Map
 
-*A nonpartisan, graph-led project for Seattle readers and technical reviewers. The second-edition article uses a connected story: predict, inspect the misses, match similar precincts, and map sharp boundaries.*
+*What can data reveal about an election that a winner-by-neighborhood map cannot?*
 
-**[Read the story](reports/00_beyond_the_election_map.md)** · **[Plain-English data dictionary](data/README.md)** · **[Technical methods](docs/methodology/techniques_explained.md)**
+Seattle's 2025 mayoral election was decided by **2,011 votes**. The broad geography is familiar. The oddities are more interesting.
 
-![Predicting November from the August primary](reports/figures/how_prediction_works.svg)
+On Queen Anne, **two neighboring precincts** sharing about 1,283 feet of boundary gave Bruce Harrell **23.8% and 81.4%** of the vote cast for the two finalists. An extraordinary contrast—but perhaps unsurprising to anyone familiar with the hill.
 
-**Research question:** What can we learn about Seattle's election beyond mapping where Harrell and Wilson won? This project explores three complementary methods:
+In West Seattle, a different puzzle emerged: two precincts gave Harrell almost exactly the **same share in 2021**, yet split by **17.4 percentage points in November 2025**. What changed?
 
-| Technique | Question | Main tools |
-|---|---|---|
-| Prediction and geographic cross-validation | How much was November already visible in August? | scikit-learn, Ridge, GroupKFold |
-| Historical precinct twins | Which places looked similar before November but diverged? | NearestNeighbors, matched precinct/Census features |
-| Political fault lines and spatial statistics | Where do adjoining precincts disagree, and are prediction errors spatially associated? | Shapely, NumPy, SciPy, Moran-style permutations |
+![Two adjacent Queen Anne precincts, surrounded by neighborhood voting patterns](reports/figures/fault_line_1709_1724_v2.svg)
 
-**Status:** second-edition draft on a review branch; the first edition is published on main. The new chart build is reproducible through GitHub Actions. Claims are exploratory, not causal.
+## What the analysis explores
 
-## Reproduce with VS Code (Windows / Python 3.12+)
+Rather than redraw the election map, this project combines official election returns, Census geography, and computational techniques to explore four questions: **What was predictable? Which precincts defied expectations? Can we find political “twins” that diverged? And where do voting patterns change abruptly across a street or boundary?**
 
-Run from the repository root:
+The full illustrated report tells the story through charts, local comparisons, and approachable explanations of the methods.
 
-~~~powershell
-python -m pip install -r requirements-spatial-stats.txt
-python scripts/diagnose_precinct_matching.py
-python scripts/spatial_precinct_overlap.py
-python scripts/political_fault_lines.py
-python scripts/render_fault_line_cases.py
-python scripts/model_precinct_surprises.py
-python scripts/build_model_scorecard.py
-python scripts/build_story_visuals.py
-python scripts/spatial_residual_clusters.py
-python scripts/precinct_twins.py
-python scripts/precinct_twins_history.py
-python scripts/twin_case_studies.py
-python -m unittest discover -s tests
-~~~
+### **[Read the illustrated research report →](reports/00_beyond_the_election_map.md)**
 
-Official election CSVs and geographic data are cached under the Git-ignored `data/raw/` directory. The 2020 Census crosswalk is in `data/processed/`. Reports and visualizations are generated under `reports/`.
+[Explore how the analysis works](docs/methodology/techniques_explained.md) · [Understand the data](data/README.md)
 
-**For review:** The story-generation script builds new SVGs from the saved precinct model; the branch's GitHub Actions workflow validates and commits them for online preview. Don't merge the draft until the story and charts have been reviewed.
+---
 
-## Interpretation boundaries
-
-The 2021 and 2025 elections had different opponents and electorates. Census demographics describe residents, not voters. This version does **not** measure homeownership or income. The most divergent matched pairs are case studies selected after seeing November results; they do not establish why voting differed.
-
-See the [technical appendix](docs/methodology/techniques_explained.md) for calculations, parameters, and uses elsewhere; the [data dictionary](data/README.md) explains variables and why geographic files are called crosswalks.
+*Independent, nonpartisan exploratory analysis using King County election results and 2020 Census geography. Precinct comparisons describe aggregate voting patterns, not individual decisions or causes. The research report is evolving; the linked version is the published edition.*
