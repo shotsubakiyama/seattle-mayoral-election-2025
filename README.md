@@ -1,36 +1,18 @@
-# Seattle’s 2025 Election: Beyond the Map
+# Seattle, Through the Numbers
+### Eight Computational Experiments on the 2025 Election
 
-## New research edition — in development
+**What else can we learn from an election decided by just 2,011 votes?**
 
-**[Seattle, Through the Numbers: Eight Computational Experiments on the 2025 Election](reports/seattle_through_the_numbers.md)**
+Seattle narrowly elected Katie Wilson as mayor, but the bigger story isn't visible on a normal winner map. Even in precincts won by Bruce Harrell, other candidates and both city propositions won majority support. Two neighborhoods that looked politically similar before November sometimes separated sharply. And what happens when we ask an algorithm—not a city planner—to divide Seattle into political neighborhoods?
 
-An independent, graphics-led collection of experiments on cross-race coalitions, unequal participation, uncertainty, political twins, campaign donations, ecological inference, and algorithmically redrawn political neighborhoods. The first two experiments have automated, source-reconciled chart builds; subsequent sections are clearly marked as planned.
+This independent research note examines **eight questions with eight graphics**: voting coalitions, unequal participation, prediction uncertainty, political twins, campaign funding, the limits of precinct-level inference, newly discovered electoral communities, and whether those communities survive scrutiny.
 
-This draft is separate from the published first-edition report below.
+![Traditional Seattle communities compared with algorithmically discovered electoral regions](reports/figures/experiment_07_algorithmic_seattle.svg)
 
----
+### **[Read the illustrated research report](reports/seattle_through_the_numbers.md)**
 
+You don't need to know Python to follow the argument. Each experiment explains the statistical trick in plain language; its source code and source data are available for anyone who wants to inspect the method.
 
-*What can data reveal about an election that a winner-by-neighborhood map cannot?*
+[Explore the earlier mayoral research](reports/00_beyond_the_election_map.md) · [View the computational source](scripts/) · [Research inspiration library](docs/visual-research-inspiration.md)
 
-Seattle's 2025 mayoral election was decided by **2,011 votes**. The broad geography is familiar. The oddities are more interesting.
-
-On Queen Anne, **two neighboring precincts** sharing about 1,283 feet of boundary gave Bruce Harrell **23.8% and 81.4%** of the vote cast for the two finalists. An extraordinary contrast—but perhaps unsurprising to anyone familiar with the hill.
-
-In West Seattle, a different puzzle emerged: two precincts gave Harrell almost exactly the **same share in 2021**, yet split by **17.4 percentage points in November 2025**. What changed?
-
-![Two adjacent Queen Anne precincts, surrounded by neighborhood voting patterns](reports/figures/fault_line_1709_1724_v2.svg)
-
-## What the analysis explores
-
-Rather than redraw the election map, this project combines official election returns, Census geography, and computational techniques to explore four questions: **What was predictable? Which precincts defied expectations? Can we find political “twins” that diverged? And where do voting patterns change abruptly across a street or boundary?**
-
-The full illustrated report tells the story through charts, local comparisons, and approachable explanations of the methods.
-
-### **[Read the illustrated research report →](reports/00_beyond_the_election_map.md)**
-
-[Explore how the analysis works](docs/methodology/techniques_explained.md) · [Understand the data](data/README.md)
-
----
-
-*Independent, nonpartisan exploratory analysis using King County election results and 2020 Census geography. Precinct comparisons describe aggregate voting patterns, not individual decisions or causes. The research report is evolving; the linked version is the published edition.*
+*Independent, nonpartisan, exploratory analysis. The report is currently under editorial review. Statistical comparisons describe precinct-level patterns, not individual voters' decisions or their causes.*
