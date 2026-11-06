@@ -78,7 +78,7 @@ def baseline_errors(rows):
             for k, pred in choices.items()}
 
 
-def choose_pairs(rows, polygons, limit=10, min_votes=150, min_miles=1.0):
+def choose_pairs(rows, polygons, limit=10, min_votes=150, min_miles=1.0, feature_calipers=None):
     """Nearest neighbors use pre-November features exclusively.
 
     Compare November outcomes only after matching. Pair rankings are
@@ -91,8 +91,12 @@ def choose_pairs(rows, polygons, limit=10, min_votes=150, min_miles=1.0):
     )
     if len(eligible) < 3:
         raise ValueError("Too few precincts with sufficient votes and geometry")
-    x = np.array([[r[k] for k in FEATURES] for r in eligible], dtype=float)
-    scales = np.array(list(CALIPERS.values()), dtype=float)
+    limits = feature_calipers if feature_calipers is not None else CALIPERS
+    keys = list(limits)
+    x = np.array([[r[k] for k in keys] for r in eligible], dtype=float)
+    scales = np.array([limits[k] for k in keys], dtype=float)
+    if (scales <= 0).any() or not np.isfinite(x).all():
+        raise ValueError("Matching inputs must be finite with positive calipers")
     nearest = NearestNeighbors(n_neighbors=min(len(eligible), 200))
     nearest.fit(x / scales)
     dist, idx = nearest.kneighbors(x / scales)
