@@ -31,7 +31,9 @@ Here's an extra machine-learning trick called **feature ablation**. Fit the full
 
 ![Sensitivity test measuring how removing each Census feature changes held-out model error](figures/census_feature_ablation.svg)
 
-This is a quick way of checking whether a complicated-looking ingredient improves the recipe. **It doesn't prove that density, age, or housing caused a precinct to vote a particular way.** Variables can overlap in what they tell us; removing one can change how the model uses the others.
+**What happened?** Removing **voting-age population share** made the model's prediction error about **0.24 percentage points worse**. Removing population density made it only about **0.01 point worse**. Dropping housing occupancy actually improved error by a negligible **0.005 point**. In this particular model, voting-age share supplied the most additional information of those three variables.
+
+This is a quick way of checking whether a complicated-looking ingredient improves the recipe. **It doesn't prove that age, density, or housing caused anyone to vote a particular way.** Variables can overlap in what they tell us; removing one can change how the model uses the others.
 
 ## Second, where did our estimate go wrong?
 
@@ -64,7 +66,7 @@ Two West Seattle precincts illustrate the puzzle:
 - **Highland Park, precinct 1246:** Harrell received **61.1%** in 2021, then **46.6%** in November 2025.
 - **Junction–Genesee Hill, precinct 1464:** Harrell received **61.9%** in 2021, then **63.9%** in November 2025.
 
-Their Harrell-versus-Wilson primary shares in August 2025 were also within **4.8 percentage points**. In November they were **17.4 percentage points apart**.
+In August 2025, Harrell received **49.7% and 54.4%** of the Harrell/Wilson finalist votes in those precincts—less than **five points apart**. In November they were **17.4 percentage points apart**. The point is not that the places were perfectly identical, but that the algorithm picked them using earlier evidence, without peeking at November.
 
 The profile above makes the matching test visible: voting history and available Census variables on top; the November reveal below. The two precincts were *similar on measured features*, **not identical in every important way**.
 
