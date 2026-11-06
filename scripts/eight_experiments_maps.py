@@ -222,7 +222,7 @@ def render_stability(ids,shapes,edges,category,summary,destination):
              fontsize=11,color="#4f6679",weight="bold")
     fig.subplots_adjust(left=.02,right=.98,top=.92,bottom=.12)
     destination.parent.mkdir(parents=True,exist_ok=True)
-    fig.savefig(destination,format="svg",bbox_inches="tight")
+    fig.savefig(destination,format="png",dpi=180,bbox_inches="tight")
     plt.close(fig)
 
 
@@ -252,7 +252,7 @@ def main():
              "model_sensitive_pct":round(100*stats["Model-sensitive border"]/len(edges),1),
              "models":{label:len(set(clusters.values())) for label,clusters in scenarios.items()}}
     render_stability(ids,shapes,edges,labels,result8,
-                     FIG/"experiment_08_boundary_stability.svg")
+                     FIG/"experiment_08_boundary_stability.png")
     OUT.mkdir(parents=True,exist_ok=True)
     with (OUT/"experiment_07_precinct_electoral_communities.csv").open("w",
             newline="",encoding="utf-8") as f:

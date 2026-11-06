@@ -15,7 +15,7 @@ CHARTS=[
 "experiment_01_citywide_coalitions.svg","experiment_02_equal_participation.svg",
 "experiment_03_prediction_ranges.svg","experiment_04_twin_simulation.svg",
 "experiment_05_funding_sources.svg","experiment_06_hidden_ballots.svg",
-"experiment_07_algorithmic_seattle.svg","experiment_08_boundary_stability.svg",
+"experiment_07_algorithmic_seattle.svg","experiment_08_boundary_stability.png",
 ]
 
 def load_metrics():
@@ -135,7 +135,7 @@ Eight experiments; one main figure each. The idea isn't to make Seattle politics
 
 ### 08 · Are those boundaries real—or did the model draw them for us?
 
-![Seattle map showing precinct boundaries stable or unstable across five clustering specifications](figures/experiment_08_boundary_stability.svg)
+![Seattle map showing precinct boundaries stable or unstable across five clustering specifications](figures/experiment_08_boundary_stability.png)
 
 **The result.** Across five defensible versions of the clustering model—altering the included races and how many groups the algorithm prefers—**{e8['model_sensitive_pct']:.1f}%** of shared precinct borders changed whether their neighbors were assigned to the *same* electoral community. **{e8['stable_dividing_pct']:.1f}%** were dividing borders in every specification; **{e8['stable_internal_pct']:.1f}%** stayed within one group every time.
 
