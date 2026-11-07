@@ -180,7 +180,7 @@ def geography_only_comparison(x,edges,vote_groups):
 
 def plot_geography_vs_vote(shapes,ids,edges,geography_groups,vote_groups,summary,path):
     # One map: highlight boundaries whose SAME/DIFFERENT status changes after voting features are added.
-    colors={"Only with votes":"#c66a3e","Consistent division":"#365b70"}
+    colors={"Changed when votes included":"#c66a3e","Consistent division":"#365b70"}
     lines={k:[] for k in colors}
     patches=[]
     for pid in ids:
@@ -190,7 +190,7 @@ def plot_geography_vs_vote(shapes,ids,edges,geography_groups,vote_groups,summary
         baseline=geography_groups[i]==geography_groups[j]
         vote=vote_groups[i]==vote_groups[j]
         if baseline!=vote:
-            label="Only with votes"
+            label="Changed when votes included"
         elif not baseline and not vote:
             label="Consistent division"
         else:
@@ -201,12 +201,12 @@ def plot_geography_vs_vote(shapes,ids,edges,geography_groups,vote_groups,summary
     fig,ax=plt.subplots(figsize=(10.2,10.3))
     ax.add_collection(PatchCollection(patches,facecolor="#f6f8f9",
                          edgecolor="#dde4e8",linewidth=.16,zorder=1))
-    for label in ("Consistent division","Only with votes"):
+    for label in ("Consistent division","Changed when votes included"):
         if lines[label]:
             ax.add_collection(LineCollection(lines[label],colors=colors[label],
                 linewidths=.8 if label=="Consistent division" else 1.35,zorder=3))
     ax.autoscale_view();ax.set_aspect("equal");ax.axis("off")
-    fig.suptitle("Which political borders appear when we add votes to the map?",
+    fig.suptitle("Which borders change after adding election results?",
                  x=.04,y=.965,ha="left",fontweight="bold",fontsize=17)
     fig.legend(handles=[Patch(facecolor=colors[k],label=k) for k in colors],
                loc="lower center",bbox_to_anchor=(.5,.09),ncol=2,
