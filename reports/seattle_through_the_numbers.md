@@ -13,7 +13,7 @@ Eight computational experiments, each with one clear observation and one statist
 
 ### 01 · Which races followed Wilson's geographic coalition?
 
-**Takeaway:** Different citywide contests overlap with the mayoral voting map to different degrees. The exceptions are as revealing as the similarities.
+**Takeaway:** **Foster** support closely tracked Wilson's across precincts (correlation **0.94**), yet **31.4%** of those precincts produced different majority outcomes. Similar patterns of support do not imply the same winning coalition.
 
 **Method:** For every precinct, compare Wilson's share of the mayoral finalist vote with support for each other winning candidate or Yes option. Measure both the **correlation** between vote shares and how often the two majority outcomes differ.
 
@@ -127,7 +127,7 @@ Our experiment **never redraws the precinct boundaries**. It asks which existing
 
 ### 08 · What does election data add beyond geography alone?
 
-**Takeaway:** Geography already creates communities. The meaningful test is whether adding election results changes *which neighboring precincts get grouped together*.
+**Takeaway:** Adding voting patterns changed just **6.8%** of neighboring-precinct same-group/different-group relationships compared with a geography-only model yielding a similar number of communities.
 
 **Method:** Run Louvain twice on **the exact same precinct network**: first with every adjacent border equally weighted (geography only), then with stronger weights for neighbors whose six-contest voting patterns are similar. Choose a geography-only resolution giving a comparable number of groups, then compare the boundaries.
 
