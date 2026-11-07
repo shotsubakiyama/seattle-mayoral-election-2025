@@ -1,16 +1,18 @@
-name: Build full eight-experiment research report
+name: Refine eight-experiment research report and geographic comparisons
 
 on:
   push:
-    branches: [feat/seattle-through-the-numbers]
+    branches: [feat/clarify-election-experiments]
     paths:
       - .github/workflows/build-all-eight-experiments.yml
       - scripts/eight_experiments_maps.py
+      - scripts/eight_experiments_insights.py
       - scripts/eight_experiments_stats.py
       - scripts/eight_experiments_money.py
       - scripts/render_eight_experiments_report.py
       - requirements-eight-experiments.txt
       - tests/test_eight_experiments_remaining.py
+      - tests/test_eight_experiments_insights.py
   workflow_dispatch:
 
 permissions:
@@ -42,6 +44,7 @@ jobs:
           python scripts/eight_experiments_stats.py
           python scripts/eight_experiments_money.py
           python scripts/eight_experiments_maps.py
+          python scripts/eight_experiments_insights.py
           python scripts/render_eight_experiments_report.py
       - name: Run complete regression suite
         run: python -m unittest discover -s tests
@@ -53,6 +56,10 @@ jobs:
             test "$count" -ge 1
           done
           test -s reports/figures/experiment_08_boundary_stability.png
+          test -s reports/figures/experiment_01_precinct_correlations.svg
+          test -s reports/figures/experiment_03_unexpected_map.png
+          test -s reports/figures/experiment_08_geography_vs_votes.png
+          test -s data/processed/eight_experiments_new_views.json
           test -s data/processed/eight_experiments_03_04.json
           test -s data/processed/eight_experiments_05_06.json
           test -s data/processed/eight_experiments_07_08.json
@@ -63,6 +70,8 @@ jobs:
           git rm -f --ignore-unmatch reports/figures/experiment_08_boundary_stability.svg
           git add reports/seattle_through_the_numbers.md reports/figures/experiment_*.svg \
                   reports/figures/experiment_08_boundary_stability.png \
+                  reports/figures/experiment_03_unexpected_map.png \
+                  reports/figures/experiment_08_geography_vs_votes.png \
                   data/processed/eight_experiments_*.json \
                   data/processed/experiment_07_precinct_electoral_communities.csv
           if ! git diff --cached --quiet; then

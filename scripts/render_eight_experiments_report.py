@@ -16,6 +16,8 @@ CHARTS=[
 "experiment_03_prediction_ranges.svg","experiment_04_twin_simulation.svg",
 "experiment_05_funding_sources.svg","experiment_06_hidden_ballots.svg",
 "experiment_07_algorithmic_seattle.svg","experiment_08_boundary_stability.png",
+"experiment_01_precinct_correlations.svg","experiment_03_unexpected_map.png",
+"experiment_08_geography_vs_votes.png",
 ]
 
 def load_metrics():
@@ -25,6 +27,10 @@ def load_metrics():
         if not path.is_file():
             raise FileNotFoundError(f"Missing calculation outputs: {path}")
         values.update(json.loads(path.read_text(encoding="utf-8")))
+    add=OUT/"eight_experiments_new_views.json"
+    if not add.exists():
+        raise FileNotFoundError("Missing correlations, surprise map or geography-baseline calculations")
+    values.update(json.loads(add.read_text(encoding="utf-8")))
     return values
 
 def create_manuscript(data):
@@ -34,6 +40,12 @@ def create_manuscript(data):
     e6=data["ecological"]
     e7=data["electoral_communities"]
     e8=data["boundary_robustness"]
+    alignment=data["alignment"]
+    prediction_map=data["prediction_map"]
+    geo=data["geography_vs_votes"]
+    strongest=max(alignment,key=lambda r:r["correlation"])
+    weakest=min(alignment,key=lambda r:r["correlation"])
+    biggest_mismatch=max(alignment,key=lambda r:r["different_majority_pct"])
     for filename in CHARTS:
         path=FIG/filename
         if not path.exists() or path.stat().st_size<500:
@@ -41,65 +53,87 @@ def create_manuscript(data):
     return f"""# Seattle, Through the Numbers
 ## Eight Computational Experiments on the 2025 Election
 
-**Independent research · November 2026 · Research draft**
+**Independent research · November 2026 · Revised research edition**
 
 Katie Wilson defeated Bruce Harrell by **2,011 votes** in Seattle's 2025 mayoral election. But the winning margin is only the beginning. What happens when we compare different contests, remove differences in participation, model uncertainty, simulate political coincidences, follow campaign funding—and finally let a computer draw a completely new electoral map of Seattle?
 
-Eight experiments; one main figure each. The idea isn't to make Seattle politics artificially complicated. It's to show how a handful of computational techniques can make familiar facts look different.
+Eight computational experiments, each with one clear observation and one statistical method. Where a chart looks surprising, we also ask whether the result depends on the way we measured it.
 
 ---
 
-## I. The election we actually held
+## I. Voting patterns and participation
 
-### 01 · Harrell's precincts still backed Seattle's other winners
+### 01 · Which races followed Wilson's geographic coalition?
 
-![Citywide ballot support among Harrell- and Wilson-winning mayoral precincts](figures/experiment_01_citywide_coalitions.svg)
+**Takeaway:** **{strongest['contest']}** support closely tracked Wilson's across precincts (correlation **{strongest['correlation']:.2f}**), yet **{strongest['different_majority_pct']:.1f}%** of those precincts produced different majority outcomes. Similar patterns of support do not imply the same winning coalition.
 
-**The result.** Even where Harrell won, **Erika Evans won 57%** of the city-attorney vote between the two finalists, **Alexis Mercedes Rinck won 76.9%** for Council Position 8, and **both city propositions earned majorities**. Seattle didn't divide neatly into two interchangeable voting blocs.
+**Method:** For every precinct, compare Wilson's share of the mayoral finalist vote with support for each other winning candidate or Yes option. Measure both the **correlation** between vote shares and how often the two majority outcomes differ.
 
-**The trick:** Join six contests by precinct ID, then compare each candidate's support inside the same sets of precincts. Orange means Harrell-winning *mayoral precincts*, not a Republican or party vote. This is **not** proof that individual voters split their tickets.
+![Correlations between Wilson's precinct vote share and five other citywide contests, plus different-majority rates](figures/experiment_01_precinct_correlations.svg)
 
-[What each contest decided, with the full table](experiments/01_coalitions.md)
+**How to read:** On the left, a correlation closer to +1 means precincts with more Wilson support also tended to give more support to that candidate or option. On the right, the percentage shows how often the other contest had a different majority result than Wilson did in that precinct. A contest can have a positive correlation **and** a high difference rate if it was broadly popular throughout the city.
 
-### 02 · The turnout geography narrowed Wilson's observed advantage
+**Observation:** **{strongest['contest']}** had the strongest precinct-level correlation with Wilson (r = **{strongest['correlation']:.2f}**), while **{weakest['contest']}** had the weakest (r = **{weakest['correlation']:.2f}**). **{biggest_mismatch['contest']}** had a different majority outcome in **{biggest_mismatch['different_majority_pct']:.1f}%** of comparable precincts. That's a more precise description of political coalitions than calling every precinct either “Wilson” or “Harrell.”
 
-![Observed Wilson share versus an equal-precinct-participation thought experiment](figures/experiment_02_equal_participation.svg)
+These are **correlations across geographic units, not linked individual ballots**. [See the six-contest comparison and plain-English descriptions of each race](experiments/01_coalitions.md).
 
-**The result.** Wilson won **50.36%** of the votes for the two mayoral finalists. Holding every precinct's observed candidate preference fixed, but giving each precinct the same number of finalist votes *per registered voter*, increases her calculated share to **51.69%**—a **1.33-percentage-point difference**.
+### 02 · Why vote-weighting changes the citywide picture
 
-**The trick:** Reweight precincts by *registered voters*, rather than *votes cast for the finalists*. This standardization isolates one mathematical implication of **where participation was concentrated**. It's not a prediction of how abstainers would vote; a changed electorate could have changed candidate shares too.
+**Takeaway:** Precincts with stronger Wilson support contributed fewer votes for the mayoral finalists per registered voter, which modestly narrowed her observed margin.
 
-[Calculation, simple example and limitations](experiments/02_equal_participation.md)
+**Method:** Hold each precinct's observed candidate split fixed, then compare the actual result (**weighted by finalist votes cast**) with a hypothetical result **weighted by registered voters**, as though participation rates were the same everywhere.
 
----
+![Observed Wilson share versus an equal-participation reweighting](figures/experiment_02_equal_participation.svg)
 
-## II. What can statistics reveal?
+**The index-fund analogy:** In a market-cap-weighted index, larger companies exert more influence. An equal-weighted version changes the result because each company receives the same importance. Here the first result weights precincts by their **actual votes**, while the second gives every registered voter the same *expected participation rate*. That's **not** equal weight for each precinct: a precinct with 1,000 registered voters still counts twice as much as one with 500.
 
-### 03 · The model can estimate a range—not just a single number
+**Observation:** Wilson received **50.36%** of the two-finalist vote. Under this fixed-preference reweighting, her share becomes **51.69%**, or **1.33 percentage points higher**. The arithmetic shows that *where* mayoral votes came from mattered to the observed margin; it does **not** forecast how additional voters would have voted.
 
-![Precinct predictions with held-out geographic uncertainty ranges and actual results](figures/experiment_03_prediction_ranges.svg)
-
-**The result.** Our geographic train/calibrate/test experiment produced intervals targeting **90% coverage**; they contained **{e3['coverage']:.1f}%** of the held-out precinct results in this retrospective check. Their mean width was **{e3['avg_interval_width_pp']:.1f} percentage points**. The chart selects the largest misses *outside* those ranges.
-
-**The trick:** Train Ridge regression on three geographic groups, calibrate the prediction-error range on a fourth, then test on a fifth; rotate the roles. The model uses August's primary vote and three broad 2020 Census variables. This is **retrospective cross-validation**, not a pre-election forecast. Geographic dependence means a nominal 90% interval is not a formal universal guarantee.
-
-**Why it matters:** A five-point model miss can be ordinary in one test and remarkable in another. Always look at the uncertainty *before* declaring an anomaly.
-
-### 04 · With thousands of twins, spectacular differences become easier to find
-
-![Simulated maximum matched-precinct gaps compared with the observed largest gap](figures/experiment_04_twin_simulation.svg)
-
-**The result.** We identified **{e4['candidate_pairs']:,}** geographically separated precinct pairs that passed a **pre-November similarity test** using 2021 voting, August 2025 voting and Census measures. The largest observed November difference was **{e4['observed_max_gap_pp']:.1f} percentage points**. Across **{e4['draws']:,}** simulations, the typical largest gap was **{e4['binomial_median_max_pp']:.1f} points** if only independent vote-count noise occurred, or **{e4['shuffled_errors_median_max_pp']:.1f} points** when we shuffled the model's actual precinct prediction errors.
-
-**The trick:** Don't test one extraordinary-looking pair *after selecting it*. Search the same candidate-pair pool in *every simulation*, and examine the **maximum** difference each time. The original West Seattle twins (2021 Harrell shares within 0.8 points; November gap 17.4 points) are a relatable example, not automatically a statistically significant anomaly.
-
-**Caution:** The simulations are sensitivity scenarios, not reliable p-values. Independent binomial draws ignore neighborhood heterogeneity, and shuffled model errors discard geographic correlations. Different assumptions give different expectations.
+[Calculation, illustrative example and assumptions](experiments/02_equal_participation.md).
 
 ---
 
-## III. Money and what aggregate results hide
+## II. Predictability and statistical surprises
 
-### 05 · Two candidates, two very different sources of campaign money
+### 03 · Where did the model miss the election?
+
+**Takeaway:** Most precincts fit within a model-based prediction range, but some areas deviated much further from our estimated November vote share than others.
+
+**Method:** Train a Ridge regression model on three geographic groups, calibrate its error ranges in a fourth, and test it in a fifth—using August voting and broad Census measures. Plot the **size of the miss relative to its prediction range** at each precinct.
+
+![Seattle map highlighting precincts with small, moderate and out-of-range November prediction errors](figures/experiment_03_unexpected_map.png)
+
+**How to read the map:** Blue areas had relatively small misses, pale orange areas had moderate misses, and dark orange areas fell **outside** their held-out prediction range. This shows *where this model worked better or worse*, not whether a neighborhood is inherently unpredictable.
+
+![Selected held-out precinct predictions, expected ranges and actual results](figures/experiment_03_prediction_ranges.svg)
+
+**Observation:** Ranges targeting 90% coverage contained **{e3['coverage']:.1f}%** of held-out precinct outcomes; they averaged **{e3['avg_interval_width_pp']:.1f} percentage points** wide. **{prediction_map['outside_range']} precincts** were outside their estimated range. The second figure shows a few such examples and what the error bands mean.
+
+**Qualification:** This is retrospective model evaluation, *not* a pre-election forecast, and dependence between neighboring precincts complicates formal uncertainty guarantees.
+
+### 04 · Is the largest political-twin gap really unusual?
+
+**Takeaway:** The largest observed difference between historical lookalikes was close to the typical maximum produced by one simulation that repeated the entire search.
+
+**Method:** Match precinct pairs using earlier voting and Census information *without peeking at November*, then simulate many elections and record the **single largest gap across all eligible pairs** each time.
+
+**An analogy:** Imagine finding thousands of pairs of stocks with similar histories, then showing only the pair that diverged most after an earnings announcement. The example looks extraordinary—but selecting the **biggest** difference guarantees a dramatic story. Our statistical question is whether the largest observed gap is big *relative to a search of the same size*.
+
+![Simulated maximum precinct-twin differences versus the observed largest gap](figures/experiment_04_twin_simulation.svg)
+
+**Observation:** Among **{e4['candidate_pairs']:,}** matched candidate pairs, the largest November difference was **{e4['observed_max_gap_pp']:.1f} points**. The typical maximum was **{e4['binomial_median_max_pp']:.1f} points** under independent vote-count variation, versus **{e4['shuffled_errors_median_max_pp']:.1f} points** after redistributing observed model errors. The West Seattle twin pair with a 17.4-point November gap is a useful local illustration, not automatically a statistically significant anomaly.
+
+The two simulations make different simplifying assumptions; neither establishes a formal significance threshold or explains why individual precincts diverged.
+
+---
+
+## III. Campaign finance and limits of aggregate data
+
+### 05 · Democracy Vouchers played very different roles in campaign fundraising
+
+**Takeaway:** Democracy Vouchers accounted for roughly {e5['Katie Wilson']['voucher_percent']:.0f}% of Wilson's reported direct committee funding versus {e5['Bruce Harrell']['voucher_percent']:.0f}% of Harrell's.
+
+**Method:** Separate each campaign's official disclosed receipts into Democracy Vouchers, other contributions, and candidate funds, then compare their proportions.
 
 ![Direct Seattle mayoral campaign financing: democracy vouchers, other contributions and candidate funds](figures/experiment_05_funding_sources.svg)
 
@@ -109,7 +143,11 @@ Eight experiments; one main figure each. The idea isn't to make Seattle politics
 
 **What's omitted:** Independent-expenditure committees and donors' geographic addresses. This is a campaign-cycle financing comparison, including some post-election reporting—not a statement about how much was spent before election day, or where individual donors voted.
 
-### 06 · We can't tell who split their ticket by looking at precinct totals
+### 06 · Precinct totals can't identify individual split-ticket choices
+
+**Takeaway:** Identical precinct-level outcomes can arise from very different individual voting combinations.
+
+**Method:** Construct two fictional groups of 100 ballots with the same candidate totals but different numbers of voters supporting both candidates.
 
 ![Two sets of fictional ballots with the same mayoral and city attorney totals](figures/experiment_06_hidden_ballots.svg)
 
@@ -121,31 +159,41 @@ Eight experiments; one main figure each. The idea isn't to make Seattle politics
 
 ---
 
-## IV. Seattle, redrawn
+## IV. Political communities and geographic boundaries
 
-### 07 · Let an algorithm invent new political neighborhoods
+**What is a voting precinct?** A precinct is a small election-administration unit, **not** a traditional neighborhood or Seattle City Council district. Under [Washington law](https://app.leg.wa.gov/rcw/default.aspx?cite=29A.16&full=true), precincts must normally be compact, connected, within the same congressional/state legislative/county council district and city, and generally follow visible features such as streets or waterways. They cannot exceed **1,500 active registered voters**. [King County Elections](https://kingcounty.gov/en/dept/elections/maps/precinct-alterations) prepares boundary revisions, which the **King County Council** adopts. Seattle's seven district-based Council seats have [separately drawn boundaries](https://www.seattle.gov/planning-and-community-development/population-and-demographics); the community reporting areas on the left of our next map are descriptive neighborhood groupings, **not legal election districts**.
 
-![Seattle neighborhood reporting areas versus algorithmically discovered 2025 electoral regions](figures/experiment_07_algorithmic_seattle.svg)
+Our experiment **never redraws the precinct boundaries**. It asks which existing precincts might belong together if we grouped them by location and voting similarities.
 
-**The result.** Without receiving any traditional neighborhood labels, our algorithm identified **{e7['communities']}** electoral communities across **{e7['precincts']:,}** precincts, linked by **{e7['edges']:,}** meaningful geographic borders. Compare the right-hand map with the familiar community-reporting areas at left.
+### 07 · An algorithm groups Seattle into 11 electoral communities
 
-**The trick:** Represent each precinct as a node in a graph. Connect two nodes only if they share at least 100 feet of boundary; give stronger connections to neighbors with more similar results in **six** citywide 2025 ballot contests. NetworkX's **Louvain community detection** finds groups with stronger internal links. We never tell it what "Capitol Hill" or "Ballard" means.
+**Takeaway:** Using six citywide election contests and the shared borders between precincts, the algorithm found **{e7['communities']}** geographically connected electoral groups among **{e7['precincts']:,}** precincts.
 
-**Interpretation:** The regions are *algorithmic clusters*, not independently verified political identities. The colors merely distinguish groups; they do not label partisan preferences.
+**Method:** Create a network where precincts are points, neighboring precincts are connected, and the connections are stronger where the six contest results are more alike. Apply NetworkX's **Louvain community detection** to find groups with strong internal connections.
 
-### 08 · Are those boundaries real—or did the model draw them for us?
+![Familiar Seattle community reporting areas and election-based Louvain groupings](figures/experiment_07_algorithmic_seattle.svg)
 
-![Seattle map showing precinct boundaries stable or unstable across five clustering specifications](figures/experiment_08_boundary_stability.png)
+**How Louvain works:** Imagine every precinct starting out as its own group. The algorithm repeatedly asks whether moving a precinct into a neighboring group makes the overall network grouping stronger—meaning a better concentration of connections *within* groups than a random-connection benchmark would suggest. It combines groups and repeats until further moves stop helping. A setting called **resolution** influences how many groups emerge.
 
-**The result.** Across five defensible versions of the clustering model—altering the included races and how many groups the algorithm prefers—**{e8['model_sensitive_pct']:.1f}%** of shared precinct borders changed whether their neighbors were assigned to the *same* electoral community. **{e8['stable_dividing_pct']:.1f}%** were dividing borders in every specification; **{e8['stable_internal_pct']:.1f}%** stayed within one group every time.
+**Interpretation:** The algorithm did not learn what “Ballard” means. It discovered **{e7['communities']}** groups in a map made from **{e7['edges']:,}** geographic connections—but a map made from geography *alone* would also form clusters. That's what the final experiment checks.
 
-**The trick:** Run the *same community-detection algorithm* repeatedly with different inputs. Instead of trusting the most attractive map, ask which geographical boundaries survive. Dark lines in the figure are consistently divisive; orange lines are sensitive to model choice.
+### 08 · What does election data add beyond geography alone?
 
-**The lesson:** A sophisticated map can be partly a picture of its designer's assumptions. Mapping how sensitive it is may be more valuable than choosing one authoritative-looking version.
+**Takeaway:** Adding voting patterns changed just **{geo['border_status_changes_pct']:.1f}%** of neighboring-precinct same-group/different-group relationships compared with a geography-only model yielding a similar number of communities.
+
+**Method:** Run Louvain twice on **the exact same precinct network**: first with every adjacent border equally weighted (geography only), then with stronger weights for neighbors whose six-contest voting patterns are similar. Choose a geography-only resolution giving a comparable number of groups, then compare the boundaries.
+
+![Map highlighting boundaries that change when vote similarity is added to a geography-only precinct network](figures/experiment_08_geography_vs_votes.png)
+
+**Observation:** The geography-only model produced **{geo['geography_only_groups']}** groups versus **{geo['voting_informed_groups']}** with voting data. Adding voting patterns changed the same-group/different-group status of **{geo['border_status_changes_pct']:.1f}%** of the **{geo['shared_borders']:,}** shared precinct borders. The chance-adjusted agreement between groupings was **{geo['adjusted_rand_geography_vs_voting']:.2f}** (adjusted Rand index; 1 means identical group assignments).
+
+**A second check:** Changing the contests and the clustering resolution within the election-based model changed **{e8['model_sensitive_pct']:.1f}%** of local border classifications across five specifications. [See that sensitivity map](figures/experiment_08_boundary_stability.png).
+
+**Interpretation:** Neither a geography-only map nor a vote-informed map is the uniquely correct way to divide Seattle. The useful result is **what actually changes when electoral information is introduced**, rather than the existence of algorithmic clusters itself.
 
 ---
 
-## Where this leaves Seattle
+## Summary of findings
 
 The methods tell different stories, and they shouldn't all be forced into a single political conclusion.
 
@@ -161,7 +209,7 @@ The key results are descriptive; none establishes how a particular voter changed
 - **Computational techniques:** scikit-learn, SciPy, Shapely, NetworkX, Matplotlib, and NumPy. [Source code](../scripts/) and [prior detailed methodology](../docs/methodology/techniques_explained.md).
 - **Reproduction:** the GitHub Actions workflow runs the analysis from official inputs and commits verified graphics and aggregate research outputs.
 
-*Independent exploratory study · Working review edition · See the source code for precise parameters. This draft does not alter the published first edition.*
+*Independent exploratory study · Review edition. Code, sources, and statistical assumptions are linked above.*
 """
 
 def main():

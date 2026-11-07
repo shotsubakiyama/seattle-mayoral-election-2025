@@ -1,0 +1,53 @@
+{
+  "alignment": [
+    {
+      "contest": "Evans",
+      "correlation": 0.927,
+      "different_majority_pct": 38.9,
+      "valid_precincts": 1000
+    },
+    {
+      "contest": "Rinck",
+      "correlation": 0.819,
+      "different_majority_pct": 49.1,
+      "valid_precincts": 1001
+    },
+    {
+      "contest": "Foster",
+      "correlation": 0.944,
+      "different_majority_pct": 31.4,
+      "valid_precincts": 998
+    },
+    {
+      "contest": "Prop. 1 Yes",
+      "correlation": 0.779,
+      "different_majority_pct": 49.4,
+      "valid_precincts": 1001
+    },
+    {
+      "contest": "Prop. 2 Yes",
+      "correlation": 0.903,
+      "different_majority_pct": 45.2,
+      "valid_precincts": 1001
+    }
+  ],
+  "prediction_map": {
+    "small_misses": 591,
+    "moderate_misses": 319,
+    "outside_range": 96,
+    "modeled": 1006
+  },
+  "geography_vs_votes": {
+    "precincts": 1006,
+    "shared_borders": 2582,
+    "geography_only_groups": 11,
+    "voting_informed_groups": 11,
+    "geography_only_resolution": 0.6,
+    "border_status_changes_pct": 6.8,
+    "always_dividing_pct": 1.3,
+    "always_together_pct": 91.9,
+    "adjusted_rand_geography_vs_voting": 0.791,
+    "geography_only_within_vote_variance_pct": 73.2,
+    "vote_informed_within_vote_variance_pct": 71.4
+  }
+}
