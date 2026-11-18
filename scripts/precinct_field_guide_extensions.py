@@ -29,17 +29,45 @@ from precinct_field_guide import (
 )
 OUTFILE=OUT/"precinct_field_guide_extensions.json"
 GROUPS=OUT/"experiment_07_precinct_electoral_communities.csv"
-HISTORY_YEARS=(2001,2005,2010,2015,2020,2021,2025)
+HISTORY_YEARS=(2010,2015,2020,2021,2025)
 ROOT_URL="https://services.arcgis.com/Ej0PsM5Aw677QF1W/ArcGIS/rest/services"
+
+# Selected documented Seattle precinct counts. These are not interpolated estimates.
+# They come from contemporary election reporting / official city material and are
+# intentionally sparse where digitized sources do not support a confident count.
+ARCHIVAL_PRECINCT_COUNTS=[
+    dict(year=1904,seattle_precincts=52,
+         source="Morning Oregonian, March 9 1904",
+         url="https://oregonnews.uoregon.edu/lccn/sn83025138/1904-03-09/ed-1/seq-1/"),
+    dict(year=1912,seattle_precincts=381,
+         source="Morning Oregonian, July 29 1912; post-redistricting",
+         url="https://oregonnews.uoregon.edu/lccn/sn83025138/1912-07-29/ed-1/seq-2/ocr/"),
+    dict(year=1933,seattle_precincts=406,
+         source="Oregon Statesman, August 30 1933",
+         url="https://oregonnews.uoregon.edu/lccn/sn85042470/1933-08-30/ed-1/seq-1/"),
+    dict(year=1938,seattle_precincts=508,
+         source="Japanese-American Courier, July 30 1938",
+         url="https://downloads.densho.org/ddr-densho-96/ddr-densho-96-585-mezzanine-aa1eff9543.pdf"),
+    dict(year=2003,seattle_precincts=1006,
+         source="Seattle Ethics and Elections Commission 2003 report",
+         url="https://www.seattle.gov/documents/departments/ethicselections/election%20reports/2003report.pdf"),
+]
+SEATTLE_POPULATION=[
+    (1890,42800),(1900,80671),(1910,237194),(1920,315312),
+    (1930,365583),(1940,368302),(1950,467591),(1960,557087),
+    (1970,530831),(1980,493846),(1990,516259),(2000,563374),
+    (2010,608660),(2020,737015),(2025,816600),
+]
 
 
 def historical_counts(years=HISTORY_YEARS):
-    """Archived *boundary* counts, not counts of ballots in an election.
+    """Combine selected archival counts with comparable modern GIS snapshots.
 
-    Services are the year-stamped VOTDST layers listed in King County's GIS catalog.
-    Each query counts NAME LIKE 'SEA %', the same name criterion as the current maps.
+    The early values are documented election-era counts. Modern values query
+    King County's year-stamped VOTDST layers using the same SEA-prefixed field
+    criterion. Missing years stay missing rather than being estimated.
     """
-    values=[]
+    values=[dict(row) for row in ARCHIVAL_PRECINCT_COUNTS]
     for year in years:
         dataset=f"VOTDST_{year}_AREA_{3044+year-2000}" if year!=2025 else "VOTDST_2025_AREA_3072"
         service=f"{ROOT_URL}/{dataset}/FeatureServer/0/query"
@@ -51,9 +79,6 @@ def historical_counts(years=HISTORY_YEARS):
             data=json.loads(response.read().decode("utf-8"))
         n=data.get("count")
         if data.get("error") or not isinstance(n,int) or n<500 or n>1400:
-            # Earlier archived layers do not all have the modern NAME field.
-            # Search a layer's published schema for a comparable precinct-name
-            # field. Never silently substitute a countywide count.
             meta_request=urllib.request.Request(
                 f"{ROOT_URL}/{dataset}/FeatureServer/0?f=json",
                 headers={"User-Agent":"SeattlePrecinctResearch/1.0"})
@@ -80,37 +105,62 @@ def historical_counts(years=HISTORY_YEARS):
             if not isinstance(n,int) or n<500 or n>1400:
                 print(f"Skipping {year}: no comparable SEA-prefixed name field in {fields}")
                 continue
-        values.append(dict(year=year,seattle_precincts=n,url=f"{ROOT_URL}/{dataset}/FeatureServer/0"))
-    if len(values)<min(2,len(years)):
-        raise ValueError("Too few verified historic Seattle precinct snapshots")
-    if 2025 in years and (values[-1]["year"]!=2025 or
-                          values[-1]["seattle_precincts"] not in range(1017,1022)):
+        values.append(dict(year=year,seattle_precincts=n,
+                           source="King County archived voting-district GIS",
+                           url=f"{ROOT_URL}/{dataset}/FeatureServer/0"))
+    values=sorted(values,key=lambda row:row["year"])
+    if len(values)<7:
+        raise ValueError("Too few verified historic Seattle precinct points")
+    modern=[r for r in values if r["year"]==2025]
+    if years and 2025 in years and (not modern or modern[0]["seattle_precincts"] not in range(1017,1022)):
         raise ValueError("2025 GIS count differs unexpectedly from certified 2025 results")
     return values
 
 
 def plot_count_history(rows,path):
-    x=np.array([r["year"] for r in rows]);y=np.array([r["seattle_precincts"] for r in rows])
-    fig,ax=plt.subplots(figsize=(10.4,4.6))
-    ax.plot(x,y,marker="o",ms=8,lw=2.8,color=BLUE)
+    """Long-run selected precinct counts overlaid with Seattle population."""
+    x=np.array([r["year"] for r in rows],dtype=float)
+    y=np.array([r["seattle_precincts"] for r in rows],dtype=float)
+    pop_x=np.array([year for year,_ in SEATTLE_POPULATION],dtype=float)
+    pop_y=np.array([population/1000 for _,population in SEATTLE_POPULATION],dtype=float)
+
+    fig,ax=plt.subplots(figsize=(11.4,5.6))
+    ax2=ax.twinx()
+
+    # Dashed joins emphasize that these are selected documented snapshots,
+    # not a claim about the unobserved path between them.
+    precinct_line=ax.plot(x,y,marker="o",ms=7,lw=2.2,ls=(0,(4,2)),
+                          color=BLUE,label="Documented precinct count")[0]
+    population_line=ax2.plot(pop_x,pop_y,marker="o",ms=4.5,lw=2.4,
+                             color=RUST,label="Seattle population")[0]
+
     for year,count in zip(x,y):
-        ax.annotate(f"{count:,}",(year,count),xytext=(0,11),
-                    textcoords="offset points",ha="center",fontsize=10,color=INK,
-                    fontweight="bold")
-    lo=max(0,int(y.min()//100*100)-80)
-    hi=int(y.max()//100*100)+150
-    ax.set_ylim(lo,hi)
-    ax.set_xticks(x)
-    ax.set_ylabel("Seattle precincts in archived GIS snapshots")
-    ax.set_title("How Seattle's precinct count has changed",loc="left",
-                 fontsize=16,fontweight="bold",pad=20)
-    ax.spines[["top","right"]].set_visible(False)
-    ax.grid(axis="y",alpha=.15);ax.set_axisbelow(True)
-    fig.text(.045,.015,"Official King County year-specific voting-district GIS layers; "
-             "counts are historical map snapshots, not a continuous population measure.\n"
-             "Boundaries change with redistricting and administrative balancing. Different years do not imply identical polygons.",
-             fontsize=9,color="#597083")
-    fig.subplots_adjust(left=.1,right=.97,top=.79,bottom=.21)
+        ax.annotate(f"{int(count):,}",(year,count),xytext=(0,9),
+                    textcoords="offset points",ha="center",fontsize=8.7,
+                    color=INK,fontweight="bold")
+
+    ax.set_xlim(1888,2028)
+    ax.set_ylim(0,max(y)*1.14)
+    ax2.set_ylim(0,max(pop_y)*1.14)
+    ax.set_xticks([1890,1910,1930,1950,1970,1990,2010,2025])
+    ax.set_ylabel("Documented Seattle election precincts",color=BLUE)
+    ax2.set_ylabel("Seattle population (thousands)",color=RUST)
+    ax.tick_params(axis="y",colors=BLUE)
+    ax2.tick_params(axis="y",colors=RUST)
+    ax.spines["top"].set_visible(False);ax2.spines["top"].set_visible(False)
+    ax.grid(axis="y",alpha=.13);ax.set_axisbelow(True)
+    ax.legend([precinct_line,population_line],
+              ["Documented precinct count","Seattle population"],
+              loc="upper left",frameon=False,ncol=2)
+
+    ax.set_title("Seattle grew—and its precinct system changed with it",
+                 loc="left",fontsize=16,fontweight="bold",pad=18)
+    fig.text(.055,.025,
+             "Precinct points are selected documented counts; gaps are not estimates. "
+             "The 1891 ward-and-precinct map survives, but no numeric count is plotted without a verified source.\n"
+             "Population: decennial Census through 2020; 2025 is the Washington OFM April 1 estimate.",
+             fontsize=8.8,color="#597083")
+    fig.subplots_adjust(left=.09,right=.90,top=.82,bottom=.20)
     path.parent.mkdir(parents=True,exist_ok=True)
     fig.savefig(path,format="svg",bbox_inches="tight")
     plt.close(fig)
@@ -191,6 +241,65 @@ def plot_voter_bubble_comparison(polygons,rows,path):
     path.parent.mkdir(parents=True,exist_ok=True)
     fig.savefig(path,format="png",dpi=165,bbox_inches="tight")
     plt.close(fig)
+
+
+def neighborhood_change_stats(historical,minimum_precincts=8):
+    """Vote-weighted change in Harrell share for named community areas."""
+    grouped=defaultdict(list)
+    for row in historical.values():
+        grouped[row["area_name"]].append(row)
+    output=[]
+    for name,rows in grouped.items():
+        if len(rows)<minimum_precincts:
+            continue
+        weights=np.array([r["votes_2025"] for r in rows],dtype=float)
+        changes=np.array([r["change_pp"] for r in rows],dtype=float)
+        output.append(dict(
+            name=name,
+            precincts=len(rows),
+            finalist_votes_2025=int(weights.sum()),
+            weighted_change_pp=round(float(np.average(changes,weights=weights)),1),
+        ))
+    return sorted(output,key=lambda r:r["weighted_change_pp"])
+
+
+def plot_change_by_neighborhood(historical,path):
+    stats=neighborhood_change_stats(historical)
+    # The middle of the distribution is intentionally omitted: the point of
+    # this graphic is where Harrell fell most versus where he held up best.
+    selected=stats[:6]+stats[-6:]
+    selected=sorted({r["name"]:r for r in selected}.values(),
+                    key=lambda r:r["weighted_change_pp"])
+    y=np.arange(len(selected))
+    vals=np.array([r["weighted_change_pp"] for r in selected])
+    colors=["#b96c4b" if i<6 else "#6c91a4" for i in range(len(selected))]
+
+    fig,ax=plt.subplots(figsize=(10.8,6.6))
+    ax.barh(y,vals,color=colors,height=.64)
+    ax.set_yticks(y,[f"{r['name']} · {r['precincts']} precincts"
+                     for r in selected],fontsize=9.2)
+    ax.invert_yaxis()
+    ax.axvline(0,color=INK,lw=1)
+    ax.set_xlim(min(vals)*1.18,1)
+    ax.set_xlabel("Change in Harrell two-finalist share, 2021 → 2025 (percentage points)")
+    ax.set_title("Where Harrell fell most—and where he held up better",
+                 loc="left",fontsize=16,fontweight="bold",pad=18)
+    for i,v in enumerate(vals):
+        ax.text(v-.25,i,f"{v:.1f}",ha="right",va="center",
+                color="white",fontsize=9,fontweight="bold")
+    ax.spines[["top","right","left"]].set_visible(False)
+    ax.tick_params(axis="y",length=0,pad=8)
+    ax.grid(axis="x",alpha=.14);ax.set_axisbelow(True)
+    fig.text(.035,.025,
+             "Six largest and six smallest area-level declines among areas with at least 8 comparable precincts. "
+             "Area changes are weighted by 2025 finalist votes.\n"
+             "Harrell faced Lorena González in 2021 and Katie Wilson in 2025, so this is geographic change—not individual voter switching.",
+             fontsize=8.8,color="#587282")
+    fig.subplots_adjust(left=.34,right=.96,top=.84,bottom=.18)
+    path.parent.mkdir(parents=True,exist_ok=True)
+    fig.savefig(path,format="svg",bbox_inches="tight")
+    plt.close(fig)
+    return stats
 
 
 def plot_change_distribution(historical,path):
@@ -298,9 +407,10 @@ def main():
     plot_count_history(history,FIG/"precinct_count_history.svg")
     plot_voter_bubble_comparison(shapes,voters,FIG/"precinct_vote_weighted_map.png")
     change=plot_change_distribution(historic,FIG/"precinct_2021_to_2025_distribution.svg")
+    area_change=plot_change_by_neighborhood(historic,FIG/"precinct_2021_to_2025_by_neighborhood.svg")
     clusters=cluster_totals(vote,FIG/"precinct_cluster_vote_breakdown.svg")
     info=dict(precinct_count_history=history,change_distribution=change,
-              groups=clusters)
+              neighborhood_change=area_change,groups=clusters)
     OUTFILE.write_text(json.dumps(info,indent=2)+"\n",encoding="utf-8")
     print("Historic count:",[(p["year"],p["seattle_precincts"]) for p in history])
     print("Change:",change)
