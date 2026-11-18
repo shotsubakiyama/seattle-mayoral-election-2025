@@ -1,5 +1,6 @@
 {
   "precinct_count": 1018,
+  "official_precinct_total": 1019,
   "official_geometry_count": 1018,
   "historical_comparable_count": 846,
   "precinct_population_2025": {
@@ -21,6 +22,7 @@
     "top_registered": [
       {
         "precinct_id": "2373",
+        "precinct_name": "SEA 46-2373",
         "wilson_votes": 261,
         "harrell_votes": 118,
         "finalist_votes": 379,
@@ -31,6 +33,7 @@
       },
       {
         "precinct_id": "1326",
+        "precinct_name": "SEA 36-1326",
         "wilson_votes": 329,
         "harrell_votes": 199,
         "finalist_votes": 528,
@@ -41,6 +44,7 @@
       },
       {
         "precinct_id": "1853",
+        "precinct_name": "SEA 37-1853",
         "wilson_votes": 246,
         "harrell_votes": 109,
         "finalist_votes": 355,
@@ -51,6 +55,7 @@
       },
       {
         "precinct_id": "3980",
+        "precinct_name": "SEA 37-3980",
         "wilson_votes": 196,
         "harrell_votes": 80,
         "finalist_votes": 276,
@@ -61,6 +66,7 @@
       },
       {
         "precinct_id": "2344",
+        "precinct_name": "SEA 46-2344",
         "wilson_votes": 154,
         "harrell_votes": 81,
         "finalist_votes": 235,
@@ -73,6 +79,7 @@
     "top_geographic_area": [
       {
         "precinct_id": "1928",
+        "precinct_name": "SEA 34-1928",
         "wilson_votes": 185,
         "harrell_votes": 67,
         "finalist_votes": 252,
@@ -83,6 +90,7 @@
       },
       {
         "precinct_id": "1696",
+        "precinct_name": "SEA 36-1696",
         "wilson_votes": 61,
         "harrell_votes": 237,
         "finalist_votes": 298,
@@ -93,6 +101,7 @@
       },
       {
         "precinct_id": "1494",
+        "precinct_name": "SEA 34-1494",
         "wilson_votes": 167,
         "harrell_votes": 210,
         "finalist_votes": 377,
@@ -103,6 +112,7 @@
       },
       {
         "precinct_id": "1602",
+        "precinct_name": "SEA 34-1602",
         "wilson_votes": 260,
         "harrell_votes": 95,
         "finalist_votes": 355,
@@ -113,6 +123,7 @@
       },
       {
         "precinct_id": "2267",
+        "precinct_name": "SEA 46-2267",
         "wilson_votes": 162,
         "harrell_votes": 114,
         "finalist_votes": 276,
@@ -125,6 +136,7 @@
     "top_ballots_cast": [
       {
         "precinct_id": "1408",
+        "precinct_name": "SEA 34-1408",
         "wilson_votes": 117,
         "harrell_votes": 434,
         "finalist_votes": 551,
@@ -135,6 +147,7 @@
       },
       {
         "precinct_id": "2260",
+        "precinct_name": "SEA 46-2260",
         "wilson_votes": 231,
         "harrell_votes": 308,
         "finalist_votes": 539,
@@ -145,6 +158,7 @@
       },
       {
         "precinct_id": "2282",
+        "precinct_name": "SEA 46-2282",
         "wilson_votes": 235,
         "harrell_votes": 301,
         "finalist_votes": 536,
@@ -155,6 +169,7 @@
       },
       {
         "precinct_id": "2029",
+        "precinct_name": "SEA 43-2029",
         "wilson_votes": 192,
         "harrell_votes": 350,
         "finalist_votes": 542,
@@ -165,6 +180,7 @@
       },
       {
         "precinct_id": "1326",
+        "precinct_name": "SEA 36-1326",
         "wilson_votes": 329,
         "harrell_votes": 199,
         "finalist_votes": 528,

@@ -11,9 +11,11 @@ This is a beginner's guide to those units, followed by a few computational inves
 
 A **voting precinct** is an administrative area used to assign voters to the correct ballot and organize voting records. It isn't necessarily a neighborhood, and it isn't one of Seattle's seven geographic City Council districts.
 
-Seattle has had wards and precincts since its early municipal period. The [Seattle Municipal Archives' 1891 ward-and-precinct map](https://archives.seattle.gov/digital-collections/index.php/Detail/objects/21782) is a reminder that today's familiar boundaries didn't exist in the same form. The [King County Archives](https://kingcounty.gov/en/dept/executive-services/data-information-services/archives/find-it-in-archives/county-government-history/elections-history) also lists a **1915** precinct map and maps from **1936, 1944, 1986–1993, and 2000**.
+Seattle has had wards and precincts since its early municipal period. The [Seattle Municipal Archives' 1891 ward-and-precinct map](https://commons.wikimedia.org/wiki/File:Seattle_ward_and_precinct_map,_1891.jpg) is a reminder that today's familiar boundaries didn't exist in the same form. The [King County Archives](https://kingcounty.gov/en/dept/executive-services/data-information-services/archives/find-it-in-archives/county-government-history/elections-history) also lists a **1915** precinct map and maps from **1936, 1944, 1986–1993, and 2000**.
 
-[View Seattle's historical 1891 ward-and-precinct map](https://archives.seattle.gov/digital-collections/index.php/Detail/objects/21782).
+<a href="https://commons.wikimedia.org/wiki/File:Seattle_ward_and_precinct_map,_1891.jpg"><img src="https://cdn2.picryl.com/photo/1895/12/31/seattle-ward-and-precinct-map-1891-b21ed9-1024.jpg" alt="1891 wards and precincts of early Seattle (Seattle Municipal Archives map 1427)" width="390"></a>
+
+*An 1891 ward-and-precinct map, from the [Seattle Municipal Archives collection](https://archives.seattle.gov/finding-aids/repositories/2/resources/436), map 1427 (public domain reproduction). The original city footprint and precinct lines differ greatly from today's.*
 
 **Who draws the lines today?** King County Elections proposes changes, which the King County Council formally adopts. Precincts generally need to be geographically connected, respect other electoral-district boundaries, and meet voter-count limits. The state ceiling is **1,500 active registered voters**, while King County's ordinance sets a lower ceiling of **900 active voters** at the relevant boundary-adoption stage. Geography changes through redistricting, annexations, and precinct balancing; the [official 2025 GIS layer](https://www5.kingcounty.gov/sdc/?Layer=votdst_2025_area) reflects such adjustments. [Washington law](https://app.leg.wa.gov/rcw/default.aspx?cite=29A.16.040) · [King County Code](https://aqua.kingcounty.gov/council/clerk/code/04_Title_1.htm) · [King County precinct alterations](https://kingcounty.gov/en/dept/elections/maps/precinct-alterations).
 
@@ -27,13 +29,13 @@ The important distinction: **these boundaries were not created to describe polit
 
 ![Histograms of registered voters and geographic square-mile sizes of Seattle precincts](figures/precinct_size_distributions.svg)
 
-We found **1,018** Seattle precincts with votes for the two mayoral finalists and valid registration data. The median had **469 registered voters**, while the median mapped area was just **0.060 square miles**. Their shapes and electorates still vary substantially.
+The certified 2025 results list **1,019** Seattle precincts; **1,018** had votes for the two mayoral finalists and usable registered-voter counts. The median had **469 registered voters**, while the median mapped area was just **0.060 square miles**. Their shapes and electorates still vary substantially.
 
 | Measure | Precinct | Value |
 |---|---|---:|
-| Most registered voters | SEA …-2373 (Northgate-Maple Leaf) | 1,032 voters |
-| Largest mapped polygon | SEA …-1928 | 3.22 sq mi* |
-| Most ballots counted | SEA …-1408 (Alki-Admiral) | 567 ballots |
+| Most registered voters | SEA 46-2373 (Northgate-Maple Leaf) | 1,032 voters |
+| Largest mapped polygon | SEA 34-1928 | 3.22 sq mi* |
+| Most ballots counted | SEA 34-1408 (Alki-Admiral) | 567 ballots |
 
 *Polygon area includes water and does **not** mean dry land. Ballots counted and registered voters are distinct measures. A reported precinct with more than 900 registered voters isn't automatically evidence of a legal violation: the returns and the legally relevant precinct-balancing snapshot need not be from the same date.*
 
@@ -115,7 +117,7 @@ The election data describe **where** particular voting outcomes occurred. They d
 
 - **Official results:** [King County 2025 certified precinct CSV](https://data.kingcounty.gov/d/rkie-6y8x) and [King County 2021 general precinct CSV](https://data.kingcounty.gov/d/4qrf-rjar).
 - **Precinct shapes:** [King County 2025 precinct GIS layer](https://www5.kingcounty.gov/sdc/?Layer=votdst_2025_area), projected in EPSG:2926 (US survey feet). Polygon area includes water.
-- **History and boundary law:** [Seattle Municipal Archives 1891 map](https://archives.seattle.gov/digital-collections/index.php/Detail/objects/21782), [King County Archives](https://kingcounty.gov/en/dept/executive-services/data-information-services/archives/find-it-in-archives/county-government-history/elections-history), [Washington precinct law](https://app.leg.wa.gov/rcw/default.aspx?cite=29A.16.040), and [King County Code](https://aqua.kingcounty.gov/council/clerk/code/04_Title_1.htm).
+- **History and boundary law:** [1891 ward-and-precinct map (Seattle Municipal Archives, via Wikimedia Commons)](https://commons.wikimedia.org/wiki/File:Seattle_ward_and_precinct_map,_1891.jpg), [King County Archives](https://kingcounty.gov/en/dept/executive-services/data-information-services/archives/find-it-in-archives/county-government-history/elections-history), [Washington precinct law](https://app.leg.wa.gov/rcw/default.aspx?cite=29A.16.040), and [King County Code](https://aqua.kingcounty.gov/council/clerk/code/04_Title_1.htm).
 - **Community area labels:** Existing precinct-to-community-reporting-area crosswalk. Neighborhood variability is calculated only for verified stable-boundary precincts with at least 100 finalist votes.
 - **Computational methods:** NumPy, Matplotlib, Shapely, scikit-learn and NetworkX. [See the code](../scripts/precinct_field_guide.py) and [machine-readable summary](../data/processed/precinct_field_guide_summary.json).
 - **Scope:** 2025 precinct vote mapping and descriptive boundaries are citywide; the 2021 historical comparison and neighborhood variability use a smaller subset with verified cross-year geometry. Do not silently compare those denominators.
