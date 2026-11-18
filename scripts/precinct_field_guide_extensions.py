@@ -51,8 +51,38 @@ def historical_counts(years=HISTORY_YEARS):
             data=json.loads(response.read().decode("utf-8"))
         n=data.get("count")
         if data.get("error") or not isinstance(n,int) or n<500 or n>1400:
-            raise ValueError(f"Unverifiable {year} Seattle GIS count: {data}")
+            # Earlier archived layers do not all have the modern NAME field.
+            # Search a layer's published schema for a comparable precinct-name
+            # field. Never silently substitute a countywide count.
+            meta_request=urllib.request.Request(
+                f"{ROOT_URL}/{dataset}/FeatureServer/0?f=json",
+                headers={"User-Agent":"SeattlePrecinctResearch/1.0"})
+            with urllib.request.urlopen(meta_request,timeout=25) as response:
+                meta=json.loads(response.read().decode("utf-8"))
+            fields=[f["name"] for f in meta.get("fields",[])]
+            for field in fields:
+                canonical=field.upper().replace("_","")
+                if field.upper()=="NAME" or canonical in (
+                       "PRECINCTNAME","VOTDSTNAME","PRECINCT","VOTINGPRECINCTNAME"):
+                    if field.upper()=="NAME":
+                        continue
+                    params2=urllib.parse.urlencode(dict(
+                        where=f"{field} LIKE 'SEA %'",
+                        returnCountOnly="true",f="json"))
+                    request2=urllib.request.Request(service+"?"+params2,
+                        headers={"User-Agent":"SeattlePrecinctResearch/1.0"})
+                    with urllib.request.urlopen(request2,timeout=25) as response:
+                        alternative=json.loads(response.read().decode("utf-8"))
+                    alt=alternative.get("count")
+                    if isinstance(alt,int) and 500<=alt<=1400:
+                        n=alt
+                        break
+            if not isinstance(n,int) or n<500 or n>1400:
+                print(f"Skipping {year}: no comparable SEA-prefixed name field in {fields}")
+                continue
         values.append(dict(year=year,seattle_precincts=n,url=f"{ROOT_URL}/{dataset}/FeatureServer/0"))
+    if len(values)<2:
+        raise ValueError("Fewer than two verified historic Seattle precinct snapshots")
     if values[-1]["seattle_precincts"] not in range(1017,1022):
         raise ValueError("2025 GIS count differs unexpectedly from certified 2025 results")
     return values
