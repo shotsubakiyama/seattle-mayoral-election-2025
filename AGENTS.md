@@ -4,17 +4,17 @@
 
 This is an independent, nonpartisan research and visual-storytelling project about Seattle's 2025 mayoral election. Write for both curious Seattle residents without technical training and technically sophisticated readers, including prospective employers. The public-facing work should tell a coherent story; methodological detail belongs in linked notes, source code, and appendices.
 
-Before changing anything, read `README.md`, inspect the affected report or page, and identify the current source of truth. Do not assume that the earliest or most familiar report is the latest one.
+Before changing anything, read `README.md`, inspect the affected report or page, and identify the current source of truth. The project's current flagship and forward direction is **Seattle, Precinct by Precinct**. Do not assume that the earliest or most familiar report is the latest one.
 
 ## Publication surfaces
 
-- `README.md` currently leads with the newer precinct field guide: `reports/seattle_precinct_by_precinct.md`.
-- `reports/seattle_through_the_numbers.md` is the earlier eight-experiment essay; it remains a distinct research artifact.
+- `README.md` leads with the flagship precinct field guide: `reports/seattle_precinct_by_precinct.md`.
+- `reports/seattle_through_the_numbers.md` is the earlier eight-experiment essay; it remains a secondary, historical research artifact, not the main publication.
 - `index.html` is the static GitHub Pages article. Its contents and publication links may not automatically match the README's preferred report.
 - `scripts/render_site.py`, `scripts/render_eight_experiments_report.py`, and the relevant analysis scripts generate parts of the publication. Check generators before editing generated output.
 - `.github/workflows/` contains build and deployment workflows. The Pages deployment is configured for manual dispatch; do not imply that a commit necessarily updates the live site.
 
-When changing the landing page, report navigation, or a “read the report” link, verify the destination against the current README and the user's explicit publishing intent. Do not silently redirect readers from the latest field guide to the older eight-experiment essay, or vice versa. If the intended flagship is ambiguous, ask.
+When changing the landing page, report navigation, or a “read the report” link, prioritize the flagship field guide at `reports/seattle_precinct_by_precinct.md`. Keep the earlier eight-experiment essay accessible as secondary material, clearly labeled. Do not leave prominent links pointing to the older essay as though it were the latest publication. The current `index.html` may still present the earlier eight-experiment story: treat alignment of the public site with the field guide as a separate publication change, requiring inspection and validation, not as something already completed.
 
 ## Editorial standards
 
