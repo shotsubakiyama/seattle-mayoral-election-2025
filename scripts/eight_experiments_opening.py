@@ -214,7 +214,8 @@ def plot_mayor_context_map(votes, destination):
         collection, ax=ax, orientation="horizontal", fraction=.035,
         pad=.035, aspect=35, extend="both"
     )
-    bar.set_ticks([30, 40, 50, 60, 70], ["30%", "40%", "50%", "60%", "70%"])
+    bar.set_ticks([30, 40, 50, 60, 70])
+    bar.set_ticklabels(["30%", "40%", "50%", "60%", "70%"])
     bar.set_label("Katie Wilson share of votes between the two mayoral finalists", fontsize=9)
     bar.outline.set_visible(False)
     fig.text(
