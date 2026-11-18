@@ -187,14 +187,17 @@ def neighborhood_stats(panel,minimum_votes=100,minimum_precincts=8):
         weights=np.array([x[1] for x in measurements])
         mean=float(np.average(pct,weights=weights))
         sd=float(np.sqrt(np.average((pct-mean)**2,weights=weights)))
+        typical=float(np.average(np.abs(pct-mean),weights=weights))
         output.append(dict(
             name=name,precincts=len(measurements),
             mean_harrell_pct=round(mean,1),
             weighted_sd_pp=round(sd,1),
+            typical_gap_pp=round(typical,1),
+            finalist_votes=int(np.sum(weights)),
             min_harrell_pct=round(float(min(pct)),1),
             max_harrell_pct=round(float(max(pct)),1),
         ))
-    return sorted(output,key=lambda x:-x["weighted_sd_pp"])
+    return sorted(output,key=lambda x:-x["typical_gap_pp"])
 
 
 def build_summary(rows,historical,neighborhoods,lines,ballots,official_precinct_total=None):
@@ -276,7 +279,7 @@ def plot_2025_map(polygons,rows,path):
     cb.set_ticks([0,25,50,75,100])
     cb.set_ticklabels(["0%","25%","50%","75%","100%"])
     cb.set_label("Share of votes cast for Harrell among Harrell + Wilson ballots",fontsize=10)
-    fig.suptitle("A city of precincts, not just two colors",x=.05,y=.98,
+    fig.suptitle("2025 Seattle mayoral vote by precinct",x=.05,y=.98,
                  ha="left",fontsize=19,weight="bold",color=INK)
     fig.text(.08,.085,"DEEP BLUE = STRONGER WILSON     ·     LIGHT = CLOSE     ·     RUST = STRONGER HARRELL",
             fontsize=9,color=INK)
@@ -300,16 +303,18 @@ def plot_anatomy(rows,path):
     ax[0].set_xlabel("Registered voters per 2025 precinct")
     ax[0].set_ylabel("Number of precincts")
     ax[0].legend(frameon=False,fontsize=9)
-    # Log bins allow the reader to see compact urban precincts alongside large water/park polygons.
-    positive=areas[areas>0]
-    edges=np.logspace(np.log10(max(positive.min()*.9,.001)),
-                      np.log10(positive.max()*1.05),28)
-    ax[1].hist(areas,bins=edges,color="#b78264",
-               edgecolor="white",linewidth=.5)
-    ax[1].set_xscale("log")
+    # Linear, in physical square miles. A final bin keeps unusual water/park
+    # precincts visible without compressing 95% of city precincts.
+    max_regular=.4
+    edges=np.arange(0,max_regular+.0201,.02)
+    display=np.minimum(areas,max_regular+.01)
+    edges=np.append(edges,[max_regular+.05])
+    ax[1].hist(display,bins=edges,color="#b78264",edgecolor="white",linewidth=.5)
+    ax[1].set_xlim(0,max_regular+.052)
+    ax[1].set_xticks([0,.1,.2,.3,.4,.425],["0","0.1","0.2","0.3","0.4","0.4+"])
     ax[1].axvline(np.median(areas),color=BLUE,lw=2,
                   label=f"Median: {np.median(areas):.3f} sq mi")
-    ax[1].set_xlabel("Area of official precinct polygon (square miles, log scale)")
+    ax[1].set_xlabel("Area of official precinct polygon (square miles, linear scale)")
     ax[1].set_ylabel("Number of precincts")
     ax[1].legend(frameon=False,fontsize=9)
     for a in ax:
@@ -329,32 +334,32 @@ def plot_anatomy(rows,path):
 
 def plot_neighborhoods(neighborhoods,path):
     # Highlight contrasting cases without ranking tiny or unverified CRA samples.
-    selected=neighborhoods[:11]
+    selected=neighborhoods[:10]
     special=next((x for x in neighborhoods if x["name"]=="Capitol Hill"),None)
     if special and all(x["name"]!=special["name"] for x in selected):
         selected.append(special)
     fig,ax=plt.subplots(figsize=(11.1,7.2))
     y=np.arange(len(selected))
-    vals=[r["weighted_sd_pp"] for r in selected]
+    vals=[r["typical_gap_pp"] for r in selected]
     colors=[BLUE if r["name"]=="Capitol Hill" else RUST if r["name"]=="Queen Anne"
             else "#789bab" for r in selected]
     ax.barh(y,vals,color=colors,height=.65)
-    ax.set_yticks(y,[f"{r['name']} ({r['precincts']})" for r in selected],fontsize=10)
+    ax.set_yticks(y,[f"{r['name']} · {r['precincts']} precincts · {r['finalist_votes']:,} votes" for r in selected],fontsize=9)
     ax.invert_yaxis()
     ax.set_xlim(0,max(vals)*1.25)
-    ax.set_xlabel("Vote-weighted standard deviation in Harrell share (percentage points)")
-    ax.set_title("How much do precincts disagree within the same neighborhood area?",
+    ax.set_xlabel("Typical precinct difference from its area average (percentage points)")
+    ax.set_title("Which neighborhood areas vary most from precinct to precinct?",
                  loc="left",fontweight="bold",fontsize=16,pad=19)
     for i,v in enumerate(vals):
         ax.text(v+.25,i,f"{v:.1f}",va="center",fontsize=10)
     ax.spines[["top","right","left"]].set_visible(False)
     ax.tick_params(axis="y",length=0,pad=9)
     ax.grid(axis="x",alpha=.17);ax.set_axisbelow(True)
-    fig.text(.02,.035,"Only previously verified same-boundary precincts; areas with at least 8 precincts "
+    fig.text(.02,.035,"Only previously verified same-boundary precincts; areas with at least 8 precincts 
              "and 100 finalist votes each. Parentheses show number of precincts.\n"
-             "Weighted variation is more comparable than raw maximum–minimum range, but is descriptive, not a causal ranking.",
+             "A difference of 10 points means the typical precinct was 10 points from its area average; figures are vote-weighted.",
              fontsize=9,color="#557080")
-    fig.subplots_adjust(left=.30,right=.96,top=.87,bottom=.15)
+    fig.subplots_adjust(left=.48,right=.97,top=.87,bottom=.15)
     path.parent.mkdir(parents=True,exist_ok=True)
     fig.savefig(path,format="svg",bbox_inches="tight")
     plt.close(fig)
