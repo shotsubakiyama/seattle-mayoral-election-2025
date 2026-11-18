@@ -1,0 +1,72 @@
+name: Build Seattle precinct field guide
+
+on:
+  push:
+    branches: [feat/seattle-precinct-by-precinct]
+    paths:
+      - .github/workflows/build-precinct-field-guide.yml
+      - scripts/precinct_field_guide.py
+      - scripts/render_precinct_field_guide.py
+      - tests/test_precinct_field_guide.py
+      - reports/seattle_precinct_by_precinct.md
+      - README.md
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  produce-field-guide:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - name: Check out review branch
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: pip
+          cache-dependency-path: requirements-eight-experiments.txt
+      - name: Install analytical libraries
+        run: python -m pip install -r requirements-eight-experiments.txt
+      - name: Retrieve official inputs and regenerate field guide
+        run: |
+          set -euo pipefail
+          python scripts/diagnose_precinct_matching.py
+          python scripts/model_precinct_surprises.py
+          python scripts/precinct_field_guide.py
+          python scripts/render_precinct_field_guide.py
+      - name: Run all existing and new tests
+        run: python -m unittest discover -s tests
+      - name: Verify all field guide figures and aggregate results
+        run: |
+          set -euo pipefail
+          test -s reports/seattle_precinct_by_precinct.md
+          test -s data/processed/precinct_field_guide_summary.json
+          test -s data/processed/precinct_field_guide_boundaries.csv
+          test -s reports/figures/precinct_2025_mayoral_gradient.png
+          test -s reports/figures/precinct_2021_to_2025_harrell_change.png
+          test -s reports/figures/precinct_size_distributions.svg
+          test -s reports/figures/precinct_neighborhood_variation.svg
+          test -s reports/figures/precinct_sharp_boundaries.svg
+          test -s reports/figures/fault_line_1709_1724_v2.svg
+          test -s reports/figures/experiment_07_algorithmic_seattle.svg
+      - name: Publish verified draft artifacts to this branch
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add reports/seattle_precinct_by_precinct.md \
+                  reports/figures/precinct_2025_mayoral_gradient.png \
+                  reports/figures/precinct_2021_to_2025_harrell_change.png \
+                  reports/figures/precinct_size_distributions.svg \
+                  reports/figures/precinct_neighborhood_variation.svg \
+                  reports/figures/precinct_sharp_boundaries.svg \
+                  data/processed/precinct_field_guide_summary.json \
+                  data/processed/precinct_field_guide_boundaries.csv
+          if ! git diff --cached --quiet; then
+            git commit -m "research: regenerate precinct field guide and verified illustrations"
+            git push
+          fi

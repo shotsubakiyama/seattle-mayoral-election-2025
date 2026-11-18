@@ -1,18 +1,21 @@
-# Seattle, Through the Numbers
-### Eight Computational Experiments on the 2025 Election
+# Seattle, Precinct by Precinct
+### How the city's voting map was made—and what it shows about the 2025 mayoral election
 
-**What else can we learn from an election decided by just 2,011 votes?**
+**What exactly is a voting precinct?** Who decides where its lines go? Why are some precincts so much larger than others—and what do these small geographic areas tell us about Seattle's 2025 mayoral election?
 
-Seattle narrowly elected Katie Wilson as mayor, but the bigger story isn't visible on a normal winner map. Even in precincts won by Bruce Harrell, other candidates and both city propositions won majority support. Two neighborhoods that looked politically similar before November sometimes separated sharply. And what happens when we ask an algorithm—not a city planner—to divide Seattle into political neighborhoods?
+This independent visual research project begins with a short history of Seattle's election geography and uses the 2025 vote to explore the size, turnout, political variation, and change over time of the city's precincts.
 
-This independent research note examines **eight questions with eight graphics**: voting coalitions, unequal participation, prediction uncertainty, political twins, campaign funding, the limits of precinct-level inference, newly discovered electoral communities, and whether those communities survive scrutiny.
+**[Read the illustrated precinct field guide](reports/seattle_precinct_by_precinct.md)**
 
-![Traditional Seattle communities compared with algorithmically discovered electoral regions](reports/figures/experiment_07_algorithmic_seattle.svg)
+The guide includes a continuous Wilson–Harrell vote-share map, precinct size and registration distributions, a neighborhood-consistency comparison, a 2021–2025 change map, and case studies of some of Seattle's sharpest political boundaries. A short computational epilogue asks what clustering algorithms add to familiar neighborhood maps.
 
-### **[Read the illustrated research report](reports/seattle_through_the_numbers.md)**
+**Scope:** The 2025 map uses certified precinct results. Historical comparisons use only precincts with verified stable boundaries across 2021 and 2025. The two elections featured different opponents, so changes in Harrell's two-finalist share are not evidence that individuals switched candidates.
 
-You don't need to know Python to follow the argument. Each experiment explains the statistical trick in plain language; its source code and source data are available for anyone who wants to inspect the method.
+### Research archive and code
 
-[Explore the earlier mayoral research](reports/00_beyond_the_election_map.md) · [View the computational source](scripts/) · [Research inspiration library](docs/visual-research-inspiration.md)
+- [Earlier eight-computational-experiments article](reports/seattle_through_the_numbers.md)
+- [Original precinct analysis](reports/00_beyond_the_election_map.md)
+- [Reproducible Python analysis](scripts/precinct_field_guide.py)
+- [Source data and history references](reports/seattle_precinct_by_precinct.md#sources-and-reproducibility)
 
-*Independent, nonpartisan, exploratory analysis. The report is currently under editorial review. Statistical comparisons describe precinct-level patterns, not individual voters' decisions or their causes.*
+*Exploratory, nonpartisan research using King County election returns and public geographic data. This is a first editorial draft.*
