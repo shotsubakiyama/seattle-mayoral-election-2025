@@ -6,6 +6,7 @@ on:
     paths:
       - index.html
       - reports/figures/**
+      - .github/workflows/deploy-pages.yml
   workflow_dispatch:
 
 permissions:
@@ -25,6 +26,8 @@ jobs:
         uses: actions/checkout@v6
       - name: Configure GitHub Pages
         uses: actions/configure-pages@v5
+        with:
+          enablement: true
       - name: Assemble static artifact
         run: |
           mkdir -p _site/reports/figures
