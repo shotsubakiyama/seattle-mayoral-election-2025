@@ -1,0 +1,392 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="959.777pt" height="480.583609pt" viewBox="0 0 959.777 480.583609" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:date>2026-11-18T20:58:43.262737</dc:date>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.11.2, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 480.583609 
+L 959.777 480.583609 
+L 959.777 0 
+L 0 0 
+z
+" style="fill: #ffffff"/>
+  </g>
+  <g id="axes_1">
+   <g id="patch_2">
+    <path d="M 374.832 411.6055 
+L 766.44 411.6055 
+L 766.44 38.3575 
+L 374.832 38.3575 
+z
+" style="fill: #ffffff"/>
+   </g>
+   <g id="matplotlib.axis_1">
+    <g id="xtick_1">
+     <g id="line2d_1">
+      <path d="M 374.832 411.6055 
+L 374.832 38.3575 
+" clip-path="url(#paf52a3614a)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.17; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_2">
+      <defs>
+       <path id="m2aa4e35b9d" d="M 0 0 
+L 0 3.5 
+" style="stroke: #000000; stroke-width: 0.8"/>
+      </defs>
+      <g>
+       <use xlink:href="#m2aa4e35b9d" x="374.832" y="411.6055" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_1">
+      <text style="font-size: 10px; font-family: 'DejaVu Sans'; text-anchor: middle" x="374.832" y="426.203156" transform="rotate(-0 374.832 426.203156)">0.0</text>
+     </g>
+    </g>
+    <g id="xtick_2">
+     <g id="line2d_3">
+      <path d="M 422.589073 411.6055 
+L 422.589073 38.3575 
+" clip-path="url(#paf52a3614a)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.17; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_4">
+      <g>
+       <use xlink:href="#m2aa4e35b9d" x="422.589073" y="411.6055" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_2">
+      <text style="font-size: 10px; font-family: 'DejaVu Sans'; text-anchor: middle" x="422.589073" y="426.203156" transform="rotate(-0 422.589073 426.203156)">2.5</text>
+     </g>
+    </g>
+    <g id="xtick_3">
+     <g id="line2d_5">
+      <path d="M 470.346146 411.6055 
+L 470.346146 38.3575 
+" clip-path="url(#paf52a3614a)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.17; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_6">
+      <g>
+       <use xlink:href="#m2aa4e35b9d" x="470.346146" y="411.6055" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_3">
+      <text style="font-size: 10px; font-family: 'DejaVu Sans'; text-anchor: middle" x="470.346146" y="426.203156" transform="rotate(-0 470.346146 426.203156)">5.0</text>
+     </g>
+    </g>
+    <g id="xtick_4">
+     <g id="line2d_7">
+      <path d="M 518.10322 411.6055 
+L 518.10322 38.3575 
+" clip-path="url(#paf52a3614a)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.17; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_8">
+      <g>
+       <use xlink:href="#m2aa4e35b9d" x="518.10322" y="411.6055" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_4">
+      <text style="font-size: 10px; font-family: 'DejaVu Sans'; text-anchor: middle" x="518.10322" y="426.203156" transform="rotate(-0 518.10322 426.203156)">7.5</text>
+     </g>
+    </g>
+    <g id="xtick_5">
+     <g id="line2d_9">
+      <path d="M 565.860293 411.6055 
+L 565.860293 38.3575 
+" clip-path="url(#paf52a3614a)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.17; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_10">
+      <g>
+       <use xlink:href="#m2aa4e35b9d" x="565.860293" y="411.6055" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_5">
+      <text style="font-size: 10px; font-family: 'DejaVu Sans'; text-anchor: middle" x="565.860293" y="426.203156" transform="rotate(-0 565.860293 426.203156)">10.0</text>
+     </g>
+    </g>
+    <g id="xtick_6">
+     <g id="line2d_11">
+      <path d="M 613.617366 411.6055 
+L 613.617366 38.3575 
+" clip-path="url(#paf52a3614a)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.17; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_12">
+      <g>
+       <use xlink:href="#m2aa4e35b9d" x="613.617366" y="411.6055" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_6">
+      <text style="font-size: 10px; font-family: 'DejaVu Sans'; text-anchor: middle" x="613.617366" y="426.203156" transform="rotate(-0 613.617366 426.203156)">12.5</text>
+     </g>
+    </g>
+    <g id="xtick_7">
+     <g id="line2d_13">
+      <path d="M 661.374439 411.6055 
+L 661.374439 38.3575 
+" clip-path="url(#paf52a3614a)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.17; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_14">
+      <g>
+       <use xlink:href="#m2aa4e35b9d" x="661.374439" y="411.6055" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_7">
+      <text style="font-size: 10px; font-family: 'DejaVu Sans'; text-anchor: middle" x="661.374439" y="426.203156" transform="rotate(-0 661.374439 426.203156)">15.0</text>
+     </g>
+    </g>
+    <g id="xtick_8">
+     <g id="line2d_15">
+      <path d="M 709.131512 411.6055 
+L 709.131512 38.3575 
+" clip-path="url(#paf52a3614a)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.17; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_16">
+      <g>
+       <use xlink:href="#m2aa4e35b9d" x="709.131512" y="411.6055" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_8">
+      <text style="font-size: 10px; font-family: 'DejaVu Sans'; text-anchor: middle" x="709.131512" y="426.203156" transform="rotate(-0 709.131512 426.203156)">17.5</text>
+     </g>
+    </g>
+    <g id="xtick_9">
+     <g id="line2d_17">
+      <path d="M 756.888585 411.6055 
+L 756.888585 38.3575 
+" clip-path="url(#paf52a3614a)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.17; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_18">
+      <g>
+       <use xlink:href="#m2aa4e35b9d" x="756.888585" y="411.6055" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_9">
+      <text style="font-size: 10px; font-family: 'DejaVu Sans'; text-anchor: middle" x="756.888585" y="426.203156" transform="rotate(-0 756.888585 426.203156)">20.0</text>
+     </g>
+    </g>
+    <g id="text_10">
+     <text style="font-size: 10px; font-family: 'DejaVu Sans'; text-anchor: middle" x="570.636" y="440.203937" transform="rotate(-0 570.636 440.203937)">Typical precinct difference from its area average (percentage points)</text>
+    </g>
+   </g>
+   <g id="matplotlib.axis_2">
+    <g id="ytick_1">
+     <g id="line2d_19"/>
+     <g id="text_11">
+      <text style="font-size: 9px; font-family: 'DejaVu Sans'; text-anchor: end" x="365.832" y="69.09734" transform="rotate(-0 365.832 69.09734)">Miller Park · 11 precincts · 3,263 votes</text>
+     </g>
+    </g>
+    <g id="ytick_2">
+     <g id="line2d_20"/>
+     <g id="text_12">
+      <text style="font-size: 9px; font-family: 'DejaVu Sans'; text-anchor: end" x="365.832" y="100.958031" transform="rotate(-0 365.832 100.958031)">Cascade-Eastlake · 17 precincts · 4,466 votes</text>
+     </g>
+    </g>
+    <g id="ytick_3">
+     <g id="line2d_21"/>
+     <g id="text_13">
+      <text style="font-size: 9px; font-family: 'DejaVu Sans'; text-anchor: end" x="365.832" y="132.818723" transform="rotate(-0 365.832 132.818723)">Queen Anne · 67 precincts · 15,395 votes</text>
+     </g>
+    </g>
+    <g id="ytick_4">
+     <g id="line2d_22"/>
+     <g id="text_14">
+      <text style="font-size: 9px; font-family: 'DejaVu Sans'; text-anchor: end" x="365.832" y="164.679414" transform="rotate(-0 365.832 164.679414)">North Capitol Hill · 9 precincts · 2,643 votes</text>
+     </g>
+    </g>
+    <g id="ytick_5">
+     <g id="line2d_23"/>
+     <g id="text_15">
+      <text style="font-size: 9px; font-family: 'DejaVu Sans'; text-anchor: end" x="365.832" y="196.540105" transform="rotate(-0 365.832 196.540105)">Seward Park · 17 precincts · 3,739 votes</text>
+     </g>
+    </g>
+    <g id="ytick_6">
+     <g id="line2d_24"/>
+     <g id="text_16">
+      <text style="font-size: 9px; font-family: 'DejaVu Sans'; text-anchor: end" x="365.832" y="228.400797" transform="rotate(-0 365.832 228.400797)">Laurelhurst-Sand Point · 18 precincts · 4,877 votes</text>
+     </g>
+    </g>
+    <g id="ytick_7">
+     <g id="line2d_25"/>
+     <g id="text_17">
+      <text style="font-size: 9px; font-family: 'DejaVu Sans'; text-anchor: end" x="365.832" y="260.261488" transform="rotate(-0 365.832 260.261488)">Madrona-Leschi · 12 precincts · 3,635 votes</text>
+     </g>
+    </g>
+    <g id="ytick_8">
+     <g id="line2d_26"/>
+     <g id="text_18">
+      <text style="font-size: 9px; font-family: 'DejaVu Sans'; text-anchor: end" x="365.832" y="292.12218" transform="rotate(-0 365.832 292.12218)">North Delridge · 8 precincts · 2,435 votes</text>
+     </g>
+    </g>
+    <g id="ytick_9">
+     <g id="line2d_27"/>
+     <g id="text_19">
+      <text style="font-size: 9px; font-family: 'DejaVu Sans'; text-anchor: end" x="365.832" y="323.982871" transform="rotate(-0 365.832 323.982871)">North Beach-Blue Ridge · 13 precincts · 4,166 votes</text>
+     </g>
+    </g>
+    <g id="ytick_10">
+     <g id="line2d_28"/>
+     <g id="text_20">
+      <text style="font-size: 9px; font-family: 'DejaVu Sans'; text-anchor: end" x="365.832" y="355.843563" transform="rotate(-0 365.832 355.843563)">Sunset Hill-Loyal Heights · 31 precincts · 8,137 votes</text>
+     </g>
+    </g>
+    <g id="ytick_11">
+     <g id="line2d_29"/>
+     <g id="text_21">
+      <text style="font-size: 9px; font-family: 'DejaVu Sans'; text-anchor: end" x="365.832" y="387.704254" transform="rotate(-0 365.832 387.704254)">Capitol Hill · 27 precincts · 8,195 votes</text>
+     </g>
+    </g>
+   </g>
+   <g id="patch_3">
+    <path d="M 374.832 55.323318 
+L 688.1184 55.323318 
+L 688.1184 76.032768 
+L 374.832 76.032768 
+z
+" clip-path="url(#paf52a3614a)" style="fill: #789bab"/>
+   </g>
+   <g id="patch_4">
+    <path d="M 374.832 87.18401 
+L 625.079063 87.18401 
+L 625.079063 107.893459 
+L 374.832 107.893459 
+z
+" clip-path="url(#paf52a3614a)" style="fill: #789bab"/>
+   </g>
+   <g id="patch_5">
+    <path d="M 374.832 119.044701 
+L 611.707083 119.044701 
+L 611.707083 139.75415 
+L 374.832 139.75415 
+z
+" clip-path="url(#paf52a3614a)" style="fill: #b96042"/>
+   </g>
+   <g id="patch_6">
+    <path d="M 374.832 150.905392 
+L 596.42482 150.905392 
+L 596.42482 171.614842 
+L 374.832 171.614842 
+z
+" clip-path="url(#paf52a3614a)" style="fill: #789bab"/>
+   </g>
+   <g id="patch_7">
+    <path d="M 374.832 182.766084 
+L 575.411707 182.766084 
+L 575.411707 203.475533 
+L 374.832 203.475533 
+z
+" clip-path="url(#paf52a3614a)" style="fill: #789bab"/>
+   </g>
+   <g id="patch_8">
+    <path d="M 374.832 214.626775 
+L 573.501424 214.626775 
+L 573.501424 235.336225 
+L 374.832 235.336225 
+z
+" clip-path="url(#paf52a3614a)" style="fill: #789bab"/>
+   </g>
+   <g id="patch_9">
+    <path d="M 374.832 246.487467 
+L 571.591141 246.487467 
+L 571.591141 267.196916 
+L 374.832 267.196916 
+z
+" clip-path="url(#paf52a3614a)" style="fill: #789bab"/>
+   </g>
+   <g id="patch_10">
+    <path d="M 374.832 278.348158 
+L 567.770576 278.348158 
+L 567.770576 299.057608 
+L 374.832 299.057608 
+z
+" clip-path="url(#paf52a3614a)" style="fill: #789bab"/>
+   </g>
+   <g id="patch_11">
+    <path d="M 374.832 310.20885 
+L 562.039727 310.20885 
+L 562.039727 330.918299 
+L 374.832 330.918299 
+z
+" clip-path="url(#paf52a3614a)" style="fill: #789bab"/>
+   </g>
+   <g id="patch_12">
+    <path d="M 374.832 342.069541 
+L 550.578029 342.069541 
+L 550.578029 362.77899 
+L 374.832 362.77899 
+z
+" clip-path="url(#paf52a3614a)" style="fill: #789bab"/>
+   </g>
+   <g id="patch_13">
+    <path d="M 374.832 373.930232 
+L 453.1536 373.930232 
+L 453.1536 394.639682 
+L 374.832 394.639682 
+z
+" clip-path="url(#paf52a3614a)" style="fill: #315c84"/>
+   </g>
+   <g id="patch_14">
+    <path d="M 374.832 411.6055 
+L 766.44 411.6055 
+" style="fill: none; stroke: #000000; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="text_22">
+    <text style="font-size: 10px; font-family: 'DejaVu Sans'; text-anchor: start" x="692.894107" y="68.275699" transform="rotate(-0 692.894107 68.275699)">16.4</text>
+   </g>
+   <g id="text_23">
+    <text style="font-size: 10px; font-family: 'DejaVu Sans'; text-anchor: start" x="629.854771" y="100.136391" transform="rotate(-0 629.854771 100.136391)">13.1</text>
+   </g>
+   <g id="text_24">
+    <text style="font-size: 10px; font-family: 'DejaVu Sans'; text-anchor: start" x="616.48279" y="131.997082" transform="rotate(-0 616.48279 131.997082)">12.4</text>
+   </g>
+   <g id="text_25">
+    <text style="font-size: 10px; font-family: 'DejaVu Sans'; text-anchor: start" x="601.200527" y="163.857773" transform="rotate(-0 601.200527 163.857773)">11.6</text>
+   </g>
+   <g id="text_26">
+    <text style="font-size: 10px; font-family: 'DejaVu Sans'; text-anchor: start" x="580.187415" y="195.718465" transform="rotate(-0 580.187415 195.718465)">10.5</text>
+   </g>
+   <g id="text_27">
+    <text style="font-size: 10px; font-family: 'DejaVu Sans'; text-anchor: start" x="578.277132" y="227.579156" transform="rotate(-0 578.277132 227.579156)">10.4</text>
+   </g>
+   <g id="text_28">
+    <text style="font-size: 10px; font-family: 'DejaVu Sans'; text-anchor: start" x="576.366849" y="259.439848" transform="rotate(-0 576.366849 259.439848)">10.3</text>
+   </g>
+   <g id="text_29">
+    <text style="font-size: 10px; font-family: 'DejaVu Sans'; text-anchor: start" x="572.546283" y="291.300539" transform="rotate(-0 572.546283 291.300539)">10.1</text>
+   </g>
+   <g id="text_30">
+    <text style="font-size: 10px; font-family: 'DejaVu Sans'; text-anchor: start" x="566.815434" y="323.161231" transform="rotate(-0 566.815434 323.161231)">9.8</text>
+   </g>
+   <g id="text_31">
+    <text style="font-size: 10px; font-family: 'DejaVu Sans'; text-anchor: start" x="555.353737" y="355.021922" transform="rotate(-0 555.353737 355.021922)">9.2</text>
+   </g>
+   <g id="text_32">
+    <text style="font-size: 10px; font-family: 'DejaVu Sans'; text-anchor: start" x="457.929307" y="386.882613" transform="rotate(-0 457.929307 386.882613)">4.1</text>
+   </g>
+   <g id="text_33">
+    <text style="font-weight: 700; font-size: 16px; font-family: 'DejaVu Sans'; text-anchor: start" x="374.832" y="19.3575" transform="rotate(-0 374.832 19.3575)">Which neighborhood areas vary most from precinct to precinct?</text>
+   </g>
+  </g>
+  <g id="text_34">
+   <text style="font-size: 9px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #557080" x="7.2" y="471.2215" transform="rotate(-0 7.2 471.2215)">Same-boundary precincts; area must have at least eight precincts and 100 finalist votes per precinct.\nThe typical gap describes the vote-weighted average distance from the area's mean.</text>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="paf52a3614a">
+   <rect x="374.832" y="38.3575" width="391.608" height="373.248"/>
+  </clipPath>
+ </defs>
+</svg>
