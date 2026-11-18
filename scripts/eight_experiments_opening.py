@@ -53,6 +53,17 @@ CONTEXT_NEIGHBORHOODS = [
     ("Rainier Beach", "Rainier Beach"),
 ]
 
+# Small display offsets keep nearby neighborhood names from colliding.
+# Values are in screen points, so they remain stable if the map extent changes.
+CONTEXT_LABEL_OFFSETS = {
+    "Downtown Commercial Core": (-4, -7),
+    "University District": (-3, 7),
+    "Ravenna-Bryant": (8, 2),
+    "Capitol Hill": (7, -2),
+    "Beacon Hill": (-19, 5),
+    "Columbia City": (23, -6),
+}
+
 # Short, nonpartisan guide to each of the six citywide ballot decisions.
 # See the official King County 2025 general-election voter pamphlet.
 CONTEST_DESCRIPTIONS = {
@@ -195,8 +206,10 @@ def plot_mayor_context_map(votes, destination):
         point = anchors.get(source)
         if point is None:
             continue
-        text = ax.text(
-            point.x, point.y, label, ha="center", va="center",
+        dx, dy = CONTEXT_LABEL_OFFSETS.get(source, (0, 0))
+        text = ax.annotate(
+            label, xy=(point.x, point.y), xytext=(dx, dy),
+            textcoords="offset points", ha="center", va="center",
             fontsize=8.2, weight="bold", color="#203744", zorder=5
         )
         text.set_path_effects([
@@ -206,25 +219,21 @@ def plot_mayor_context_map(votes, destination):
     ax.autoscale_view()
     ax.set_aspect("equal")
     ax.axis("off")
-    ax.set_title(
+    fig.suptitle(
         "A 2,011-vote citywide margin hides a much less even precinct map",
-        loc="left", fontsize=16.5, weight="bold", pad=16
+        x=.5, y=.975, ha="center", fontsize=16.5, weight="bold"
     )
+    # Use a dedicated, centered colorbar axis rather than attaching it to the
+    # map axes. This keeps the title, map and legend visually centered together.
+    cax = fig.add_axes([.16, .065, .68, .018])
     bar = fig.colorbar(
-        collection, ax=ax, orientation="horizontal", fraction=.035,
-        pad=.035, aspect=35, extend="both"
+        collection, cax=cax, orientation="horizontal", extend="both"
     )
     bar.set_ticks([30, 40, 50, 60, 70])
     bar.set_ticklabels(["30%", "40%", "50%", "60%", "70%"])
     bar.set_label("Katie Wilson share of votes between the two mayoral finalists", fontsize=9)
     bar.outline.set_visible(False)
-    fig.text(
-        .08, .028,
-        "Orange = Harrell stronger; blue = Wilson stronger. Thin outlines show community-reporting areas.\n"
-        "Neighborhood labels are geographic anchors, not election units or official neighborhood boundaries.",
-        fontsize=8.8, color="#526777"
-    )
-    fig.subplots_adjust(left=.03, right=.97, top=.91, bottom=.12)
+    fig.subplots_adjust(left=.07, right=.93, top=.92, bottom=.12)
     destination.parent.mkdir(parents=True, exist_ok=True)
     fig.savefig(destination, format="svg", bbox_inches="tight")
     plt.close(fig)

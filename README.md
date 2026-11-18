@@ -7,9 +7,9 @@ Seattle's 2025 mayoral election was decided by just **2,011 votes**. This projec
 
 ![Seattle 2025 mayoral vote share by precinct with community-reporting-area outlines and neighborhood labels](reports/figures/seattle_2025_mayor_precinct_map.svg)
 
-If you are coming to the project without much Seattle context, start with the map above. The labels are geographic anchors; the thin outlines are community-reporting areas, not a claim that Seattle has one official set of neighborhood boundaries.
+The citywide near-tie was built from precincts with much stronger local preferences. The labels make that geography easier to read—for example, compare Magnolia and Queen Anne with Capitol Hill and the U District—while the thin outlines provide broader community-area context.
 
-### **[Read the full illustrated research report](reports/seattle_through_the_numbers.md)**
+### **[Read the live illustrated report](https://shotsubakiyama.github.io/seattle-mayoral-election-2025/)**
 
 Three findings frame the rest of the project:
 
