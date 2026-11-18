@@ -81,8 +81,8 @@ def historical_counts(years=HISTORY_YEARS):
                 print(f"Skipping {year}: no comparable SEA-prefixed name field in {fields}")
                 continue
         values.append(dict(year=year,seattle_precincts=n,url=f"{ROOT_URL}/{dataset}/FeatureServer/0"))
-    if len(values)<2:
-        raise ValueError("Fewer than two verified historic Seattle precinct snapshots")
+    if len(values)<min(2,len(years)):
+        raise ValueError("Too few verified historic Seattle precinct snapshots")
     if 2025 in years and (values[-1]["year"]!=2025 or
                           values[-1]["seattle_precincts"] not in range(1017,1022)):
         raise ValueError("2025 GIS count differs unexpectedly from certified 2025 results")
