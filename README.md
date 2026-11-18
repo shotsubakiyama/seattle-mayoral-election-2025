@@ -15,4 +15,4 @@ You don't need to know Python to follow the argument. Each experiment explains t
 
 [Explore the earlier mayoral research](reports/00_beyond_the_election_map.md) · [View the computational source](scripts/) · [Research inspiration library](docs/visual-research-inspiration.md)
 
-*Independent, nonpartisan, exploratory analysis. The report is currently under editorial review. Statistical comparisons describe precinct-level patterns, not individual voters' decisions or their causes.*
+*Independent, nonpartisan, exploratory analysis. Statistical comparisons describe precinct-level patterns, not individual voters' decisions or their causes.*
