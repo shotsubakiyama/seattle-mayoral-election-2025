@@ -1,11 +1,11 @@
 # Seattle, Through the Numbers
 ## Eight Computational Experiments on the 2025 Election
 
-**Independent research · November 2026 · Research draft**
+**Independent research · November 2026**
 
 Katie Wilson defeated Bruce Harrell by **2,011 votes** in Seattle's 2025 mayoral election. But the winning margin is only the beginning. What happens when we compare different contests, remove differences in participation, model uncertainty, simulate political coincidences, follow campaign funding—and finally let a computer draw a completely new electoral map of Seattle?
 
-Eight experiments; one main figure each. The idea isn't to make Seattle politics artificially complicated. It's to show how a handful of computational techniques can make familiar facts look different.
+Eight experiments, each with one main figure. Together they explore a simple question: how much of Seattle's political geography can we explain from the returns, and where do the data stop telling us what happened? The analysis moves from what voters supported, to what models can and cannot infer, and finally to a new map of the city.
 
 ---
 
@@ -87,7 +87,7 @@ Eight experiments; one main figure each. The idea isn't to make Seattle politics
 
 ![Seattle neighborhood reporting areas versus algorithmically discovered 2025 electoral regions](figures/experiment_07_algorithmic_seattle.svg)
 
-**The result.** Without receiving any traditional neighborhood labels, our algorithm identified **11** electoral communities across **1,006** precincts, linked by **2,582** meaningful geographic borders. Compare the right-hand map with the familiar community-reporting areas at left.
+**The result.** Without receiving any traditional neighborhood labels, our algorithm identified **11** electoral communities across **1,006** precincts, linked by **2,582** meaningful geographic borders. The left map uses established community-reporting areas; the right shows clusters built from election results. These are different kinds of boundaries, not competing official definitions. Look for broad areas of agreement, rather than expecting every line to match.
 
 **The trick:** Represent each precinct as a node in a graph. Connect two nodes only if they share at least 100 feet of boundary; give stronger connections to neighbors with more similar results in **six** citywide 2025 ballot contests. NetworkX's **Louvain community detection** finds groups with stronger internal links. We never tell it what "Capitol Hill" or "Ballard" means.
 
@@ -105,7 +105,7 @@ Eight experiments; one main figure each. The idea isn't to make Seattle politics
 
 ---
 
-## Where this leaves Seattle
+## What these experiments tell us
 
 The methods tell different stories, and they shouldn't all be forced into a single political conclusion.
 
@@ -121,4 +121,4 @@ The key results are descriptive; none establishes how a particular voter changed
 - **Computational techniques:** scikit-learn, SciPy, Shapely, NetworkX, Matplotlib, and NumPy. [Source code](../scripts/) and [prior detailed methodology](../docs/methodology/techniques_explained.md).
 - **Reproduction:** the GitHub Actions workflow runs the analysis from official inputs and commits verified graphics and aggregate research outputs.
 
-*Independent exploratory study · Working review edition · See the source code for precise parameters. This draft does not alter the published first edition.*
+*Independent exploratory study. See the source code for precise parameters and limitations.*
