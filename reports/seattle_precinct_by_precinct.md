@@ -17,8 +17,6 @@ Today King County Elections proposes precinct-boundary revisions, which the Coun
 
 ### Has the number of precincts increased?
 
-The 1891 map raises a longer historical question: how did the number of precincts grow as Seattle became a major city? The chart below currently starts in 2010 because those are the earliest comparable GIS snapshots verified in this analysis. Extending it to 1891 requires counting precincts in historical maps or finding contemporary election records; **the 1891 count has not yet been established**. A longer-run chart should plot documented precinct counts against Census population on separately labeled axes, mark missing years, and flag boundary or definition changes rather than interpolate invented values.
-
 ![Seattle precinct counts over time from archived King County GIS boundary snapshots](figures/precinct_count_history.svg)
 
 The archived GIS snapshots show **961 precincts in 2010** and **1,019 in 2025**—a net change of **+58**. Counts have increased over that period overall, but the chart is not a measure of Seattle's population growth. Redistricting, administrative changes and precinct splitting or consolidation can move the count in either direction.
@@ -32,8 +30,6 @@ These are snapshots of the county's year-specific **voting-district maps**. The 
 The official results list **1,019** Seattle precincts in 2025. Of these, **1,018** had votes for one of the two mayoral finalists and usable registration data. The median precinct had **469 registered voters** and covered **0.060 square miles**.
 
 ![Distributions of registered voters and precinct size, in square miles on a linear scale](figures/precinct_size_distributions.svg)
-
-*Editorial note: the geographic-size distribution is a candidate for the appendix once a geographic-area comparison of the 11 computed communities is validated.*
 
 Most precincts are quite small geographically, but the large outliers matter. The last size bar groups precincts larger than 0.4 square miles instead of squeezing the rest of the distribution into a logarithmic scale. The mapped boundaries can include water, so polygon area is not necessarily dry land.
 
@@ -65,9 +61,7 @@ Parkland and water occupy plenty of space on the left. On the right, precincts w
 
 ![Neighborhood areas ranked by the typical precinct voting difference from the area average](figures/precinct_neighborhood_variation.svg)
 
-We compared each precinct's mayoral vote with the average for its community reporting area. **Shorter bars mean precincts voted more alike; longer bars mean more disagreement within the area.** The average gives more weight to precincts with more votes. The bars show the typical difference in percentage points, not a statistical variance.
-
-**A quick comparison:** Capitol Hill was more internally consistent than Queen Anne in this sample: its typical precinct was 4.1 points from its area average, versus 12.4 points for Queen Anne. These are examples, not necessarily the citywide minimum and maximum.
+We grouped precincts using existing community reporting areas. For each area, we calculated its vote-weighted Harrell share, then measured **how far its typical precinct was from that average**. A higher bar means more variation *within* the named area, not stronger support for either candidate.
 
 For example, Queen Anne contributes **67 precincts** and **15,395 finalist votes** to the comparison. Its typical precinct differed from the Queen Anne average by **12.4 points**. For Capitol Hill, the comparable figure is **4.1 points** across **27 precincts** and **8,195 votes**. We show precinct counts and votes beside the labels so that these differences have some context.
 
@@ -79,12 +73,7 @@ These are descriptive community reporting areas, not the city's formal neighborh
 
 Harrell received a smaller share of the two-finalist vote in **805 of 846 comparable precincts**. The typical change, measured by the median across precincts, was **-8.0 percentage points**. That decline was far from identical across the city.
 
-<details>
-<summary>See the citywide distribution of precinct-level changes</summary>
-
 ![Distribution of percentage-point changes in Harrell's vote share between 2021 and 2025](figures/precinct_2021_to_2025_distribution.svg)
-
-</details>
 
 Only **40** of these precincts showed an increase in Harrell's share; **182** crossed the 50% threshold between the two elections.
 
@@ -109,8 +98,6 @@ These three close-ups show adjacent precincts from the ranked analysis. Expand e
 
 ![Close-up map of Queen Anne precincts 1709 and 1724](figures/fault_line_1709_1724_v2.svg)
 
-This is a striking difference within the Queen Anne area, not simply between two distant neighborhoods. The map alone cannot tell us whether housing type, local demographics, or turnout produced the gap; those are hypotheses for a follow-up street-level investigation.
-
 </details>
 
 <details>
@@ -118,16 +105,12 @@ This is a striking difference within the Queen Anne area, not simply between two
 
 ![Close-up map of precincts 1955 and 1957](figures/fault_line_1955_1957_v2.svg)
 
-A nearly 49-point gap across a shared border warrants closer examination of the immediate blocks and land uses. A neighborhood name and causal explanation should be added only after verifying the polygons against a street map.
-
 </details>
 
 <details>
 <summary><strong>Precincts 1803 / 1808</strong> · 47.0-point gap</summary>
 
 ![Close-up map of precincts 1803 and 1808](figures/fault_line_1803_1808_v2.svg)
-
-The contrast is almost as large here. Before attributing it to neighborhood identity, compare the actual streets and residential patterns on either side of the boundary.
 
 </details>
 
@@ -141,31 +124,25 @@ For a final comparison, we can ignore familiar neighborhood names and group prec
 
 This produced **11 groups**. The most Harrell-leaning group, around **Magnolia / Interbay**, gave him **67.6%** of the two-finalist vote. The most Wilson-leaning group, around **Capitol Hill / North Capitol Hill**, gave her **72.7%**. The labels below are informal geographic descriptions based on represented community reporting areas—not official district names.
 
-| Computed group (informal area labels) | Precincts | Finalist votes | Harrell | Wilson | H − W margin |
-|---|---:|---:|---:|---:|---:|
-| Group 7: Magnolia / Interbay | 42 | 10,922 | 67.6% | 32.4% | +35.2 pp |
-| Group 11: Ravenna-Bryant / Laurelhurst-Sand Point | 70 | 19,504 | 65.2% | 34.8% | +30.4 pp |
-| Group 6: West Seattle Junction-Genesee Hill / Alki-Admiral | 63 | 16,001 | 58.6% | 41.4% | +17.2 pp |
-| Group 8: Queen Anne / Cascade-Eastlake | 114 | 27,787 | 52.9% | 47.1% | +5.8 pp |
-| Group 1: Fauntleroy-Seaview / Roxhill-Westwood | 92 | 23,874 | 52.8% | 47.2% | +5.6 pp |
-| Group 5: Northgate-Maple Leaf / Olympic Hills-Victory Heights | 143 | 39,122 | 50.9% | 49.1% | +1.8 pp |
-| Group 4: Greenwood-Phinney Ridge / Sunset Hill-Loyal Heights | 137 | 41,076 | 47.0% | 53.0% | -6.0 pp |
-| Group 10: Central Area-Squire Park / Madrona-Leschi | 103 | 31,094 | 46.9% | 53.1% | -6.2 pp |
-| Group 2: Columbia City / Rainier Beach | 127 | 33,919 | 45.0% | 55.0% | -10.0 pp |
-| Group 3: Wallingford / Fremont | 70 | 18,595 | 39.2% | 60.8% | -21.6 pp |
-| Group 9: Capitol Hill / North Capitol Hill | 45 | 13,351 | 27.3% | 72.7% | -45.4 pp |
+| Computed group (informal area labels) | Precincts | Finalist votes | Harrell | Wilson |
+|---|---:|---:|---:|---:|
+| Group 7: Magnolia / Interbay | 42 | 10,922 | 67.6% | 32.4% |
+| Group 11: Ravenna-Bryant / Laurelhurst-Sand Point | 70 | 19,504 | 65.2% | 34.8% |
+| Group 6: West Seattle Junction-Genesee Hill / Alki-Admiral | 63 | 16,001 | 58.6% | 41.4% |
+| Group 8: Queen Anne / Cascade-Eastlake | 114 | 27,787 | 52.9% | 47.1% |
+| Group 1: Fauntleroy-Seaview / Roxhill-Westwood | 92 | 23,874 | 52.8% | 47.2% |
+| Group 5: Northgate-Maple Leaf / Olympic Hills-Victory Heights | 143 | 39,122 | 50.9% | 49.1% |
+| Group 4: Greenwood-Phinney Ridge / Sunset Hill-Loyal Heights | 137 | 41,076 | 47.0% | 53.0% |
+| Group 10: Central Area-Squire Park / Madrona-Leschi | 103 | 31,094 | 46.9% | 53.1% |
+| Group 2: Columbia City / Rainier Beach | 127 | 33,919 | 45.0% | 55.0% |
+| Group 3: Wallingford / Fremont | 70 | 18,595 | 39.2% | 60.8% |
+| Group 9: Capitol Hill / North Capitol Hill | 45 | 13,351 | 27.3% | 72.7% |
 
 ![Election vote split across the 11 computed precinct groups](figures/precinct_cluster_vote_breakdown.svg)
-
-The **H − W margin** is Harrell's percentage minus Wilson's percentage; positive values favor Harrell and negative values favor Wilson. Margins are calculated from the displayed rounded shares and may differ slightly from exact vote-count margins.
 
 The table runs from the most Harrell-supporting computed group to the most Wilson-supporting. It makes the map's color-coded clusters easier to interpret: not just where the groups are, but how many precincts and votes each contains.
 
 Geography alone also produces clusters. In a separate comparison with a geography-only network, adding voting patterns changed the grouping relationship for only about **6.8% of shared precinct borders**. The algorithm gives us another perspective on Seattle's political geography, not a replacement for neighborhood boundaries.
-
-## Explore the data
-
-The project includes cleaned, aggregated election data and reproducible analysis scripts. The [processed research data](../data/processed/precinct_field_guide_extensions.json) can be downloaded and examined independently. It contains derived aggregates for the precinct field guide; **it is not a substitute for a documented, precinct-level CSV**. A next release should include that CSV, a field dictionary, geographic join keys, source dates, and a note distinguishing the full 2025 sample from the smaller 2021–2025 matched sample. The goal is to make the results useful to readers who want to test their own questions, not just read our conclusions.
 
 ## Sources and notes
 
