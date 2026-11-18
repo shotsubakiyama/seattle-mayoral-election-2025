@@ -44,7 +44,7 @@ def create_manuscript(data):
     return f"""# Seattle, Through the Numbers
 ## Eight Computational Experiments on the 2025 Election
 
-**Independent research · November 2026**
+**Independent research by Sho Tsubakiyama · November 2026**
 
 Katie Wilson defeated Bruce Harrell by **2,011 votes** in Seattle's 2025 mayoral election. The close finish is the obvious story. This project asks what the precinct returns can tell us beyond it: where the city divided, where participation mattered, what looked predictable, what only looked surprising, and what happens when an algorithm redraws Seattle without being told its neighborhood names.
 
@@ -74,7 +74,7 @@ Even where Harrell won the mayoral vote, **Erika Evans won 57%** of the city-att
 
 [What each contest decided, with the full table](experiments/01_coalitions.md)
 
-### 02 · The geography of participation made Wilson's observed edge smaller
+### 02 · Equal precinct participation would raise Wilson's share by 1.33 points
 
 ![Observed Wilson share versus an equal-precinct-participation thought experiment](figures/experiment_02_equal_participation.svg)
 
@@ -142,7 +142,7 @@ This is the *ecological inference problem*: totals for a place do not determine 
 
 ![Seattle community-reporting areas versus algorithmically discovered 2025 electoral regions](figures/experiment_07_algorithmic_seattle.svg)
 
-Without receiving any neighborhood labels, the algorithm identified **{e7['communities']}** electoral communities across **{e7['precincts']:,}** precincts linked by **{e7['edges']:,}** substantial shared borders.
+Without receiving any neighborhood labels, the baseline specification identified **{e7['communities']}** electoral communities across **{e7['precincts']:,}** precincts linked by **{e7['edges']:,}** substantial shared borders.
 
 The left map uses established **community-reporting areas**. The right map shows clusters built from election results. The neighborhood labels appear on both only as geographic anchors; the algorithm never sees them. Look for broad areas of agreement rather than expecting every line to match.
 

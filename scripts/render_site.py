@@ -82,7 +82,7 @@ footer {{ padding:56px 0 80px; color:var(--muted); font-size:.92rem; }}
 <body>
 <header>
   <div class="wrap">
-    <div class="eyebrow">Seattle election research · November 2026</div>
+    <div class="eyebrow">Seattle election research · November 2026 · Sho Tsubakiyama</div>
     <h1>Seattle,<br>Through the Numbers</h1>
     <p class="dek">Eight computational experiments on the 2025 election.</p>
     <p class="intro">Katie Wilson defeated Bruce Harrell by just <strong>2,011 votes</strong>. The close finish is the obvious story. This project asks what the precinct returns can tell us beyond it: where the city divided, where participation mattered, what looked predictable, what only looked surprising, and what happens when an algorithm redraws Seattle without being told its neighborhood names.</p>
@@ -130,7 +130,7 @@ footer {{ padding:56px 0 80px; color:var(--muted); font-size:.92rem; }}
   <article class="experiment">
     <div class="copy">
       <div class="num">02</div>
-      <h3>The geography of participation made Wilson's observed edge smaller.</h3>
+      <h3>Equal precinct participation would raise Wilson's share by 1.33 points.</h3>
       <p>Wilson won <strong>50.36%</strong> of the finalist vote. Holding each precinct's candidate preference fixed but giving precincts equal finalist participation per registered voter raises her calculated share to <strong>51.69%</strong>, a <strong>1.33-point</strong> difference.</p>
       <p class="method"><strong>How it works.</strong> This is a standardization exercise, not a forecast of how nonvoters would have voted. It isolates the arithmetic of where participation was concentrated.</p>
     </div>
@@ -195,7 +195,7 @@ footer {{ padding:56px 0 80px; color:var(--muted); font-size:.92rem; }}
   <article class="experiment">
     <div class="copy">
       <div class="num">07</div>
-      <h3>An algorithm finds {e7['communities']} electoral regions without knowing neighborhood names.</h3>
+      <h3>The baseline specification finds {e7['communities']} electoral regions without knowing neighborhood names.</h3>
       <p>The model groups <strong>{e7['precincts']:,}</strong> precincts connected by <strong>{e7['edges']:,}</strong> substantial shared borders. Similarity comes from six 2025 citywide contests, not from labels such as Ballard, Queen Anne, Capitol Hill, or Ravenna.</p>
       <p class="method"><strong>How to read the map.</strong> The left side shows community-reporting areas. The right side shows the algorithmic clusters. Neighborhood labels appear on both only as geographic anchors; the colors are group IDs, not ideology.</p>
     </div>
