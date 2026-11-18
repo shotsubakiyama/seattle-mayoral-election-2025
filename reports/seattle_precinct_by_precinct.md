@@ -19,11 +19,13 @@ Today King County Elections proposes precinct-boundary revisions, which the Coun
 
 ![Seattle precinct counts over time from archived King County GIS boundary snapshots](figures/precinct_count_history.svg)
 
-The archived GIS snapshots show **961 precincts in 2010** and **1,019 in 2025**—a net change of **+58**. Counts have increased over that period overall, but the chart is not a measure of Seattle's population growth. Redistricting, administrative changes and precinct splitting or consolidation can move the count in either direction.
+The longer record is much more dramatic than the 2010–2025 slice. The earliest numeric count I could verify in digitized sources is **52 Seattle precincts in 1904**. A 1912 redistricting produced **381 precincts**; contemporary election reporting listed **406 in 1933** and **508 in 1938**. By the 2003 city election there were **1,006**. Modern King County GIS snapshots show **961 in 2010**, **958 in 2015**, **1,000 in 2020**, **1,020 in 2021**, and **1,019 in 2025**.
 
-Between 2010 and 2020, Seattle's population increased **21.1%** (608,660 to 737,015), while its mapped precinct count grew from **961 to 1,000**, or **4.1%**. Precinct counts don't track population one-for-one. [Seattle's Census comparison](https://www.census.gov/quickfacts/fact/table/seattlecitywashington/POP060220).
+The rust line adds Seattle's population: **42,800 people in 1890**, **237,194 in 1910**, **608,660 in 2010**, and an estimated **816,600 in 2025**. The early jump in precincts is not simply population growth. Seattle also annexed large areas in the early twentieth century and repeatedly redrew its election geography.
 
-These are snapshots of the county's year-specific **voting-district maps**. The underlying boundaries can change, and a snapshot count is not always identical to an election's reporting count. [Archived GIS data](https://kingcounty.gov/en/dept/elections/maps/precinct-and-district-data).
+The **1891 ward-and-precinct map** above is older than the first numeric point on the chart. I have not found a digitized source that gives a count I am comfortable publishing for that map, so I would rather leave 1891 blank than infer it from a difficult-to-read historical scan.
+
+Sources for the selected historical points: [1904 election report](https://oregonnews.uoregon.edu/lccn/sn83025138/1904-03-09/ed-1/seq-1/), [1912 redistricting](https://oregonnews.uoregon.edu/lccn/sn83025138/1912-07-29/ed-1/seq-2/ocr/), [1933 election report](https://oregonnews.uoregon.edu/lccn/sn85042470/1933-08-30/ed-1/seq-1/), [1938 Japanese-American Courier](https://downloads.densho.org/ddr-densho-96/ddr-densho-96-585-mezzanine-aa1eff9543.pdf), [2003 Seattle election report](https://www.seattle.gov/documents/departments/ethicselections/election%20reports/2003report.pdf), [King County election archives](https://kingcounty.gov/en/dept/executive-services/data-information-services/archives/find-it-in-archives/county-government-history/elections-history), and [Seattle population statistics](https://www.seattle.gov/city-archives/seattle-facts/quick-city-info). The 2025 population figure is the Washington Office of Financial Management estimate published by the [City of Seattle](https://www.seattle.gov/planning-and-community-development/population-and-demographics).
 
 ## 2. What does a precinct look like today?
 
@@ -43,19 +45,11 @@ The numbers describe different things. A large precinct on a map does not necess
 
 ## 3. How did Seattle's precincts vote in 2025?
 
-![Seattle precinct map, with muted blue for Wilson and rust for Harrell](figures/precinct_2025_mayoral_gradient.png)
+![Seattle 2025 mayoral vote share by precinct with community-reporting-area outlines and neighborhood labels](figures/seattle_2025_mayor_precinct_map.svg)
 
-Each precinct is colored by Harrell's share of votes for Harrell and Wilson. Blue means Wilson led, rust means Harrell led, and lighter shades indicate closer results. **These are candidate colors, not party colors.**
+This is the same map used on the project homepage. **Blue means Wilson was stronger; orange means Harrell was stronger; lighter precincts were closer.** The thin community-area outlines and a small set of neighborhood labels are there only to help orient the reader.
 
 In our comparable-precinct sample, **Madison Park, Laurelhurst-Sand Point, Magnolia** were among the neighborhood reporting areas with the highest Harrell shares. **Capitol Hill, North Beacon Hill-Jefferson Park, Central Area-Squire Park** were among the areas with the lowest. Those broad descriptions can still conceal substantial variation from one precinct to another.
-
-### What if each precinct occupied space according to its votes?
-
-![Geographic voting map compared with a map of vote-proportional precinct circles](figures/precinct_vote_weighted_map.png)
-
-On the left, a precinct's visual size is its geographic area. On the right, each precinct is a circle whose **area is proportional to votes for Harrell or Wilson**. Circles are placed near their precincts, so they can overlap. This is a schematic vote-weighted map—not the location of individual voters.
-
-Parkland and water occupy plenty of space on the left. On the right, precincts with more mayoral votes become more prominent. Neither map alone tells the whole story.
 
 ### How similar are precincts within the same neighborhood?
 
@@ -63,21 +57,25 @@ Parkland and water occupy plenty of space on the left. On the right, precincts w
 
 We compared each precinct's mayoral vote with the average for its community reporting area. **Shorter bars mean the precincts voted more alike; longer bars mean the area was more internally divided.** The number is the typical percentage-point difference from that area average, with larger precincts receiving more weight.
 
-Queen Anne is an example of a more internally varied area: its typical precinct differed from the Queen Anne average by **12.4 points**. Capitol Hill was much more consistent in this sample at **4.1 points**. The precinct and vote counts beside each label show how much data sit behind each comparison.
+The contrast is fairly large. **Miller Park (16.4 points), Cascade–Eastlake (13.1), and Queen Anne (12.4)** were among the most internally varied qualifying areas. **Capitol Hill and Beacon Hill (both 4.1 points), and North Beacon Hill–Jefferson Park (4.5)** were among the most internally consistent. The precinct and vote counts beside each label show how much data sit behind each comparison.
 
 These are descriptive community reporting areas, not the city's formal neighborhood boundaries. For consistency, this chart uses the subset with verified boundaries across 2021 and 2025, with at least 100 votes in each included 2025 precinct.
 
-## 4. How did the geography change since 2021?
+## 4. Where did Harrell lose the most ground since 2021?
 
 ![Map of changes in Harrell vote share in comparable precincts, 2021 to 2025](figures/precinct_2021_to_2025_harrell_change.png)
 
-Harrell received a smaller share of the two-finalist vote in **805 of 846 comparable precincts**. The typical change, measured by the median across precincts, was **-8.0 percentage points**. That decline was far from identical across the city.
+The first-order result is obvious: Harrell's share declined almost everywhere. He received a smaller share of the two-finalist vote in **805 of 846 comparable precincts**, with a median change of **−8.0 percentage points**.
 
-![Distribution of percentage-point changes in Harrell's vote share between 2021 and 2025](figures/precinct_2021_to_2025_distribution.svg)
+The more useful question is **where the decline was unusually large or small**.
 
-Only **40** of these precincts showed an increase in Harrell's share; **182** crossed the 50% threshold between the two elections.
+![Neighborhood areas with the largest and smallest declines in Harrell's two-finalist vote share](figures/precinct_2021_to_2025_by_neighborhood.svg)
 
-The comparison has an important limit: Harrell faced **Lorena González in 2021** and **Katie Wilson in 2025**. We can compare where his *relative support* was higher or lower; we cannot use these precinct totals to determine whether individual people changed their votes. Gray map areas weren't verified as geographically comparable, or lacked enough votes for this analysis.
+Among community areas with at least eight comparable precincts, the largest vote-weighted declines were in **Ballard (−14.1 points), Belltown (−11.9), and Capitol Hill (−11.7)**. Harrell held up much better in **Laurelhurst–Sand Point (−2.4), Seward Park (−3.1), and Madrona–Leschi (−3.5)**.
+
+That makes the comparison more informative than simply saying support fell citywide. Some of Harrell's strongest 2025 territory also experienced relatively small declines, while several already Wilson-leaning areas moved much further away from him.
+
+There is still an important limit: Harrell faced **Lorena González in 2021** and **Katie Wilson in 2025**. These are changes in a place's two-finalist vote share—not evidence that the same individuals switched candidates. Only precincts with verified stable boundaries and at least 100 finalist votes in both elections are included.
 
 ## 5. Where were the sharpest precinct boundaries?
 
@@ -98,7 +96,7 @@ These three close-ups show adjacent precincts from the ranked analysis. Expand e
 
 ![Close-up map of Queen Anne precincts 1709 and 1724](figures/fault_line_1709_1724_v2.svg)
 
-Both precincts sit inside the broad Queen Anne reporting area. The contrast is useful precisely because a neighborhood average would smooth over a very local divide.
+The county precinct map places **1709 around Roy and Mercer at the base of Queen Anne**, while **1724 sits around Prospect and Highland higher on the hill**. That is close to a real change in urban form: the City describes Uptown around Roy/Mercer as a dense mixed-use and multifamily area, while Upper Queen Anne is a more residential environment. That makes the border a plausible place to look for a housing-and-built-form explanation—but the precinct totals alone cannot establish one. [King County precinct map](https://cdn.kingcounty.gov/-/media/king-county/depts/elections/maps/current-maps/leg-maps/leg36-2025.pdf) · [Seattle Uptown context](https://www.seattle.gov/documents/departments/sdci/about/uptowndg2019.pdf)
 
 </details>
 
@@ -107,7 +105,7 @@ Both precincts sit inside the broad Queen Anne reporting area. The contrast is u
 
 ![Close-up map of precincts 1955 and 1957](figures/fault_line_1955_1957_v2.svg)
 
-Both precincts map to Laurelhurst–Sand Point. A nearly 49-point gap across a shared border shows how much variation can sit inside a familiar neighborhood label; the precinct totals alone do not tell us why.
+This is probably the most locally suggestive pair. The county map places **1955 around 60th Ave NE / Radford**, immediately beside the Magnuson–Radford area, while **1957 reaches the Windermere Road side**. Seattle's Magnuson map shows a mix of park, university property, Radford Court and nonprofit housing around the former naval station; King County's assessor describes Windermere as an established, high-value residential enclave east of Sand Point Way. That sharp housing and land-use transition is a plausible clue to the 48.9-point political gap—not proof of its cause. [King County precinct map](https://cdn.kingcounty.gov/-/media/king-county/depts/elections/maps/2024/scc-maps/seattle-district-4.pdf) · [Magnuson Park map](https://seattle.gov/documents/Departments/ParksAndRecreation/Parks/Magnuson/Magnuson%20Public%202025%20-%2024x36.pdf) · [King County assessor area report](https://kingcounty.gov/en/dept/assessor/buildings-and-property/property-value-and-information/reports/area-reports/2025/residential-northwest/-/media/king-county/depts/assessor/buildings-property/reports/area-reports/2025/residential/046.pdf)
 
 </details>
 
@@ -116,7 +114,7 @@ Both precincts map to Laurelhurst–Sand Point. A nearly 49-point gap across a s
 
 ![Close-up map of precincts 1803 and 1808](figures/fault_line_1803_1808_v2.svg)
 
-This is a second Queen Anne example. Taken with 1709/1724, it suggests that the area's relatively high within-neighborhood variation is not driven by only one unusual border.
+This second Queen Anne pair is farther north. **1803 is around W Bertona / W Dravus; 1808 reaches W Emerson / Nickerson near the Ship Canal.** The City describes the Nickerson corridor as an unusual seam where residences meet Seattle Pacific University, retail, freight and light-industrial uses. So again, the broad label “Queen Anne” hides a much more mixed local geography. [King County precinct map](https://cdn.kingcounty.gov/-/media/king-county/depts/elections/maps/current-maps/leg-maps/leg36-2025.pdf) · [Seattle Nickerson corridor](https://seattle.gov/transportation/projects-and-programs/programs/maintenance-and-paving/current-paving-projects/nickerson)
 
 </details>
 
@@ -124,7 +122,9 @@ The maps reveal where the difference appears, not why. We would need more inform
 
 ## 6. What do computational groupings tell us about neighborhoods?
 
-For a final comparison, we can ignore familiar neighborhood names and group precincts using **Louvain community detection**. First, connect precincts that share a border. Next, make connections stronger when neighboring precincts gave similar results across six 2025 citywide contests. Louvain then searches for groups with relatively strong connections within them.
+For a final comparison, we can ignore familiar neighborhood names and group precincts using **Louvain community detection**, a common way to find clusters in a network. Imagine every precinct as a dot. Two dots are connected when the precincts share a substantial border, and that connection becomes stronger when they voted similarly across six 2025 citywide contests.
+
+Louvain repeatedly tries moving precincts into neighboring groups, keeping a move when it makes the network more internally connected and more separated from the rest. In technical terms it is looking for a high-*modularity* partition. We do **not** tell the algorithm that Queen Anne, Ballard or Capitol Hill exist, and we do not tell it to produce 11 groups. Under the baseline settings, **11 is where it lands**.
 
 ![Familiar community reporting areas compared with the algorithm's groups](figures/experiment_07_algorithmic_seattle.svg)
 
