@@ -12,6 +12,10 @@ on:
       - README.md
   workflow_dispatch:
 
+concurrency:
+  group: precinct-field-guide-${{ github.ref }}
+  cancel-in-progress: true
+
 permissions:
   contents: write
 
