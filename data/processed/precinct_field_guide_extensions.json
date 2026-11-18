@@ -1,28 +1,63 @@
 {
   "precinct_count_history": [
     {
+      "year": 1904,
+      "seattle_precincts": 52,
+      "source": "Morning Oregonian, March 9 1904",
+      "url": "https://oregonnews.uoregon.edu/lccn/sn83025138/1904-03-09/ed-1/seq-1/"
+    },
+    {
+      "year": 1912,
+      "seattle_precincts": 381,
+      "source": "Morning Oregonian, July 29 1912; post-redistricting",
+      "url": "https://oregonnews.uoregon.edu/lccn/sn83025138/1912-07-29/ed-1/seq-2/ocr/"
+    },
+    {
+      "year": 1933,
+      "seattle_precincts": 406,
+      "source": "Oregon Statesman, August 30 1933",
+      "url": "https://oregonnews.uoregon.edu/lccn/sn85042470/1933-08-30/ed-1/seq-1/"
+    },
+    {
+      "year": 1938,
+      "seattle_precincts": 508,
+      "source": "Japanese-American Courier, July 30 1938",
+      "url": "https://downloads.densho.org/ddr-densho-96/ddr-densho-96-585-mezzanine-aa1eff9543.pdf"
+    },
+    {
+      "year": 2003,
+      "seattle_precincts": 1006,
+      "source": "Seattle Ethics and Elections Commission 2003 report",
+      "url": "https://www.seattle.gov/documents/departments/ethicselections/election%20reports/2003report.pdf"
+    },
+    {
       "year": 2010,
       "seattle_precincts": 961,
+      "source": "King County archived voting-district GIS",
       "url": "https://services.arcgis.com/Ej0PsM5Aw677QF1W/ArcGIS/rest/services/VOTDST_2010_AREA_3054/FeatureServer/0"
     },
     {
       "year": 2015,
       "seattle_precincts": 958,
+      "source": "King County archived voting-district GIS",
       "url": "https://services.arcgis.com/Ej0PsM5Aw677QF1W/ArcGIS/rest/services/VOTDST_2015_AREA_3059/FeatureServer/0"
     },
     {
       "year": 2020,
       "seattle_precincts": 1000,
+      "source": "King County archived voting-district GIS",
       "url": "https://services.arcgis.com/Ej0PsM5Aw677QF1W/ArcGIS/rest/services/VOTDST_2020_AREA_3064/FeatureServer/0"
     },
     {
       "year": 2021,
       "seattle_precincts": 1020,
+      "source": "King County archived voting-district GIS",
       "url": "https://services.arcgis.com/Ej0PsM5Aw677QF1W/ArcGIS/rest/services/VOTDST_2021_AREA_3065/FeatureServer/0"
     },
     {
       "year": 2025,
       "seattle_precincts": 1019,
+      "source": "King County archived voting-district GIS",
       "url": "https://services.arcgis.com/Ej0PsM5Aw677QF1W/ArcGIS/rest/services/VOTDST_2025_AREA_3072/FeatureServer/0"
     }
   ],
@@ -32,6 +67,260 @@
     "total": 846,
     "median_change_pp": -7.98
   },
+  "neighborhood_change": [
+    {
+      "name": "Ballard",
+      "precincts": 10,
+      "finalist_votes_2025": 3406,
+      "weighted_change_pp": -14.1
+    },
+    {
+      "name": "Belltown",
+      "precincts": 10,
+      "finalist_votes_2025": 2531,
+      "weighted_change_pp": -11.9
+    },
+    {
+      "name": "Whittier Heights",
+      "precincts": 21,
+      "finalist_votes_2025": 6306,
+      "weighted_change_pp": -11.7
+    },
+    {
+      "name": "Capitol Hill",
+      "precincts": 27,
+      "finalist_votes_2025": 8195,
+      "weighted_change_pp": -11.7
+    },
+    {
+      "name": "Haller Lake",
+      "precincts": 14,
+      "finalist_votes_2025": 3412,
+      "weighted_change_pp": -10.9
+    },
+    {
+      "name": "Fremont",
+      "precincts": 20,
+      "finalist_votes_2025": 5765,
+      "weighted_change_pp": -10.6
+    },
+    {
+      "name": "Cascade-Eastlake",
+      "precincts": 17,
+      "finalist_votes_2025": 4466,
+      "weighted_change_pp": -10.5
+    },
+    {
+      "name": "Wallingford",
+      "precincts": 21,
+      "finalist_votes_2025": 4830,
+      "weighted_change_pp": -10.3
+    },
+    {
+      "name": "Licton Springs",
+      "precincts": 11,
+      "finalist_votes_2025": 3343,
+      "weighted_change_pp": -9.9
+    },
+    {
+      "name": "Queen Anne",
+      "precincts": 67,
+      "finalist_votes_2025": 15395,
+      "weighted_change_pp": -9.8
+    },
+    {
+      "name": "Green Lake",
+      "precincts": 23,
+      "finalist_votes_2025": 5923,
+      "weighted_change_pp": -9.8
+    },
+    {
+      "name": "Northgate-Maple Leaf",
+      "precincts": 21,
+      "finalist_votes_2025": 6119,
+      "weighted_change_pp": -9.8
+    },
+    {
+      "name": "Sunset Hill-Loyal Heights",
+      "precincts": 31,
+      "finalist_votes_2025": 8137,
+      "weighted_change_pp": -9.7
+    },
+    {
+      "name": "Olympic Hills-Victory Heights",
+      "precincts": 22,
+      "finalist_votes_2025": 5896,
+      "weighted_change_pp": -9.3
+    },
+    {
+      "name": "Greenwood-Phinney Ridge",
+      "precincts": 33,
+      "finalist_votes_2025": 9679,
+      "weighted_change_pp": -9.1
+    },
+    {
+      "name": "Highland Park",
+      "precincts": 8,
+      "finalist_votes_2025": 2084,
+      "weighted_change_pp": -9.0
+    },
+    {
+      "name": "North Delridge",
+      "precincts": 8,
+      "finalist_votes_2025": 2435,
+      "weighted_change_pp": -8.9
+    },
+    {
+      "name": "North Beach-Blue Ridge",
+      "precincts": 13,
+      "finalist_votes_2025": 4166,
+      "weighted_change_pp": -8.8
+    },
+    {
+      "name": "North Beacon Hill-Jefferson Park",
+      "precincts": 11,
+      "finalist_votes_2025": 3630,
+      "weighted_change_pp": -8.7
+    },
+    {
+      "name": "Rainier Beach",
+      "precincts": 18,
+      "finalist_votes_2025": 3887,
+      "weighted_change_pp": -8.5
+    },
+    {
+      "name": "Broadview-Bitter Lake",
+      "precincts": 17,
+      "finalist_votes_2025": 4896,
+      "weighted_change_pp": -8.1
+    },
+    {
+      "name": "Cedar Park-Meadowbrook",
+      "precincts": 20,
+      "finalist_votes_2025": 5062,
+      "weighted_change_pp": -8.1
+    },
+    {
+      "name": "Arbor Heights",
+      "precincts": 14,
+      "finalist_votes_2025": 3251,
+      "weighted_change_pp": -8.0
+    },
+    {
+      "name": "South Beacon Hill-New Holly",
+      "precincts": 13,
+      "finalist_votes_2025": 2877,
+      "weighted_change_pp": -7.9
+    },
+    {
+      "name": "Beacon Hill",
+      "precincts": 10,
+      "finalist_votes_2025": 2611,
+      "weighted_change_pp": -7.8
+    },
+    {
+      "name": "Interbay",
+      "precincts": 12,
+      "finalist_votes_2025": 2711,
+      "weighted_change_pp": -7.8
+    },
+    {
+      "name": "Central Area-Squire Park",
+      "precincts": 14,
+      "finalist_votes_2025": 4530,
+      "weighted_change_pp": -7.2
+    },
+    {
+      "name": "Alki-Admiral",
+      "precincts": 21,
+      "finalist_votes_2025": 5190,
+      "weighted_change_pp": -7.1
+    },
+    {
+      "name": "West Seattle Junction-Genesee Hill",
+      "precincts": 42,
+      "finalist_votes_2025": 10644,
+      "weighted_change_pp": -6.8
+    },
+    {
+      "name": "Fauntleroy-Seaview",
+      "precincts": 31,
+      "finalist_votes_2025": 7794,
+      "weighted_change_pp": -6.7
+    },
+    {
+      "name": "Roxhill-Westwood",
+      "precincts": 15,
+      "finalist_votes_2025": 3711,
+      "weighted_change_pp": -6.2
+    },
+    {
+      "name": "North Capitol Hill",
+      "precincts": 9,
+      "finalist_votes_2025": 2643,
+      "weighted_change_pp": -6.1
+    },
+    {
+      "name": "Magnolia",
+      "precincts": 20,
+      "finalist_votes_2025": 5128,
+      "weighted_change_pp": -5.9
+    },
+    {
+      "name": "Miller Park",
+      "precincts": 11,
+      "finalist_votes_2025": 3263,
+      "weighted_change_pp": -5.9
+    },
+    {
+      "name": "Montlake-Portage Bay",
+      "precincts": 18,
+      "finalist_votes_2025": 4888,
+      "weighted_change_pp": -5.8
+    },
+    {
+      "name": "Wedgwood-View Ridge",
+      "precincts": 21,
+      "finalist_votes_2025": 6117,
+      "weighted_change_pp": -5.5
+    },
+    {
+      "name": "Ravenna-Bryant",
+      "precincts": 35,
+      "finalist_votes_2025": 9868,
+      "weighted_change_pp": -5.2
+    },
+    {
+      "name": "Columbia City",
+      "precincts": 27,
+      "finalist_votes_2025": 7218,
+      "weighted_change_pp": -4.7
+    },
+    {
+      "name": "Madison Park",
+      "precincts": 9,
+      "finalist_votes_2025": 2519,
+      "weighted_change_pp": -3.6
+    },
+    {
+      "name": "Madrona-Leschi",
+      "precincts": 12,
+      "finalist_votes_2025": 3635,
+      "weighted_change_pp": -3.5
+    },
+    {
+      "name": "Seward Park",
+      "precincts": 17,
+      "finalist_votes_2025": 3739,
+      "weighted_change_pp": -3.1
+    },
+    {
+      "name": "Laurelhurst-Sand Point",
+      "precincts": 18,
+      "finalist_votes_2025": 4877,
+      "weighted_change_pp": -2.4
+    }
+  ],
   "groups": [
     {
       "id": 6,
