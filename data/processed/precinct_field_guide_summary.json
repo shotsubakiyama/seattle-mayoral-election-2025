@@ -86,7 +86,9 @@
         "harrell_pct": 26.58730158730159,
         "registered": 556,
         "counted": 254,
-        "area_sqmi": 3.2191837715205103
+        "area_sqmi": 3.2191837715205103,
+        "near_area": "Beacon Hill",
+        "area_label_quality": "approximate from nearby labeled precincts"
       },
       {
         "precinct_id": "1696",
@@ -97,7 +99,9 @@
         "harrell_pct": 79.53020134228188,
         "registered": 483,
         "counted": 304,
-        "area_sqmi": 2.011156144641205
+        "area_sqmi": 2.011156144641205,
+        "near_area": "Magnolia",
+        "area_label_quality": "assigned community area"
       },
       {
         "precinct_id": "1494",
@@ -108,7 +112,9 @@
         "harrell_pct": 55.70291777188329,
         "registered": 631,
         "counted": 383,
-        "area_sqmi": 1.881139227444373
+        "area_sqmi": 1.881139227444373,
+        "near_area": "North Delridge",
+        "area_label_quality": "assigned community area"
       },
       {
         "precinct_id": "1602",
@@ -119,7 +125,9 @@
         "harrell_pct": 26.760563380281692,
         "registered": 736,
         "counted": 369,
-        "area_sqmi": 1.5354678493860572
+        "area_sqmi": 1.5354678493860572,
+        "near_area": "South Beacon Hill-New Holly",
+        "area_label_quality": "approximate from nearby labeled precincts"
       },
       {
         "precinct_id": "2267",
@@ -130,7 +138,9 @@
         "harrell_pct": 41.30434782608695,
         "registered": 726,
         "counted": 289,
-        "area_sqmi": 0.8444482380118338
+        "area_sqmi": 0.8444482380118338,
+        "near_area": "Laurelhurst-Sand Point",
+        "area_label_quality": "assigned community area"
       }
     ],
     "top_ballots_cast": [
@@ -204,6 +214,8 @@
       "precincts": 11,
       "mean_harrell_pct": 41.5,
       "weighted_sd_pp": 17.5,
+      "typical_gap_pp": 16.4,
+      "finalist_votes": 3263,
       "min_harrell_pct": 22.5,
       "max_harrell_pct": 71.6
     },
@@ -212,6 +224,8 @@
       "precincts": 17,
       "mean_harrell_pct": 46.2,
       "weighted_sd_pp": 15.8,
+      "typical_gap_pp": 13.1,
+      "finalist_votes": 4466,
       "min_harrell_pct": 21.7,
       "max_harrell_pct": 71.7
     },
@@ -220,126 +234,158 @@
       "precincts": 67,
       "mean_harrell_pct": 53.5,
       "weighted_sd_pp": 14.7,
+      "typical_gap_pp": 12.4,
+      "finalist_votes": 15395,
       "min_harrell_pct": 23.7,
       "max_harrell_pct": 81.4
-    },
-    {
-      "name": "Laurelhurst-Sand Point",
-      "precincts": 18,
-      "mean_harrell_pct": 78.0,
-      "weighted_sd_pp": 14.7,
-      "min_harrell_pct": 38.9,
-      "max_harrell_pct": 90.9
     },
     {
       "name": "North Capitol Hill",
       "precincts": 9,
       "mean_harrell_pct": 47.6,
       "weighted_sd_pp": 14.3,
+      "typical_gap_pp": 11.6,
+      "finalist_votes": 2643,
       "min_harrell_pct": 24.8,
       "max_harrell_pct": 68.3
-    },
-    {
-      "name": "Madrona-Leschi",
-      "precincts": 12,
-      "mean_harrell_pct": 56.5,
-      "weighted_sd_pp": 13.1,
-      "min_harrell_pct": 25.2,
-      "max_harrell_pct": 74.6
-    },
-    {
-      "name": "Montlake-Portage Bay",
-      "precincts": 18,
-      "mean_harrell_pct": 58.6,
-      "weighted_sd_pp": 12.4,
-      "min_harrell_pct": 31.1,
-      "max_harrell_pct": 79.5
-    },
-    {
-      "name": "North Beach-Blue Ridge",
-      "precincts": 13,
-      "mean_harrell_pct": 59.9,
-      "weighted_sd_pp": 11.8,
-      "min_harrell_pct": 35.8,
-      "max_harrell_pct": 78.3
     },
     {
       "name": "Seward Park",
       "precincts": 17,
       "mean_harrell_pct": 56.1,
       "weighted_sd_pp": 11.7,
+      "typical_gap_pp": 10.5,
+      "finalist_votes": 3739,
       "min_harrell_pct": 35.8,
       "max_harrell_pct": 75.4
     },
     {
-      "name": "Columbia City",
-      "precincts": 27,
-      "mean_harrell_pct": 40.3,
-      "weighted_sd_pp": 11.2,
-      "min_harrell_pct": 25.6,
-      "max_harrell_pct": 74.2
+      "name": "Laurelhurst-Sand Point",
+      "precincts": 18,
+      "mean_harrell_pct": 78.0,
+      "weighted_sd_pp": 14.7,
+      "typical_gap_pp": 10.4,
+      "finalist_votes": 4877,
+      "min_harrell_pct": 38.9,
+      "max_harrell_pct": 90.9
+    },
+    {
+      "name": "Madrona-Leschi",
+      "precincts": 12,
+      "mean_harrell_pct": 56.5,
+      "weighted_sd_pp": 13.1,
+      "typical_gap_pp": 10.3,
+      "finalist_votes": 3635,
+      "min_harrell_pct": 25.2,
+      "max_harrell_pct": 74.6
     },
     {
       "name": "North Delridge",
       "precincts": 8,
       "mean_harrell_pct": 45.7,
       "weighted_sd_pp": 11.0,
+      "typical_gap_pp": 10.1,
+      "finalist_votes": 2435,
       "min_harrell_pct": 32.2,
       "max_harrell_pct": 62.4
+    },
+    {
+      "name": "North Beach-Blue Ridge",
+      "precincts": 13,
+      "mean_harrell_pct": 59.9,
+      "weighted_sd_pp": 11.8,
+      "typical_gap_pp": 9.8,
+      "finalist_votes": 4166,
+      "min_harrell_pct": 35.8,
+      "max_harrell_pct": 78.3
     },
     {
       "name": "Sunset Hill-Loyal Heights",
       "precincts": 31,
       "mean_harrell_pct": 53.2,
       "weighted_sd_pp": 11.0,
+      "typical_gap_pp": 9.2,
+      "finalist_votes": 8137,
       "min_harrell_pct": 34.6,
       "max_harrell_pct": 73.2
     },
     {
-      "name": "Wallingford",
-      "precincts": 21,
-      "mean_harrell_pct": 41.2,
-      "weighted_sd_pp": 10.9,
-      "min_harrell_pct": 15.0,
-      "max_harrell_pct": 60.0
+      "name": "Montlake-Portage Bay",
+      "precincts": 18,
+      "mean_harrell_pct": 58.6,
+      "weighted_sd_pp": 12.4,
+      "typical_gap_pp": 9.1,
+      "finalist_votes": 4888,
+      "min_harrell_pct": 31.1,
+      "max_harrell_pct": 79.5
     },
     {
-      "name": "Alki-Admiral",
-      "precincts": 21,
-      "mean_harrell_pct": 67.0,
-      "weighted_sd_pp": 10.5,
-      "min_harrell_pct": 46.2,
-      "max_harrell_pct": 89.1
-    },
-    {
-      "name": "Cedar Park-Meadowbrook",
-      "precincts": 20,
-      "mean_harrell_pct": 54.9,
-      "weighted_sd_pp": 10.5,
-      "min_harrell_pct": 34.5,
-      "max_harrell_pct": 81.9
-    },
-    {
-      "name": "Green Lake",
-      "precincts": 23,
-      "mean_harrell_pct": 53.9,
-      "weighted_sd_pp": 10.4,
-      "min_harrell_pct": 21.1,
-      "max_harrell_pct": 65.3
+      "name": "Columbia City",
+      "precincts": 27,
+      "mean_harrell_pct": 40.3,
+      "weighted_sd_pp": 11.2,
+      "typical_gap_pp": 8.9,
+      "finalist_votes": 7218,
+      "min_harrell_pct": 25.6,
+      "max_harrell_pct": 74.2
     },
     {
       "name": "Madison Park",
       "precincts": 9,
       "mean_harrell_pct": 81.7,
       "weighted_sd_pp": 10.2,
+      "typical_gap_pp": 8.8,
+      "finalist_votes": 2519,
       "min_harrell_pct": 68.0,
       "max_harrell_pct": 95.7
+    },
+    {
+      "name": "Wallingford",
+      "precincts": 21,
+      "mean_harrell_pct": 41.2,
+      "weighted_sd_pp": 10.9,
+      "typical_gap_pp": 8.7,
+      "finalist_votes": 4830,
+      "min_harrell_pct": 15.0,
+      "max_harrell_pct": 60.0
+    },
+    {
+      "name": "Magnolia",
+      "precincts": 20,
+      "mean_harrell_pct": 75.4,
+      "weighted_sd_pp": 9.9,
+      "typical_gap_pp": 8.5,
+      "finalist_votes": 5128,
+      "min_harrell_pct": 59.5,
+      "max_harrell_pct": 89.0
+    },
+    {
+      "name": "Alki-Admiral",
+      "precincts": 21,
+      "mean_harrell_pct": 67.0,
+      "weighted_sd_pp": 10.5,
+      "typical_gap_pp": 8.2,
+      "finalist_votes": 5190,
+      "min_harrell_pct": 46.2,
+      "max_harrell_pct": 89.1
+    },
+    {
+      "name": "West Seattle Junction-Genesee Hill",
+      "precincts": 42,
+      "mean_harrell_pct": 55.9,
+      "weighted_sd_pp": 9.8,
+      "typical_gap_pp": 8.1,
+      "finalist_votes": 10644,
+      "min_harrell_pct": 33.3,
+      "max_harrell_pct": 71.7
     },
     {
       "name": "Interbay",
       "precincts": 12,
       "mean_harrell_pct": 55.0,
       "weighted_sd_pp": 10.1,
+      "typical_gap_pp": 8.1,
+      "finalist_votes": 2711,
       "min_harrell_pct": 45.9,
       "max_harrell_pct": 80.9
     },
@@ -348,54 +394,68 @@
       "precincts": 22,
       "mean_harrell_pct": 64.4,
       "weighted_sd_pp": 10.1,
+      "typical_gap_pp": 7.8,
+      "finalist_votes": 6243,
       "min_harrell_pct": 36.5,
       "max_harrell_pct": 90.5
     },
     {
-      "name": "Magnolia",
+      "name": "Cedar Park-Meadowbrook",
       "precincts": 20,
-      "mean_harrell_pct": 75.4,
-      "weighted_sd_pp": 9.9,
-      "min_harrell_pct": 59.5,
-      "max_harrell_pct": 89.0
-    },
-    {
-      "name": "West Seattle Junction-Genesee Hill",
-      "precincts": 42,
-      "mean_harrell_pct": 55.9,
-      "weighted_sd_pp": 9.8,
-      "min_harrell_pct": 33.3,
-      "max_harrell_pct": 71.7
-    },
-    {
-      "name": "Arbor Heights",
-      "precincts": 14,
-      "mean_harrell_pct": 61.3,
-      "weighted_sd_pp": 9.7,
-      "min_harrell_pct": 38.2,
-      "max_harrell_pct": 78.2
+      "mean_harrell_pct": 54.9,
+      "weighted_sd_pp": 10.5,
+      "typical_gap_pp": 7.8,
+      "finalist_votes": 5062,
+      "min_harrell_pct": 34.5,
+      "max_harrell_pct": 81.9
     },
     {
       "name": "Broadview-Bitter Lake",
       "precincts": 17,
       "mean_harrell_pct": 57.0,
       "weighted_sd_pp": 9.4,
+      "typical_gap_pp": 7.7,
+      "finalist_votes": 4896,
       "min_harrell_pct": 43.6,
       "max_harrell_pct": 75.2
     },
     {
-      "name": "Haller Lake",
+      "name": "Green Lake",
+      "precincts": 23,
+      "mean_harrell_pct": 53.9,
+      "weighted_sd_pp": 10.4,
+      "typical_gap_pp": 7.7,
+      "finalist_votes": 5923,
+      "min_harrell_pct": 21.1,
+      "max_harrell_pct": 65.3
+    },
+    {
+      "name": "Arbor Heights",
       "precincts": 14,
-      "mean_harrell_pct": 49.8,
-      "weighted_sd_pp": 8.9,
-      "min_harrell_pct": 30.9,
-      "max_harrell_pct": 66.0
+      "mean_harrell_pct": 61.3,
+      "weighted_sd_pp": 9.7,
+      "typical_gap_pp": 7.6,
+      "finalist_votes": 3251,
+      "min_harrell_pct": 38.2,
+      "max_harrell_pct": 78.2
+    },
+    {
+      "name": "Roxhill-Westwood",
+      "precincts": 15,
+      "mean_harrell_pct": 45.1,
+      "weighted_sd_pp": 7.5,
+      "typical_gap_pp": 7.1,
+      "finalist_votes": 3711,
+      "min_harrell_pct": 34.3,
+      "max_harrell_pct": 53.6
     },
     {
       "name": "Ballard",
       "precincts": 10,
       "mean_harrell_pct": 34.6,
       "weighted_sd_pp": 8.6,
+      "typical_gap_pp": 7.0,
+      "finalist_votes": 3406,
       "min_harrell_pct": 21.1,
       "max_harrell_pct": 50.8
     },
@@ -404,118 +464,148 @@
       "precincts": 31,
       "mean_harrell_pct": 58.9,
       "weighted_sd_pp": 8.5,
+      "typical_gap_pp": 6.9,
+      "finalist_votes": 7794,
       "min_harrell_pct": 43.5,
       "max_harrell_pct": 78.5
-    },
-    {
-      "name": "Central Area-Squire Park",
-      "precincts": 14,
-      "mean_harrell_pct": 33.6,
-      "weighted_sd_pp": 8.5,
-      "min_harrell_pct": 24.7,
-      "max_harrell_pct": 52.6
     },
     {
       "name": "Fremont",
       "precincts": 20,
       "mean_harrell_pct": 35.4,
       "weighted_sd_pp": 8.3,
+      "typical_gap_pp": 6.9,
+      "finalist_votes": 5765,
       "min_harrell_pct": 24.2,
       "max_harrell_pct": 52.5
+    },
+    {
+      "name": "Haller Lake",
+      "precincts": 14,
+      "mean_harrell_pct": 49.8,
+      "weighted_sd_pp": 8.9,
+      "typical_gap_pp": 6.9,
+      "finalist_votes": 3412,
+      "min_harrell_pct": 30.9,
+      "max_harrell_pct": 66.0
+    },
+    {
+      "name": "Central Area-Squire Park",
+      "precincts": 14,
+      "mean_harrell_pct": 33.6,
+      "weighted_sd_pp": 8.5,
+      "typical_gap_pp": 6.5,
+      "finalist_votes": 4530,
+      "min_harrell_pct": 24.7,
+      "max_harrell_pct": 52.6
     },
     {
       "name": "Ravenna-Bryant",
       "precincts": 35,
       "mean_harrell_pct": 58.2,
       "weighted_sd_pp": 8.3,
+      "typical_gap_pp": 6.5,
+      "finalist_votes": 9868,
       "min_harrell_pct": 34.1,
       "max_harrell_pct": 79.5
-    },
-    {
-      "name": "Northgate-Maple Leaf",
-      "precincts": 21,
-      "mean_harrell_pct": 47.3,
-      "weighted_sd_pp": 7.8,
-      "min_harrell_pct": 31.1,
-      "max_harrell_pct": 58.5
-    },
-    {
-      "name": "Roxhill-Westwood",
-      "precincts": 15,
-      "mean_harrell_pct": 45.1,
-      "weighted_sd_pp": 7.5,
-      "min_harrell_pct": 34.3,
-      "max_harrell_pct": 53.6
-    },
-    {
-      "name": "Belltown",
-      "precincts": 10,
-      "mean_harrell_pct": 51.6,
-      "weighted_sd_pp": 7.5,
-      "min_harrell_pct": 35.9,
-      "max_harrell_pct": 62.7
     },
     {
       "name": "Whittier Heights",
       "precincts": 21,
       "mean_harrell_pct": 43.6,
       "weighted_sd_pp": 7.4,
+      "typical_gap_pp": 6.3,
+      "finalist_votes": 6306,
       "min_harrell_pct": 30.6,
       "max_harrell_pct": 55.4
     },
     {
-      "name": "Licton Springs",
-      "precincts": 11,
-      "mean_harrell_pct": 37.8,
-      "weighted_sd_pp": 7.4,
-      "min_harrell_pct": 28.5,
-      "max_harrell_pct": 56.3
-    },
-    {
-      "name": "Rainier Beach",
-      "precincts": 18,
-      "mean_harrell_pct": 54.2,
-      "weighted_sd_pp": 7.2,
-      "min_harrell_pct": 38.7,
-      "max_harrell_pct": 71.6
+      "name": "Northgate-Maple Leaf",
+      "precincts": 21,
+      "mean_harrell_pct": 47.3,
+      "weighted_sd_pp": 7.8,
+      "typical_gap_pp": 6.0,
+      "finalist_votes": 6119,
+      "min_harrell_pct": 31.1,
+      "max_harrell_pct": 58.5
     },
     {
       "name": "Greenwood-Phinney Ridge",
       "precincts": 33,
       "mean_harrell_pct": 47.3,
       "weighted_sd_pp": 7.1,
+      "typical_gap_pp": 5.6,
+      "finalist_votes": 9679,
       "min_harrell_pct": 28.3,
       "max_harrell_pct": 59.3
+    },
+    {
+      "name": "Belltown",
+      "precincts": 10,
+      "mean_harrell_pct": 51.6,
+      "weighted_sd_pp": 7.5,
+      "typical_gap_pp": 5.6,
+      "finalist_votes": 2531,
+      "min_harrell_pct": 35.9,
+      "max_harrell_pct": 62.7
     },
     {
       "name": "Olympic Hills-Victory Heights",
       "precincts": 22,
       "mean_harrell_pct": 47.6,
       "weighted_sd_pp": 7.1,
+      "typical_gap_pp": 5.6,
+      "finalist_votes": 5896,
       "min_harrell_pct": 31.1,
       "max_harrell_pct": 60.8
-    },
-    {
-      "name": "Highland Park",
-      "precincts": 8,
-      "mean_harrell_pct": 47.7,
-      "weighted_sd_pp": 6.9,
-      "min_harrell_pct": 41.4,
-      "max_harrell_pct": 64.1
     },
     {
       "name": "South Beacon Hill-New Holly",
       "precincts": 13,
       "mean_harrell_pct": 48.9,
       "weighted_sd_pp": 6.8,
+      "typical_gap_pp": 5.5,
+      "finalist_votes": 2877,
       "min_harrell_pct": 35.9,
       "max_harrell_pct": 60.8
+    },
+    {
+      "name": "Rainier Beach",
+      "precincts": 18,
+      "mean_harrell_pct": 54.2,
+      "weighted_sd_pp": 7.2,
+      "typical_gap_pp": 5.4,
+      "finalist_votes": 3887,
+      "min_harrell_pct": 38.7,
+      "max_harrell_pct": 71.6
+    },
+    {
+      "name": "Licton Springs",
+      "precincts": 11,
+      "mean_harrell_pct": 37.8,
+      "weighted_sd_pp": 7.4,
+      "typical_gap_pp": 5.3,
+      "finalist_votes": 3343,
+      "min_harrell_pct": 28.5,
+      "max_harrell_pct": 56.3
+    },
+    {
+      "name": "Highland Park",
+      "precincts": 8,
+      "mean_harrell_pct": 47.7,
+      "weighted_sd_pp": 6.9,
+      "typical_gap_pp": 5.2,
+      "finalist_votes": 2084,
+      "min_harrell_pct": 41.4,
+      "max_harrell_pct": 64.1
     },
     {
       "name": "North Beacon Hill-Jefferson Park",
       "precincts": 11,
       "mean_harrell_pct": 33.3,
       "weighted_sd_pp": 5.4,
+      "typical_gap_pp": 4.5,
+      "finalist_votes": 3630,
       "min_harrell_pct": 24.1,
       "max_harrell_pct": 44.3
     },
@@ -524,6 +614,8 @@
       "precincts": 10,
       "mean_harrell_pct": 44.7,
       "weighted_sd_pp": 4.9,
+      "typical_gap_pp": 4.1,
+      "finalist_votes": 2611,
       "min_harrell_pct": 35.3,
       "max_harrell_pct": 52.6
     },
@@ -532,6 +624,8 @@
       "precincts": 27,
       "mean_harrell_pct": 21.3,
       "weighted_sd_pp": 4.8,
+      "typical_gap_pp": 4.1,
+      "finalist_votes": 8195,
       "min_harrell_pct": 13.3,
       "max_harrell_pct": 34.1
     }

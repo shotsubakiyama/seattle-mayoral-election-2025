@@ -1,0 +1,147 @@
+{
+  "precinct_count_history": [
+    {
+      "year": 2010,
+      "seattle_precincts": 961,
+      "url": "https://services.arcgis.com/Ej0PsM5Aw677QF1W/ArcGIS/rest/services/VOTDST_2010_AREA_3054/FeatureServer/0"
+    },
+    {
+      "year": 2015,
+      "seattle_precincts": 958,
+      "url": "https://services.arcgis.com/Ej0PsM5Aw677QF1W/ArcGIS/rest/services/VOTDST_2015_AREA_3059/FeatureServer/0"
+    },
+    {
+      "year": 2020,
+      "seattle_precincts": 1000,
+      "url": "https://services.arcgis.com/Ej0PsM5Aw677QF1W/ArcGIS/rest/services/VOTDST_2020_AREA_3064/FeatureServer/0"
+    },
+    {
+      "year": 2021,
+      "seattle_precincts": 1020,
+      "url": "https://services.arcgis.com/Ej0PsM5Aw677QF1W/ArcGIS/rest/services/VOTDST_2021_AREA_3065/FeatureServer/0"
+    },
+    {
+      "year": 2025,
+      "seattle_precincts": 1019,
+      "url": "https://services.arcgis.com/Ej0PsM5Aw677QF1W/ArcGIS/rest/services/VOTDST_2025_AREA_3072/FeatureServer/0"
+    }
+  ],
+  "change_distribution": {
+    "declined": 805,
+    "increased": 40,
+    "total": 846,
+    "median_change_pp": -7.98
+  },
+  "groups": [
+    {
+      "id": 6,
+      "label": "Magnolia / Interbay",
+      "precincts": 42,
+      "harrell_votes": 7380,
+      "wilson_votes": 3542,
+      "finalist_votes": 10922,
+      "harrell_pct": 67.6,
+      "wilson_pct": 32.4
+    },
+    {
+      "id": 10,
+      "label": "Ravenna-Bryant / Laurelhurst-Sand Point",
+      "precincts": 70,
+      "harrell_votes": 12710,
+      "wilson_votes": 6794,
+      "finalist_votes": 19504,
+      "harrell_pct": 65.2,
+      "wilson_pct": 34.8
+    },
+    {
+      "id": 5,
+      "label": "West Seattle Junction-Genesee Hill / Alki-Admiral",
+      "precincts": 63,
+      "harrell_votes": 9370,
+      "wilson_votes": 6631,
+      "finalist_votes": 16001,
+      "harrell_pct": 58.6,
+      "wilson_pct": 41.4
+    },
+    {
+      "id": 7,
+      "label": "Queen Anne / Cascade-Eastlake",
+      "precincts": 114,
+      "harrell_votes": 14692,
+      "wilson_votes": 13095,
+      "finalist_votes": 27787,
+      "harrell_pct": 52.9,
+      "wilson_pct": 47.1
+    },
+    {
+      "id": 0,
+      "label": "Fauntleroy-Seaview / Roxhill-Westwood",
+      "precincts": 92,
+      "harrell_votes": 12594,
+      "wilson_votes": 11280,
+      "finalist_votes": 23874,
+      "harrell_pct": 52.8,
+      "wilson_pct": 47.2
+    },
+    {
+      "id": 4,
+      "label": "Northgate-Maple Leaf / Olympic Hills-Victory Heights",
+      "precincts": 143,
+      "harrell_votes": 19901,
+      "wilson_votes": 19221,
+      "finalist_votes": 39122,
+      "harrell_pct": 50.9,
+      "wilson_pct": 49.1
+    },
+    {
+      "id": 3,
+      "label": "Greenwood-Phinney Ridge / Sunset Hill-Loyal Heights",
+      "precincts": 137,
+      "harrell_votes": 19298,
+      "wilson_votes": 21778,
+      "finalist_votes": 41076,
+      "harrell_pct": 47.0,
+      "wilson_pct": 53.0
+    },
+    {
+      "id": 9,
+      "label": "Central Area-Squire Park / Madrona-Leschi",
+      "precincts": 103,
+      "harrell_votes": 14576,
+      "wilson_votes": 16518,
+      "finalist_votes": 31094,
+      "harrell_pct": 46.9,
+      "wilson_pct": 53.1
+    },
+    {
+      "id": 1,
+      "label": "Columbia City / Rainier Beach",
+      "precincts": 127,
+      "harrell_votes": 15247,
+      "wilson_votes": 18672,
+      "finalist_votes": 33919,
+      "harrell_pct": 45.0,
+      "wilson_pct": 55.0
+    },
+    {
+      "id": 2,
+      "label": "Wallingford / Fremont",
+      "precincts": 70,
+      "harrell_votes": 7289,
+      "wilson_votes": 11306,
+      "finalist_votes": 18595,
+      "harrell_pct": 39.2,
+      "wilson_pct": 60.8
+    },
+    {
+      "id": 8,
+      "label": "Capitol Hill / North Capitol Hill",
+      "precincts": 45,
+      "harrell_votes": 3640,
+      "wilson_votes": 9711,
+      "finalist_votes": 13351,
+      "harrell_pct": 27.3,
+      "wilson_pct": 72.7
+    }
+  ]
+}
