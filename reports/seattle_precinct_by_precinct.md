@@ -21,7 +21,9 @@ Today King County Elections proposes precinct-boundary revisions, which the Coun
 
 The archived GIS snapshots show **961 precincts in 2010** and **1,019 in 2025**—a net change of **+58**. Counts have increased over that period overall, but the chart is not a measure of Seattle's population growth. Redistricting, administrative changes and precinct splitting or consolidation can move the count in either direction.
 
-The snapshots use the county's year-specific **voting-district maps**; they are not necessarily the same boundaries as the precincts reporting in a given election. [Archived GIS data](https://kingcounty.gov/en/dept/elections/maps/precinct-and-district-data).
+Between 2010 and 2020, Seattle's population increased **21.1%** (608,660 to 737,015), while its mapped precinct count grew from **961 to 1,000**, or **4.1%**. Precinct counts don't track population one-for-one. [Seattle's Census comparison](https://www.census.gov/quickfacts/fact/table/seattlecitywashington/POP060220).
+
+These are snapshots of the county's year-specific **voting-district maps**. The underlying boundaries can change, and a snapshot count is not always identical to an election's reporting count. [Archived GIS data](https://kingcounty.gov/en/dept/elections/maps/precinct-and-district-data).
 
 ## 2. What does a precinct look like today?
 
@@ -53,7 +55,7 @@ In our comparable-precinct sample, **Madison Park, Laurelhurst-Sand Point, Magno
 
 On the left, a precinct's visual size is its geographic area. On the right, each precinct is a circle whose **area is proportional to votes for Harrell or Wilson**. Circles are placed near their precincts, so they can overlap. This is a schematic vote-weighted map—not the location of individual voters.
 
-The comparison is a useful reminder: large swaths of color can dominate a geographic map without representing a correspondingly large number of votes.
+Parkland and water occupy plenty of space on the left. On the right, precincts with more mayoral votes become more prominent. Neither map alone tells the whole story.
 
 ### How similar are precincts within the same neighborhood?
 
@@ -73,7 +75,7 @@ Harrell received a smaller share of the two-finalist vote in **805 of 846 compar
 
 ![Distribution of percentage-point changes in Harrell's vote share between 2021 and 2025](figures/precinct_2021_to_2025_distribution.svg)
 
-The histogram shows how widely the changes were distributed. **182** matched precincts crossed the 50% threshold between the two elections.
+Only **40** of these precincts showed an increase in Harrell's share; **182** crossed the 50% threshold between the two elections.
 
 The comparison has an important limit: Harrell faced **Lorena González in 2021** and **Katie Wilson in 2025**. We can compare where his *relative support* was higher or lower; we cannot use these precinct totals to determine whether individual people changed their votes. Gray map areas weren't verified as geographically comparable, or lacked enough votes for this analysis.
 
@@ -120,7 +122,7 @@ For a final comparison, we can ignore familiar neighborhood names and group prec
 
 ![Familiar community reporting areas compared with the algorithm's groups](figures/experiment_07_algorithmic_seattle.svg)
 
-This produced **11 groups**. The labels below are only geographic descriptions based on the most represented community reporting areas in each group. They're **not official neighborhood or election-district names**.
+This produced **11 groups**. The most Harrell-leaning group, around **Magnolia / Interbay**, gave him **67.6%** of the two-finalist vote. The most Wilson-leaning group, around **Capitol Hill / North Capitol Hill**, gave her **72.7%**. The labels below are informal geographic descriptions based on represented community reporting areas—not official district names.
 
 | Computed group (informal area labels) | Precincts | Finalist votes | Harrell | Wilson |
 |---|---:|---:|---:|---:|
@@ -140,7 +142,7 @@ This produced **11 groups**. The labels below are only geographic descriptions b
 
 The table runs from the most Harrell-supporting computed group to the most Wilson-supporting. It makes the map's color-coded clusters easier to interpret: not just where the groups are, but how many precincts and votes each contains.
 
-One caution matters. Geography alone also produces clusters. In a separate comparison with a geography-only network, adding voting patterns changed the grouping relationship for only about **6.8% of shared precinct borders**. The algorithm gives us another perspective on Seattle's political geography, not a replacement for neighborhood boundaries.
+Geography alone also produces clusters. In a separate comparison with a geography-only network, adding voting patterns changed the grouping relationship for only about **6.8% of shared precinct borders**. The algorithm gives us another perspective on Seattle's political geography, not a replacement for neighborhood boundaries.
 
 ## Sources and notes
 
