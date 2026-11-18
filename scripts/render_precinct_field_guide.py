@@ -1,199 +1,238 @@
-"""Build reader-first Seattle precinct field guide from checked analysis output.
+"""Render the editorial second draft from generated facts, not placeholder numbers.
 
-This file is deliberately editorial: no factual statistic is typed in without
-coming from the generated JSON. Build pipeline refuses missing graphics.
+A conventional GitHub Markdown research note: concise prose, visible sources,
+descriptive chart titles, expandable boundary case studies, explicit caveats.
 """
+import csv
 import json
 from pathlib import Path
-
 from spatial_precinct_overlap import ROOT
 
-SUMMARY=ROOT/"data/processed/precinct_field_guide_summary.json"
-REPORT=ROOT/"reports/seattle_precinct_by_precinct.md"
 FIG=ROOT/"reports/figures"
+SUMMARY=ROOT/"data/processed/precinct_field_guide_summary.json"
+EXTRA=ROOT/"data/processed/precinct_field_guide_extensions.json"
+REPORT=ROOT/"reports/seattle_precinct_by_precinct.md"
 REQUIRED=[
-"precinct_size_distributions.svg",
-"precinct_2025_mayoral_gradient.png",
-"precinct_neighborhood_variation.svg",
-"precinct_2021_to_2025_harrell_change.png",
-"precinct_sharp_boundaries.svg",
-"fault_line_1709_1724_v2.svg",
-"experiment_07_algorithmic_seattle.svg",
+ "precinct_count_history.svg",
+ "precinct_size_distributions.svg",
+ "precinct_2025_mayoral_gradient.png",
+ "precinct_vote_weighted_map.png",
+ "precinct_neighborhood_variation.svg",
+ "precinct_2021_to_2025_harrell_change.png",
+ "precinct_2021_to_2025_distribution.svg",
+ "precinct_sharp_boundaries.svg",
+ "fault_line_1709_1724_v2.svg",
+ "fault_line_1955_1957_v2.svg",
+ "fault_line_1803_1808_v2.svg",
+ "experiment_07_algorithmic_seattle.svg",
+ "precinct_cluster_vote_breakdown.svg",
 ]
 
 
-def row_title(entry,area_map):
-    name=area_map.get(entry["precinct_id"])
-    precinct=entry.get("precinct_name",f"Seattle precinct {entry['precinct_id']}")
-    return f"{precinct} ({name})" if name else precinct
+def location_for(row,known):
+    pid=row["precinct_id"]
+    name=known.get(pid) or row.get("near_area")
+    if row.get("area_label_quality","").startswith("approximate") and name:
+        return f"near {name} (approx.)"
+    return name or "area not assigned"
 
 
-def generate_document(data,area_map):
+def text_document(data,more,known):
     p=data["precinct_population_2025"]
-    h=data["history"]
-    b=data["boundary"]
-    n=data["neighborhoods"]
-    medreg=int(round(p["registered_quantiles"]["0.5"]))
-    medarea=p["geographic_sqmi_quantiles"]["0.5"]
-    largest=p["top_registered"][0]
-    biggest=p["top_geographic_area"][0]
-    mostballots=p["top_ballots_cast"][0] if p["top_ballots_cast"] else None
-    queen=next((x for x in n if x["name"]=="Queen Anne"),None)
-    capitol=next((x for x in n if x["name"]=="Capitol Hill"),None)
-    top=b["top_10"][0]
-    queen_pair=next((x for x in b["top_10"] if {x["precinct_a"],x["precinct_b"]}=={"1709","1724"}),None)
-    if not queen or not capitol:
-        raise ValueError("Missing illustrative neighborhood comparison")
-    table=["| Measure | Precinct | Value |","|---|---|---:|",
-        f"| Most registered voters | {row_title(largest,area_map)} | {largest['registered']:,} voters |",
-        f"| Largest mapped polygon | {row_title(biggest,area_map)} | {biggest['area_sqmi']:.2f} sq mi* |"]
-    if mostballots:
-        table.append(
-            f"| Most ballots counted | {row_title(mostballots,area_map)} | {mostballots['counted']:,} ballots |")
-    extremes="\n".join(table)
+    h=data["history"];b=data["boundary"]
+    hist=more["precinct_count_history"]
+    first,last=hist[0],hist[-1]
+    delta=last["seattle_precincts"]-first["seattle_precincts"]
+    trend=("increased" if delta>0 else "decreased" if delta<0 else "remained unchanged")
+    change=more["change_distribution"]
+    groups=more["groups"]
+    latest=lambda row:row["precinct_name"]
+    top_voters=p["top_registered"][0]
+    top_area=p["top_geographic_area"][0]
+    top_ballots=p["top_ballots_cast"][0]
+    med_reg=round(p["registered_quantiles"]["0.5"])
+    median_area=p["geographic_sqmi_quantiles"]["0.5"]
+    nhood={x["name"]:x for x in data["neighborhoods"]}
+    queen=nhood["Queen Anne"];capitol=nhood["Capitol Hill"]
+    table=[
+        "| By which measure? | Precinct and approximate location | Figure |",
+        "|---|---|---:|",
+        f"| Most registered voters | {latest(top_voters)} · {location_for(top_voters,known)} | {top_voters['registered']:,} voters |",
+        f"| Largest geographic polygon | {latest(top_area)} · {location_for(top_area,known)} | {top_area['area_sqmi']:.2f} sq mi |",
+        f"| Most ballots counted | {latest(top_ballots)} · {location_for(top_ballots,known)} | {top_ballots['counted']:,} ballots |",
+    ]
+    table_text="\n".join(table)
+    dominant=sorted(data["neighborhoods"],key=lambda x:-x["mean_harrell_pct"])[:4]
+    strongwilson=sorted(data["neighborhoods"],key=lambda x:x["mean_harrell_pct"])[:4]
+    electoral_rows=[
+        "| Computed group (informal area labels) | Precincts | Finalist votes | Harrell | Wilson |",
+        "|---|---:|---:|---:|---:|"
+    ]
+    for r in groups:
+        electoral_rows.append(
+            f"| Group {r['id']+1}: {r['label']} | {r['precincts']} | {r['finalist_votes']:,} | "
+            f"{r['harrell_pct']:.1f}% | {r['wilson_pct']:.1f}% |")
+    electoral_table="\n".join(electoral_rows)
+
+    def named_rank(rows):
+        return ", ".join(x["name"] for x in rows[:3])
+    lower=more["change_distribution"]["declined"]
     return f"""# Seattle, Precinct by Precinct
-### How the city's voting map was made—and what it shows about the 2025 mayoral election
+*An introduction to the city's voting geography, using the 2025 mayoral election*
 
-*Independent visual research · November 2026 · First editorial draft*
+Seattle's mayoral election was decided by 2,011 votes in November 2025. Those votes came from more than a thousand precincts. Before looking at who won where, it's worth knowing what a precinct is, where its boundaries come from, and how much one precinct can differ from the next.
 
-When Seattle votes, the results appear as a patchwork of more than a thousand small geographic units: **precincts**. Where did these shapes come from? How different are they? And what happens when we use them to examine a mayoral election decided by just **2,011 votes**?
+## 1. How did Seattle get its precincts?
 
-This is a beginner's guide to those units, followed by a few computational investigations. The history is short, the maps do most of the work, and each analysis explains how its result was produced.
+A precinct is a small election-administration area. It determines which ballot a voter receives and gives election officials a way to organize the results. It is not a neighborhood or a City Council district.
 
-## 1. How Seattle got its precincts
+Seattle has used wards and precincts since its early years. The [1891 ward-and-precinct map](https://commons.wikimedia.org/wiki/File:Seattle_ward_and_precinct_map,_1891.jpg) shows a very different city.
 
-A **voting precinct** is an administrative area used to assign voters to the correct ballot and organize voting records. It isn't necessarily a neighborhood, and it isn't one of Seattle's seven geographic City Council districts.
+<a href="https://commons.wikimedia.org/wiki/File:Seattle_ward_and_precinct_map,_1891.jpg"><img src="https://cdn2.picryl.com/photo/1895/12/31/seattle-ward-and-precinct-map-1891-b21ed9-1024.jpg" alt="Seattle ward and precinct map, 1891, Seattle Municipal Archives" width="340"></a>
 
-Seattle has had wards and precincts since its early municipal period. The [Seattle Municipal Archives' 1891 ward-and-precinct map](https://commons.wikimedia.org/wiki/File:Seattle_ward_and_precinct_map,_1891.jpg) is a reminder that today's familiar boundaries didn't exist in the same form. The [King County Archives](https://kingcounty.gov/en/dept/executive-services/data-information-services/archives/find-it-in-archives/county-government-history/elections-history) also lists a **1915** precinct map and maps from **1936, 1944, 1986–1993, and 2000**.
+*Seattle ward and precinct map, 1891. Seattle Municipal Archives.*
 
-<a href="https://commons.wikimedia.org/wiki/File:Seattle_ward_and_precinct_map,_1891.jpg"><img src="https://cdn2.picryl.com/photo/1895/12/31/seattle-ward-and-precinct-map-1891-b21ed9-1024.jpg" alt="1891 wards and precincts of early Seattle (Seattle Municipal Archives map 1427)" width="390"></a>
+Today King County Elections proposes precinct-boundary revisions, which the County Council adopts. Boundaries must fit other electoral districts, and officials periodically adjust them as the population and registration change. King County's limit is generally 900 active registered voters per precinct at the time of boundary balancing; the state ceiling is 1,500. The election-day registered-voter total can differ from the earlier balancing count. [County precinct alterations](https://kingcounty.gov/en/dept/elections/maps/precinct-alterations) · [Washington law](https://app.leg.wa.gov/rcw/default.aspx?cite=29A.16.040).
 
-*An 1891 ward-and-precinct map, from the [Seattle Municipal Archives collection](https://archives.seattle.gov/finding-aids/repositories/2/resources/436), map 1427 (public domain reproduction). The original city footprint and precinct lines differ greatly from today's.*
+### Has the number of precincts increased?
 
-**Who draws the lines today?** King County Elections proposes changes, which the King County Council formally adopts. Precincts generally need to be geographically connected, respect other electoral-district boundaries, and meet voter-count limits. The state ceiling is **1,500 active registered voters**, while King County's ordinance sets a lower ceiling of **900 active voters** at the relevant boundary-adoption stage. Geography changes through redistricting, annexations, and precinct balancing; the [official 2025 GIS layer](https://www5.kingcounty.gov/sdc/?Layer=votdst_2025_area) reflects such adjustments. [Washington law](https://app.leg.wa.gov/rcw/default.aspx?cite=29A.16.040) · [King County Code](https://aqua.kingcounty.gov/council/clerk/code/04_Title_1.htm) · [King County precinct alterations](https://kingcounty.gov/en/dept/elections/maps/precinct-alterations).
+![Seattle precinct counts over time from archived King County GIS boundary snapshots](figures/precinct_count_history.svg)
 
-The important distinction: **these boundaries were not created to describe political opinions**. They were created to administer elections. We can nevertheless use them to study geographic voting patterns.
+The archived GIS snapshots show **{first['seattle_precincts']:,} precincts in {first['year']}** and **{last['seattle_precincts']:,} in {last['year']}**—a net change of **{delta:+,}**. Counts have {trend} over that period overall, but the chart is not a measure of Seattle's population growth. Redistricting, administrative changes and precinct splitting or consolidation can move the count in either direction.
 
-## 2. What does a Seattle precinct look like today?
+The snapshots use the county's year-specific **voting-district maps**; they are not necessarily the same boundaries as the precincts reporting in a given election. [Archived GIS data](https://kingcounty.gov/en/dept/elections/maps/precinct-and-district-data).
 
-**Finding:** Seattle precincts are more similar in the size of their registered electorates than in their *physical area*.
+## 2. What does a precinct look like today?
 
-**Method:** Join the certified 2025 election returns to King County's official 2025 precinct polygons; count registered voters and ballots and calculate polygon area in square miles.
+The official results list **{data['official_precinct_total']:,}** Seattle precincts in 2025. Of these, **{data['precinct_count']:,}** had votes for one of the two mayoral finalists and usable registration data. The median precinct had **{med_reg:,} registered voters** and covered **{median_area:.3f} square miles**.
 
-![Histograms of registered voters and geographic square-mile sizes of Seattle precincts](figures/precinct_size_distributions.svg)
+![Distributions of registered voters and precinct size, in square miles on a linear scale](figures/precinct_size_distributions.svg)
 
-The certified 2025 results list **{data['official_precinct_total']:,}** Seattle precincts; **{data['precinct_count']:,}** had votes for the two mayoral finalists and usable registered-voter counts. The median had **{medreg:,} registered voters**, while the median mapped area was just **{medarea:.3f} square miles**. Their shapes and electorates still vary substantially.
+Most precincts are quite small geographically, but the large outliers matter. The last size bar groups precincts larger than 0.4 square miles instead of squeezing the rest of the distribution into a logarithmic scale. The mapped boundaries can include water, so polygon area is not necessarily dry land.
 
-{extremes}
+{table_text}
 
-*Polygon area includes water and does **not** mean dry land. Ballots counted and registered voters are distinct measures. A reported precinct with more than 900 registered voters isn't automatically evidence of a legal violation: the returns and the legally relevant precinct-balancing snapshot need not be from the same date.*
+The numbers describe different things. A large precinct on a map does not necessarily contain many voters, and a precinct with many registered voters may have relatively few ballots cast.
 
-One puzzle worth noticing: **{p['registered_over_900']}** precincts in these final-election returns reported over 900 registered voters. We'd need historical registration snapshots and boundary-adoption records to explain those exceptions individually.
+## 3. How did Seattle's precincts vote in 2025?
 
-## 3. How Seattle's precincts voted in 2025
+![Seattle precinct map, with muted blue for Wilson and rust for Harrell](figures/precinct_2025_mayoral_gradient.png)
 
-**Finding:** A citywide map hides big differences *within* familiar neighborhood names.
+Each precinct is colored by Harrell's share of votes for Harrell and Wilson. Blue means Wilson led, rust means Harrell led, and lighter shades indicate closer results. **These are candidate colors, not party colors.**
 
-**Method:** Color each precinct continuously by Harrell's share of votes for Harrell or Wilson. The midpoint is a 50–50 split; deeper blue means stronger Wilson support, deeper rust means stronger Harrell support. The colors do not signify political parties.
+In our comparable-precinct sample, **{named_rank(dominant)}** were among the neighborhood reporting areas with the highest Harrell shares. **{named_rank(strongwilson)}** were among the areas with the lowest. Those broad descriptions can still conceal substantial variation from one precinct to another.
 
-![2025 mayoral precinct vote-share gradient: Wilson blue, Harrell rust](figures/precinct_2025_mayoral_gradient.png)
+### What if each precinct occupied space according to its votes?
 
-The continuous color scale matters: two precincts can support the same candidate, but one can be almost evenly divided and the other overwhelmingly favorable.
+![Geographic voting map compared with a map of vote-proportional precinct circles](figures/precinct_vote_weighted_map.png)
 
-### What happens when we look inside neighborhoods?
+On the left, a precinct's visual size is its geographic area. On the right, each precinct is a circle whose **area is proportional to votes for Harrell or Wilson**. Circles are placed near their precincts, so they can overlap. This is a schematic vote-weighted map—not the location of individual voters.
 
-King County's *community reporting areas* offer a familiar way to label places, though their boundaries are descriptive—not formal electoral divisions. We grouped historically comparable precincts into those areas and calculated **vote-weighted standard deviation**: a higher number means that voting shares differed more *within* the area.
+The comparison is a useful reminder: large swaths of color can dominate a geographic map without representing a correspondingly large number of votes.
 
-![Variation in Harrell precinct vote share within selected neighborhood reporting areas](figures/precinct_neighborhood_variation.svg)
+### How similar are precincts within the same neighborhood?
 
-The contrast is useful: **Queen Anne** had **{queen['precincts']}** included precincts, with Harrell shares ranging from **{queen['min_harrell_pct']:.1f}%** to **{queen['max_harrell_pct']:.1f}%**. **Capitol Hill** had **{capitol['precincts']}**, ranging from **{capitol['min_harrell_pct']:.1f}%** to **{capitol['max_harrell_pct']:.1f}%**. The chart uses a weighted variability measure rather than simply rewarding whichever area happens to contain the most precincts.
+![Neighborhood areas ranked by the typical precinct voting difference from the area average](figures/precinct_neighborhood_variation.svg)
 
-**What it doesn't show:** Why voters behaved differently, or whether a neighborhood label accurately captures residents' identities. These are election returns, not an individual-voter survey.
+We grouped precincts using existing community reporting areas. For each area, we calculated its vote-weighted Harrell share, then measured **how far its typical precinct was from that average**. A higher bar means more variation *within* the named area, not stronger support for either candidate.
 
-## 4. What changed since the 2021 mayoral election?
+For example, Queen Anne contributes **{queen['precincts']} precincts** and **{queen['finalist_votes']:,} finalist votes** to the comparison. Its typical precinct differed from the Queen Anne average by **{queen['typical_gap_pp']:.1f} points**. For Capitol Hill, the comparable figure is **{capitol['typical_gap_pp']:.1f} points** across **{capitol['precincts']} precincts** and **{capitol['finalist_votes']:,} votes**. We show precinct counts and votes beside the labels so that these differences have some context.
 
-**Finding:** Harrell's share changed across Seattle unevenly, even where the precinct boundaries themselves remained constant.
+These are descriptive community reporting areas, not the city's formal neighborhood boundaries. For consistency, this chart uses the subset with verified boundaries across 2021 and 2025, with at least 100 votes in each included 2025 precinct.
 
-**Method:** Compare Harrell's share among the two named mayoral candidates in **2021** and **2025** only in precincts already verified to have stable geographic boundaries. Require at least 100 votes for the two finalists in each election.
+## 4. How did the geography change since 2021?
 
-![Map of Harrell's changed vote share between 2021 and 2025 in comparable Seattle precincts](figures/precinct_2021_to_2025_harrell_change.png)
+![Map of changes in Harrell vote share in comparable precincts, 2021 to 2025](figures/precinct_2021_to_2025_harrell_change.png)
 
-There are **{h['comparable_precincts_min100_both']:,}** precincts in this stricter comparison. Their median change in Harrell support was **{h['median_change_pp']:+.1f} percentage points**, and **{h['harrell_majority_crossovers']}** crossed the 50% threshold in one direction or the other.
+Harrell received a smaller share of the two-finalist vote in **{lower} of {h['comparable_precincts_min100_both']} comparable precincts**. The typical change, measured by the median across precincts, was **{h['median_change_pp']:+.1f} percentage points**. That decline was far from identical across the city.
 
-**An essential caution:** In 2021 Harrell faced **Lorena González**; in 2025 he faced **Katie Wilson**. This is a comparison of where *Harrell's relative two-candidate support* changed across two different contests—not evidence that particular residents switched political preferences.
+![Distribution of percentage-point changes in Harrell's vote share between 2021 and 2025](figures/precinct_2021_to_2025_distribution.svg)
 
-The gray precincts aren't necessarily uninteresting. They were left out because we couldn't make the same geographic comparison reliably.
+The histogram shows how widely the changes were distributed. **{h['harrell_majority_crossovers']}** matched precincts crossed the 50% threshold between the two elections.
 
-## 5. Where are Seattle's sharpest political boundaries?
+The comparison has an important limit: Harrell faced **Lorena González in 2021** and **Katie Wilson in 2025**. We can compare where his *relative support* was higher or lower; we cannot use these precinct totals to determine whether individual people changed their votes. Gray map areas weren't verified as geographically comparable, or lacked enough votes for this analysis.
 
-**Finding:** Some adjacent precincts voted much more differently than a typical pair of neighbors, despite sharing a real boundary.
+## 5. Where were the sharpest precinct boundaries?
 
-**Method:** Use **Shapely** to find precinct pairs with at least **100 feet** of shared border, require at least **100 votes** for the two finalists in *each* precinct, then calculate the absolute gap in Harrell's vote share. Rank all eligible pairs.
+Two precincts might share a street and still vote quite differently. To find those contrasts, we used **Shapely**, a Python library that works with geographic shapes. It can identify where two precinct polygons share a line and measure that line's length.
 
-![Largest absolute voting differences among precincts sharing a meaningful 2025 border](figures/precinct_sharp_boundaries.svg)
+We compared every pair of precincts sharing at least **100 feet of border**, provided each cast **100 or more votes** for Harrell or Wilson. We measured the difference between their Harrell vote shares and ranked the gaps.
 
-Across **{b['eligible_borders']:,}** eligible neighboring pairs, the **median gap** was **{b['median_gap_pp']:.1f} percentage points**. The **99th-percentile threshold** was **{b['p99_gap_pp']:.1f} points**. We call the **top 1%** *sharp boundaries* for this report: a transparent descriptive rule, not a test that the voters are fundamentally different.
+![Largest Harrell share differences across neighboring precinct boundaries](figures/precinct_sharp_boundaries.svg)
 
-The largest eligible pair, **{top['precinct_a']} and {top['precinct_b']}**, differed by **{top['difference_pp']:.1f} percentage points** while sharing roughly **{top['shared_border_ft']:,.0f} feet** of border.
+Among **{b['eligible_borders']:,}** qualifying pairs, the median vote-share difference was **{b['median_gap_pp']:.1f} points**. At the **99th percentile**, the gap reached **{b['p99_gap_pp']:.1f} points**. Here, *sharp boundary* simply means the highest 1% by that measure; it is a descriptive cutoff, not a claim about what caused the difference.
 
-### A close-up: Queen Anne
+### Three nearby contrasts
 
-![Precinct voting contrast and context near a sharp Queen Anne boundary](figures/fault_line_1709_1724_v2.svg)
+These three close-ups show adjacent precincts from the ranked analysis. Expand each for a map with surrounding precincts.
 
-A contrasting pair of Queen Anne precincts illustrates why it's worth examining the exact location, the shared street boundary, and nearby precincts—not just a ranked numerical gap. A boundary can be visually dramatic without establishing its cause.
+<details open>
+<summary><strong>Queen Anne — precincts 1709 / 1724</strong> · 57.6-point gap</summary>
 
-**Another kind of surprising pair:** We also matched distant precincts that looked alike in 2021 and the August 2025 primary. A [West Seattle historical-twins comparison](figures/twin_case_studies.svg) diverged by about 17.4 points in November. But searching thousands of pairs *guarantees that some extreme differences will occur*. This is an exploratory case, not proof of a statistically exceptional event.
+![Close-up map of Queen Anne precincts 1709 and 1724](figures/fault_line_1709_1724_v2.svg)
 
-## 6. Can computational grouping tell us more about neighborhoods?
+</details>
 
-So far, we've used familiar neighborhood reporting areas. What if we instead treated precincts as a **network**—connecting physical neighbors and giving stronger connections to those that voted more similarly?
+<details>
+<summary><strong>Precincts 1955 / 1957</strong> · 48.9-point gap</summary>
 
-**Louvain community detection** repeatedly moves precincts among neighboring groups to improve how strongly connected each group is internally, then aggregates groups and repeats. Its settings affect how many groups appear. The method groups existing precincts; **it does not draw new legal voting districts**.
+![Close-up map of precincts 1955 and 1957](figures/fault_line_1955_1957_v2.svg)
 
-![Community reporting areas compared with groups based on 2025 election similarities](figures/experiment_07_algorithmic_seattle.svg)
+</details>
 
-Our earlier exploratory run produced **11** algorithmic communities. The comparison is interesting, but the right-hand map isn't a better or more authentic version of Seattle. Geography alone creates spatial groupings. The point of this experiment is to see where grouping by the *election results* differs from using familiar neighborhood labels.
+<details>
+<summary><strong>Precincts 1803 / 1808</strong> · 47.0-point gap</summary>
 
-I would treat this as a **short computational epilogue**, not a grand conclusion about Seattle's identity.
+![Close-up map of precincts 1803 and 1808](figures/fault_line_1803_1808_v2.svg)
 
-## A few observations
+</details>
 
-The project began with a mundane question: *What is a precinct?* By treating the answer seriously, we found a more useful way to read the 2025 election. Precincts vary in physical size and electorate, political preferences often vary within the same named neighborhood, and some shared borders are unusually sharp. Historical comparisons add another perspective—but also require explicit matching and careful interpretation.
+The maps reveal where the difference appears, not why. We would need more information about the buildings, residents and streets on either side before claiming an explanation. The cases were chosen precisely because their differences were large.
 
-The election data describe **where** particular voting outcomes occurred. They do not, on their own, tell us **why** residents voted as they did.
+## 6. What do computational groupings tell us about neighborhoods?
 
-### Sources and reproducibility
+For a final comparison, we can ignore familiar neighborhood names and group precincts using **Louvain community detection**. First, connect precincts that share a border. Next, make connections stronger when neighboring precincts gave similar results across six 2025 citywide contests. Louvain then searches for groups with relatively strong connections within them.
 
-- **Official results:** [King County 2025 certified precinct CSV](https://data.kingcounty.gov/d/rkie-6y8x) and [King County 2021 general precinct CSV](https://data.kingcounty.gov/d/4qrf-rjar).
-- **Precinct shapes:** [King County 2025 precinct GIS layer](https://www5.kingcounty.gov/sdc/?Layer=votdst_2025_area), projected in EPSG:2926 (US survey feet). Polygon area includes water.
-- **History and boundary law:** [1891 ward-and-precinct map (Seattle Municipal Archives, via Wikimedia Commons)](https://commons.wikimedia.org/wiki/File:Seattle_ward_and_precinct_map,_1891.jpg), [King County Archives](https://kingcounty.gov/en/dept/executive-services/data-information-services/archives/find-it-in-archives/county-government-history/elections-history), [Washington precinct law](https://app.leg.wa.gov/rcw/default.aspx?cite=29A.16.040), and [King County Code](https://aqua.kingcounty.gov/council/clerk/code/04_Title_1.htm).
-- **Community area labels:** Existing precinct-to-community-reporting-area crosswalk. Neighborhood variability is calculated only for verified stable-boundary precincts with at least 100 finalist votes.
-- **Computational methods:** NumPy, Matplotlib, Shapely, scikit-learn and NetworkX. [See the code](../scripts/precinct_field_guide.py) and [machine-readable summary](../data/processed/precinct_field_guide_summary.json).
-- **Scope:** 2025 precinct vote mapping and descriptive boundaries are citywide; the 2021 historical comparison and neighborhood variability use a smaller subset with verified cross-year geometry. Do not silently compare those denominators.
+![Familiar community reporting areas compared with the algorithm's groups](figures/experiment_07_algorithmic_seattle.svg)
 
-*First draft for editorial review. The earlier eight-experiment paper is [archived here](seattle_through_the_numbers.md); the report on the published main branch remains unchanged until this revision is approved.*
+This produced **11 groups**. The labels below are only geographic descriptions based on the most represented community reporting areas in each group. They're **not official neighborhood or election-district names**.
+
+{electoral_table}
+
+![Election vote split across the 11 computed precinct groups](figures/precinct_cluster_vote_breakdown.svg)
+
+The table runs from the most Harrell-supporting computed group to the most Wilson-supporting. It makes the map's color-coded clusters easier to interpret: not just where the groups are, but how many precincts and votes each contains.
+
+One caution matters. Geography alone also produces clusters. In a separate comparison with a geography-only network, adding voting patterns changed the grouping relationship for only about **6.8% of shared precinct borders**. The algorithm gives us another perspective on Seattle's political geography, not a replacement for neighborhood boundaries.
+
+## Sources and notes
+
+- [King County certified 2025 general precinct results](https://data.kingcounty.gov/d/rkie-6y8x), [2021 general precinct results](https://data.kingcounty.gov/d/4qrf-rjar).
+- [King County historical and current voting-district GIS data](https://kingcounty.gov/en/dept/elections/maps/precinct-and-district-data) and [election archives](https://kingcounty.gov/en/dept/executive-services/data-information-services/archives/find-it-in-archives/county-government-history/elections-history).
+- The 2025 citywide maps cover precincts with valid mayoral candidate votes. The 2021 comparison and within-neighborhood chart use a smaller, previously verified stable-boundary subset. **Do not treat those as the same denominator.**
+- Polygon area includes water. The vote-weighted circles are visualization symbols, not actual voter locations. The computed groups are exploratory.
+- [Reproduce the figures](../scripts/precinct_field_guide.py) · [Additional figure code](../scripts/precinct_field_guide_extensions.py) · [Aggregate research data](../data/processed/precinct_field_guide_extensions.json).
+
+*Second editorial draft. The earlier [eight-experiment report](seattle_through_the_numbers.md) remains in the research archive.*
 """
 
 
 def main():
-    if not SUMMARY.exists():
-        raise FileNotFoundError(f"Missing source analysis: {SUMMARY}")
-    data=json.loads(SUMMARY.read_text(encoding="utf-8"))
-    for name in REQUIRED:
-        path=FIG/name
-        if not path.exists() or path.stat().st_size<250:
-            raise FileNotFoundError(f"Required report figure not built: {path}")
-    area_map={}
+    summary=json.loads(SUMMARY.read_text(encoding="utf-8"))
+    extra=json.loads(EXTRA.read_text(encoding="utf-8"))
+    for p in REQUIRED:
+        path=FIG/p
+        if not path.exists() or path.stat().st_size<300:
+            raise FileNotFoundError(f"Missing chart: {path}")
+    known={}
     panel=ROOT/"data/processed/seattle_mayor_precinct_panel_2021_2025.csv"
-    import csv
     with panel.open(encoding="utf-8-sig",newline="") as f:
         for r in csv.DictReader(f):
-            area_map[r["precinct_id"]]=r["cra_name"]
-    manuscript=generate_document(data,area_map)
+            known[r["precinct_id"]]=r["cra_name"]
+    s=text_document(summary,extra,known)
     REPORT.parent.mkdir(parents=True,exist_ok=True)
-    REPORT.write_text(manuscript,encoding="utf-8")
-    print(f"Created precinct field guide: {len(manuscript.split())} words, "
-          f"{manuscript.count('![')} charts, {len(REQUIRED)} verified local artifacts")
+    REPORT.write_text(s,encoding="utf-8")
+    print("Wrote precinct field guide:",len(s.split()),"words; figures",s.count("!["))
 
 
 if __name__=="__main__":

@@ -6,7 +6,9 @@ on:
     paths:
       - .github/workflows/build-precinct-field-guide.yml
       - scripts/precinct_field_guide.py
+      - scripts/precinct_field_guide_extensions.py
       - scripts/render_precinct_field_guide.py
+      - scripts/render_fault_line_cases.py
       - tests/test_precinct_field_guide.py
       - reports/seattle_precinct_by_precinct.md
       - README.md
@@ -42,6 +44,8 @@ jobs:
           python scripts/diagnose_precinct_matching.py
           python scripts/model_precinct_surprises.py
           python scripts/precinct_field_guide.py
+          python scripts/render_fault_line_cases.py
+          python scripts/precinct_field_guide_extensions.py
           python scripts/render_precinct_field_guide.py
       - name: Run all existing and new tests
         run: python -m unittest discover -s tests
@@ -50,6 +54,13 @@ jobs:
           set -euo pipefail
           test -s reports/seattle_precinct_by_precinct.md
           test -s data/processed/precinct_field_guide_summary.json
+          test -s data/processed/precinct_field_guide_extensions.json
+          test -s reports/figures/precinct_count_history.svg
+          test -s reports/figures/precinct_vote_weighted_map.png
+          test -s reports/figures/precinct_2021_to_2025_distribution.svg
+          test -s reports/figures/precinct_cluster_vote_breakdown.svg
+          test -s reports/figures/fault_line_1955_1957_v2.svg
+          test -s reports/figures/fault_line_1803_1808_v2.svg
           test -s data/processed/precinct_field_guide_boundaries.csv
           test -s reports/figures/precinct_2025_mayoral_gradient.png
           test -s reports/figures/precinct_2021_to_2025_harrell_change.png
@@ -68,6 +79,14 @@ jobs:
                   reports/figures/precinct_size_distributions.svg \
                   reports/figures/precinct_neighborhood_variation.svg \
                   reports/figures/precinct_sharp_boundaries.svg \
+                  reports/figures/precinct_count_history.svg \
+                  reports/figures/precinct_vote_weighted_map.png \
+                  reports/figures/precinct_2021_to_2025_distribution.svg \
+                  reports/figures/precinct_cluster_vote_breakdown.svg \
+                  reports/figures/fault_line_1709_1724_v2.svg \
+                  reports/figures/fault_line_1955_1957_v2.svg \
+                  reports/figures/fault_line_1803_1808_v2.svg \
+                  data/processed/precinct_field_guide_extensions.json \
                   data/processed/precinct_field_guide_summary.json \
                   data/processed/precinct_field_guide_boundaries.csv
           if ! git diff --cached --quiet; then
