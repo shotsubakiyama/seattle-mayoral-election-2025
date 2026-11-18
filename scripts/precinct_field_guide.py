@@ -221,7 +221,7 @@ def build_summary(rows,historical,neighborhoods,lines,ballots):
     )
 
 
-def add_precinct_patch(polygons,by_id,values,colors,color_by_value=None,
+def add_precinct_patch(polygons,by_id,colors,color_by_value=None,
                        simplification_feet=35):
     patches=[]
     face=[]
