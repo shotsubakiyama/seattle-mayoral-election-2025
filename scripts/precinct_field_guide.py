@@ -355,9 +355,9 @@ def plot_neighborhoods(neighborhoods,path):
     ax.spines[["top","right","left"]].set_visible(False)
     ax.tick_params(axis="y",length=0,pad=9)
     ax.grid(axis="x",alpha=.17);ax.set_axisbelow(True)
-    fig.text(.02,.035,"Only previously verified same-boundary precincts; areas with at least 8 precincts 
-             "and 100 finalist votes each. Parentheses show number of precincts.\n"
-             "A difference of 10 points means the typical precinct was 10 points from its area average; figures are vote-weighted.",
+    fig.text(.02,.035,
+             "Same-boundary precincts; area must have at least eight precincts and 100 finalist votes per precinct.\\n"
+             "The typical gap describes the vote-weighted average distance from the area's mean.",
              fontsize=9,color="#557080")
     fig.subplots_adjust(left=.48,right=.97,top=.87,bottom=.15)
     path.parent.mkdir(parents=True,exist_ok=True)
