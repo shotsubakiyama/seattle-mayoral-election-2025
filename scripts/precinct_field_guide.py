@@ -81,7 +81,26 @@ def read_ballots_counted(path=RAW):
     return times
 
 
-def summarize_precincts(votes, registered, polygons, ballots):
+def read_precinct_names(path=RAW):
+    """Use full, official identifiers such as SEA 46-2373, not numeric-only IDs."""
+    names={}
+    with path.open(encoding="utf-8-sig",newline="",errors="replace") as source:
+        for record in csv.DictReader(source):
+            if (record.get("Race")!="City of Seattle Mayor" or
+                    record.get("CounterGroup","Total")!="Total" or
+                    record.get("CounterType")!="Registered Voters"):
+                continue
+            name=record["Precinct"].strip()
+            pid=suffix(name)
+            if pid is None:
+                continue
+            if pid in names and names[pid]!=name:
+                raise ValueError(f"Conflicting precinct name for {pid}")
+            names[pid]=name
+    return names
+
+
+def summarize_precincts(votes, registered, polygons, ballots, names=None):
     race, wilson, harrell, *_ = CONTESTS[0]
     rows = []
     for pid, choices in votes[race].items():
@@ -95,6 +114,7 @@ def summarize_precincts(votes, registered, polygons, ballots):
             raise ValueError(f"Missing registered-voter record for {pid}")
         rows.append(dict(
             precinct_id=pid,
+            precinct_name=(names or {}).get(pid,f"SEA precinct {pid}"),
             wilson_votes=w,
             harrell_votes=h,
             finalist_votes=w+h,
@@ -177,7 +197,7 @@ def neighborhood_stats(panel,minimum_votes=100,minimum_precincts=8):
     return sorted(output,key=lambda x:-x["weighted_sd_pp"])
 
 
-def build_summary(rows,historical,neighborhoods,lines,ballots):
+def build_summary(rows,historical,neighborhoods,lines,ballots,official_precinct_total=None):
     reg=np.array([x["registered"] for x in rows],dtype=int)
     physical=np.array([x["area_sqmi"] for x in rows],dtype=float)
     top_reg=sorted(rows,key=lambda r:-r["registered"])[:5]
@@ -193,6 +213,7 @@ def build_summary(rows,historical,neighborhoods,lines,ballots):
     high=[r for r in lines if r["difference_pp"]>=thresh-1e-7]
     return dict(
         precinct_count=len(rows),
+        official_precinct_total=official_precinct_total or len(rows),
         official_geometry_count=len(set(rows and [r["precinct_id"] for r in rows])),
         historical_comparable_count=len(historical),
         precinct_population_2025={
@@ -408,7 +429,7 @@ def main():
     validate_contests(v)
     polys=fetch_shapes(2025)
     counted=read_ballots_counted()
-    rows=summarize_precincts(v,registered,polys,counted)
+    rows=summarize_precincts(v,registered,polys,counted,read_precinct_names())
     panel=read_csv(PANEL)
     stable=model_2021_panel(panel,rows)
     neighborhoods=neighborhood_stats(panel)
@@ -421,7 +442,7 @@ def main():
     if len(lines)<2000:
         raise ValueError("Too few spatial adjacency comparisons")
     names={r["precinct_id"]:r["cra_name"] for r in panel}
-    summary=build_summary(rows,stable,neighborhoods,lines,counted)
+    summary=build_summary(rows,stable,neighborhoods,lines,counted,len(v[race]))
     summary["official_winner"]={"Wilson":138931,"Harrell":136920}
     summary["historical_2021_opponent"]="Lorena González"
     summary["source_dates"]="2021 and 2025 certified general elections"
