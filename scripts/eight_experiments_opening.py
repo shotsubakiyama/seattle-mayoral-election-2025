@@ -19,14 +19,39 @@ from pathlib import Path
 import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
+import matplotlib.patheffects as path_effects
 import numpy as np
+from matplotlib.collections import LineCollection, PatchCollection
+from matplotlib.colors import LinearSegmentedColormap, TwoSlopeNorm
+from matplotlib.patches import Polygon as PlotPolygon
+from shapely.ops import unary_union
 
 from diagnose_precinct_matching import ROOT, ensure_source, suffix
+from spatial_precinct_overlap import fetch_shapes
 
 RAW = ROOT / "data/raw/2025_final_precinct_results.csv"
 FIG = ROOT / "reports/figures"
 OUTPUT = ROOT / "data/processed"
 SUPPORT = ROOT / "reports/experiments"
+CRA = OUTPUT / "precinct_to_cra_crosswalk.csv"
+
+# A deliberately small set of recognizable place labels. The source geometry is
+# King County's community-reporting-area crosswalk; these are orientation aids,
+# not claims that Seattle has one authoritative set of neighborhood boundaries.
+CONTEXT_NEIGHBORHOODS = [
+    ("Ballard", "Ballard"),
+    ("Greenwood-Phinney Ridge", "Greenwood"),
+    ("Magnolia", "Magnolia"),
+    ("Queen Anne", "Queen Anne"),
+    ("Downtown Commercial Core", "Downtown"),
+    ("Capitol Hill", "Capitol Hill"),
+    ("University District", "U District"),
+    ("Ravenna-Bryant", "Ravenna"),
+    ("West Seattle Junction-Genesee Hill", "West Seattle"),
+    ("Beacon Hill", "Beacon Hill"),
+    ("Columbia City", "Columbia City"),
+    ("Rainier Beach", "Rainier Beach"),
+]
 
 # Short, nonpartisan guide to each of the six citywide ballot decisions.
 # See the official King County 2025 general-election voter pamphlet.
@@ -93,6 +118,115 @@ def validate_contests(votes):
         if (actual_a, actual_b) != (expected_a, expected_b):
             raise ValueError(f"{race} does not match official totals. "
                              f"Expected {(expected_a,expected_b)} got {(actual_a,actual_b)}")
+
+
+def polygon_parts(shape):
+    if shape.geom_type == "Polygon":
+        yield shape
+    elif hasattr(shape, "geoms"):
+        for piece in shape.geoms:
+            yield from polygon_parts(piece)
+
+
+def line_parts(shape):
+    if shape.geom_type == "LineString":
+        if shape.length > 0:
+            yield np.asarray(shape.coords)
+    elif hasattr(shape, "geoms"):
+        for piece in shape.geoms:
+            yield from line_parts(piece)
+
+
+def read_cra_assignments():
+    if not CRA.exists():
+        raise FileNotFoundError(f"Missing community-reporting-area crosswalk: {CRA}")
+    with CRA.open(encoding="utf-8-sig", newline="") as handle:
+        return {row["precinct_id"]: row["cra_name"] for row in csv.DictReader(handle)}
+
+
+def cra_geography(shapes):
+    groups = defaultdict(list)
+    for pid, name in read_cra_assignments().items():
+        if pid in shapes:
+            groups[name].append(shapes[pid])
+    anchors = {}
+    boundaries = []
+    for name, polygons in groups.items():
+        merged = unary_union(polygons)
+        anchors[name] = merged.representative_point()
+        boundaries.extend(line_parts(merged.boundary.simplify(35, preserve_topology=True)))
+    return anchors, boundaries
+
+
+def plot_mayor_context_map(votes, destination):
+    """Reader-first election map with reporting-area outlines and place labels."""
+    shapes = fetch_shapes(2025)
+    race, wilson, harrell, *_ = CONTESTS[0]
+    patches = []
+    shares = []
+    for pid in sorted(shapes, key=int):
+        row = votes[race].get(pid, {})
+        w, h = row.get(wilson, 0), row.get(harrell, 0)
+        if w + h < 10:
+            continue
+        share = 100 * w / (w + h)
+        for polygon in polygon_parts(shapes[pid].simplify(35, preserve_topology=True)):
+            patches.append(PlotPolygon(np.asarray(polygon.exterior.coords)))
+            shares.append(share)
+
+    fig, ax = plt.subplots(figsize=(8.5, 10.4))
+    cmap = LinearSegmentedColormap.from_list(
+        "mayor_precincts", ["#c77945", "#f5f2ec", "#367d9e"]
+    )
+    norm = TwoSlopeNorm(vmin=25, vcenter=50, vmax=75)
+    collection = PatchCollection(
+        patches, cmap=cmap, norm=norm, edgecolor="white", linewidth=.10, zorder=1
+    )
+    collection.set_array(np.asarray(shares))
+    ax.add_collection(collection)
+
+    anchors, boundaries = cra_geography(shapes)
+    if boundaries:
+        ax.add_collection(LineCollection(
+            boundaries, colors="#243a47", linewidths=.55, alpha=.35, zorder=3
+        ))
+
+    for source, label in CONTEXT_NEIGHBORHOODS:
+        point = anchors.get(source)
+        if point is None:
+            continue
+        text = ax.text(
+            point.x, point.y, label, ha="center", va="center",
+            fontsize=8.2, weight="bold", color="#203744", zorder=5
+        )
+        text.set_path_effects([
+            path_effects.withStroke(linewidth=3.2, foreground="#fbfaf7")
+        ])
+
+    ax.autoscale_view()
+    ax.set_aspect("equal")
+    ax.axis("off")
+    ax.set_title(
+        "A 2,011-vote citywide margin hides a much less even precinct map",
+        loc="left", fontsize=16.5, weight="bold", pad=16
+    )
+    bar = fig.colorbar(
+        collection, ax=ax, orientation="horizontal", fraction=.035,
+        pad=.035, aspect=35, extend="both"
+    )
+    bar.set_ticks([30, 40, 50, 60, 70], ["30%", "40%", "50%", "60%", "70%"])
+    bar.set_label("Katie Wilson share of votes between the two mayoral finalists", fontsize=9)
+    bar.outline.set_visible(False)
+    fig.text(
+        .08, .028,
+        "Orange = Harrell stronger; blue = Wilson stronger. Thin outlines show community-reporting areas.\n"
+        "Neighborhood labels are geographic anchors, not election units or official neighborhood boundaries.",
+        fontsize=8.8, color="#526777"
+    )
+    fig.subplots_adjust(left=.03, right=.97, top=.91, bottom=.12)
+    destination.parent.mkdir(parents=True, exist_ok=True)
+    fig.savefig(destination, format="svg", bbox_inches="tight")
+    plt.close(fig)
 
 
 def mayoral_groups(votes):
@@ -302,6 +436,7 @@ def main():
     votes,registered=parse_official_csv(RAW)
     validate_contests(votes)
     groups=mayoral_groups(votes)
+    plot_mayor_context_map(votes, FIG/"seattle_2025_mayor_precinct_map.svg")
     rows=cross_contest_shares(votes,groups)
     cf=equal_participation(votes,registered)
     plot_coalitions(rows,FIG/"experiment_01_citywide_coalitions.svg")
@@ -311,7 +446,8 @@ def main():
     print(f"PASS: {len(groups)} precincts with decisive mayoral winner.")
     print(f"Actual Wilson two-finalist share {cf['actual_wilson']:.3f}%; "
           f"equal participation {cf['equal_wilson']:.3f}%.")
-    for name in ("experiment_01_citywide_coalitions.svg","experiment_02_equal_participation.svg"):
+    for name in ("seattle_2025_mayor_precinct_map.svg",
+                 "experiment_01_citywide_coalitions.svg","experiment_02_equal_participation.svg"):
         if not (FIG/name).is_file():
             raise FileNotFoundError(FIG/name)
     print("Created experiments 01 and 02 reports and figures.")

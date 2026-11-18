@@ -9,24 +9,33 @@ Requires networkx>=3.2, shapely>=2, matplotlib, numpy.
 import csv
 import json
 import math
-from collections import Counter
+from collections import Counter, defaultdict
 from pathlib import Path
 import numpy as np
 import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
+import matplotlib.patheffects as path_effects
 plt.rcParams["svg.fonttype"] = "none"
 from matplotlib.collections import LineCollection, PatchCollection
 from matplotlib.patches import Polygon as PlotPolygon
 import networkx as nx
 from shapely import STRtree
+from shapely.ops import unary_union
 
 from spatial_precinct_overlap import ROOT,fetch_shapes
-from eight_experiments_opening import RAW,CONTESTS,parse_official_csv,validate_contests
+from eight_experiments_opening import (
+    RAW, CONTESTS, CONTEXT_NEIGHBORHOODS, parse_official_csv, validate_contests
+)
 
 FIG=ROOT/"reports/figures"
 OUT=ROOT/"data/processed"
 CRA=OUT/"precinct_to_cra_crosswalk.csv"
+COMMUNITY_MAP_LABELS = {
+    "Ballard", "Magnolia", "Queen Anne", "Capitol Hill", "University District",
+    "Ravenna-Bryant", "West Seattle Junction-Genesee Hill", "Beacon Hill",
+    "Columbia City", "Rainier Beach"
+}
 
 
 def election_feature_matrix(votes,shapes,min_mayor=100):
@@ -147,6 +156,12 @@ def render_community_map(ids,shapes,scenario,community_summary,destination):
     cra={}
     with CRA.open(encoding="utf-8-sig",newline="") as f:
         cra={r["precinct_id"]:r["cra_name"] for r in csv.DictReader(f)}
+    label_groups=defaultdict(list)
+    for pid,name in cra.items():
+        if pid in shapes:
+            label_groups[name].append(shapes[pid])
+    anchors={name:unary_union(polygons).representative_point()
+             for name,polygons in label_groups.items()}
     classes1={name:i for i,name in enumerate(sorted(set(cra.get(pid,"Unassigned") for pid in ids)))}
     colors1=plt.get_cmap("tab20").colors
     colors2=plt.get_cmap("tab20").colors
@@ -163,14 +178,25 @@ def render_community_map(ids,shapes,scenario,community_summary,destination):
         ax.autoscale_view()
         ax.set_aspect("equal")
         ax.axis("off")
+        for source,label in CONTEXT_NEIGHBORHOODS:
+            if source not in COMMUNITY_MAP_LABELS:
+                continue
+            point=anchors.get(source)
+            if point is None:
+                continue
+            text=ax.text(point.x,point.y,label,ha="center",va="center",
+                         fontsize=7.4,weight="bold",color="#243a47",zorder=5)
+            text.set_path_effects([
+                path_effects.withStroke(linewidth=2.8,foreground="#fbfaf7")
+            ])
     axs[0].set_title(f"Familiar community-reporting areas ({len(classes1)})",
                       weight="bold",fontsize=14,pad=18)
     axs[1].set_title(f"Algorithmic electoral communities ({community_summary['communities']})",
                      weight="bold",fontsize=14,pad=18)
     fig.suptitle("An algorithm redraws Seattle—without being told neighborhood names",
                  weight="bold",fontsize=20,x=.06,y=.99,ha="left")
-    fig.text(.06,.035,"Colors are group labels, not parties or political ideology. Left: Seattle CRA lookup. Right: Louvain groups\n"
-             "using geographic neighbors and similarity across six 2025 citywide election contests.",
+    fig.text(.06,.035,"Labels are geographic anchors only; the algorithm never sees them. Colors are group IDs, not ideology.\n"
+             "Left: community-reporting areas. Right: Louvain groups from geographic adjacency and six 2025 citywide contests.",
              fontsize=10,color="#536c7d")
     fig.subplots_adjust(left=.02,right=.98,top=.89,bottom=.09,wspace=.01)
     destination.parent.mkdir(parents=True,exist_ok=True)
